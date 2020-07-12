@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-12 20:45:50
- * @LastEditTime: 2020-07-12 21:08:39
+ * @LastEditTime: 2020-07-12 22:13:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/compoents/splash_widget.dart
@@ -32,7 +32,7 @@ class _SplashWidgetState extends State<SplashWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('build splash');
+    print('build splash77777');
     return Stack(
       children: <Widget>[
         Offstage(
