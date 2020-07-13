@@ -1,47 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/constant/constant.dart';
+import 'package:hsk_flutter/app/demo_tabs.dart';
+import 'color_grids.dart';
+import 'color_list.dart';
 
-class OrderListPage extends StatelessWidget {
+class OrderListPage extends StatefulWidget {
+  _GridViewDemoState createState() => _GridViewDemoState();
+}
+
+List<DemoTabViewModel> demos = [
+  DemoTabViewModel(title: '待受理', widget: ColorGrids()),
+  DemoTabViewModel(title: '待发货', widget: ColorList()),
+  DemoTabViewModel(title: '运输中', widget: ColorGrids()),
+  DemoTabViewModel(title: '已完成', widget: ColorGrids()),
+];
+
+class _GridViewDemoState extends State<OrderListPage>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    this.tabController = new TabController(length: demos.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    this.tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          '排期',
-        ),
-      ),
-      backgroundColor: Colors.red,
-      body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.only(top: 10.0),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: false,
-          slivers: <Widget>[
-            SliverToBoxAdapter(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 10.0, top: 15.0, bottom: 20.0, right: 10.0),
-                    child: Image.asset(
-                      'assets/images/ic_notify.png',
-                      width: 30.0,
-                      height: 30.0,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '订单页面66677',
-                      style: TextStyle(fontSize: 17.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
+    return DemoTabs(
+      demos: demos,
+      title: '订单',
+      tabController: this.tabController,
     );
   }
 }

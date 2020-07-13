@@ -19,6 +19,11 @@ class FindHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            '聚马车队',
+          ),
+        ),
         backgroundColor: Colors.orange,
         body: Container(
           height: 200,
