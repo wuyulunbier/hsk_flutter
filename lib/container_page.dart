@@ -5,35 +5,32 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/container_page.dart
- */ 
+ */
 
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/pages/FindPageWidget.dart';
+import 'package:hsk_flutter/pages/PersonCenterPage.dart';
+import 'package:hsk_flutter/pages/OrderListPage.dart';
+import 'package:hsk_flutter/pages/FindHomePage.dart';
+
+import 'package:hsk_flutter/pages/FindHomePage.dart';
 
 class ContainerPage extends StatefulWidget {
-
-     ContainerPage({Key key}) : super(key: key);
+  ContainerPage({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     return _ContainerPageState();
   }
-
 }
 
 class _Item {
+  String name, activeIcon, normalIcon;
 
-   String name,activeIcon,normalIcon;
-
-   _Item(this.name,this.activeIcon,this.normalIcon);
-  
+  _Item(this.name, this.activeIcon, this.normalIcon);
 }
 
-
 class _ContainerPageState extends State<ContainerPage> {
-
-
-   // final FindpageWidget shopPageWidget  = ShopPageWidget();
+//  final FindpageWidget findPageWidget  = findPageWidget();
   List<Widget> pages;
 
   final defaultItemColor = Color.fromARGB(255, 125, 125, 125);
@@ -41,14 +38,10 @@ class _ContainerPageState extends State<ContainerPage> {
   final itemNames = [
     _Item('首页', 'assets/images/ic_tab_home_active.png',
         'assets/images/ic_tab_home_normal.png'),
-    _Item('书影音', 'assets/images/ic_tab_subject_active.png',
+    _Item('排期', 'assets/images/ic_tab_subject_active.png',
         'assets/images/ic_tab_subject_normal.png'),
-    // _Item('小组', 'assets/images/ic_tab_group_active.png',
-    //     'assets/images/ic_tab_group_normal.png'),
-    // _Item('市集', 'assets/images/ic_tab_shiji_active.png',
-    //     'assets/images/ic_tab_shiji_normal.png'),
-    // _Item('我的', 'assets/images/ic_tab_profile_active.png',
-    //     'assets/images/ic_tab_profile_normal.png')
+    _Item('我的', 'assets/images/ic_tab_profile_active.png',
+        'assets/images/ic_tab_profile_normal.png')
   ];
 
   List<BottomNavigationBarItem> itemList;
@@ -57,34 +50,30 @@ class _ContainerPageState extends State<ContainerPage> {
   void initState() {
     super.initState();
     print('initState _ContainerPageState');
-    if(pages == null){
+    if (pages == null) {
       pages = [
-       // HomePage(),
-       // BookAudioVideoPage(),
-       // GroupPage(),
-       // shopPageWidget,
-        //PersonCenterPage()
+        FindHomePage(),
+        OrderListPage(),
+        PersonCenterPage(),
       ];
     }
-    if(itemList == null){
+    if (itemList == null) {
       itemList = itemNames
           .map((item) => BottomNavigationBarItem(
-          icon: Image.asset(
-            item.normalIcon,
-            width: 30.0,
-            height: 30.0,
-          ),
-          title: Text(
-            item.name,
-            style: TextStyle(fontSize: 10.0),
-          ),
-          activeIcon:
-          Image.asset(item.activeIcon, width: 30.0, height: 30.0)))
+              icon: Image.asset(
+                item.normalIcon,
+                width: 30.0,
+                height: 30.0,
+              ),
+              title: Text(
+                item.name,
+                style: TextStyle(fontSize: 13.0),
+              ),
+              activeIcon:
+                  Image.asset(item.activeIcon, width: 30.0, height: 30.0)))
           .toList();
     }
-
   }
-
 
   int _selectIndex = 0;
 
@@ -98,7 +87,6 @@ class _ContainerPageState extends State<ContainerPage> {
       ),
     );
   }
-
 
   @override
   void didUpdateWidget(ContainerPage oldWidget) {
@@ -131,8 +119,6 @@ class _ContainerPageState extends State<ContainerPage> {
           _getPagesWidget(0),
           _getPagesWidget(1),
           _getPagesWidget(2),
-          _getPagesWidget(3),
-          _getPagesWidget(4),
         ],
       ),
 //        List<BottomNavigationBarItem>
@@ -148,7 +134,7 @@ class _ContainerPageState extends State<ContainerPage> {
           setState(() {
             _selectIndex = index;
             //这个是用来控制比较特别的shopPage中WebView不能动态隐藏的问题
-          //  shopPageWidget.setShowState(pages.indexOf(shopPageWidget) == _selectIndex);
+            //  shopPageWidget.setShowState(pages.indexOf(shopPageWidget) == _selectIndex);
           });
         },
         //图标大小
@@ -160,6 +146,5 @@ class _ContainerPageState extends State<ContainerPage> {
         type: BottomNavigationBarType.fixed,
       ),
     );
-  
   }
 }

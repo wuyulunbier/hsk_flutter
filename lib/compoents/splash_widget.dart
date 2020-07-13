@@ -5,8 +5,7 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/compoents/splash_widget.dart
- */ 
-
+ */
 
 import 'dart:async';
 
@@ -14,7 +13,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hsk_flutter/container_page.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
-
 
 import 'package:hsk_flutter/constant/constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,16 +47,17 @@ class _SplashWidgetState extends State<SplashWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      CircleAvatar(
-                        radius: ScreenUtils.screenW(context) / 3,
-                        backgroundColor: Colors.white,
-                        backgroundImage:
-                        AssetImage(Constant.ASSETS_IMG + 'home.png'),
-                      ),
+                      // CircleAvatar(
+                      //   radius: ScreenUtils.screenW(context) / 3,
+                      //   backgroundColor: Colors.white,
+                      //   backgroundImage:
+                      //       Image.asset('assets/images/home_v1.png'),
+                      // ),
+                      Image.asset('assets/images/home_v1.png'),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Text(
-                          '落花有意随流水,流水无心恋落花',
+                          '聚火山玻璃,创绿色生态',
                           style: TextStyle(fontSize: 15.0, color: Colors.black),
                         ),
                       )
@@ -67,54 +66,54 @@ class _SplashWidgetState extends State<SplashWidget> {
                 ),
                 SafeArea(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment(1.0, 0.0),
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 30.0, top: 20.0),
-                            padding: const EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 2.0, bottom: 2.0),
-                            child: CountDownWidget(
-                              onCountDownFinishCallBack: (bool value) {
-                                if (value) {
-                                  setState(() {
-                                    showAd = false;
-                                  });
-                                }
-                              },
-                            ),
-                            decoration: BoxDecoration(
-                                color: Color(0xffEDEDED),
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(10.0))),
-                          ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment(1.0, 0.0),
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 30.0, top: 20.0),
+                        padding: const EdgeInsets.only(
+                            left: 10.0, right: 10.0, top: 2.0, bottom: 2.0),
+                        child: CountDownWidget(
+                          onCountDownFinishCallBack: (bool value) {
+                            if (value) {
+                              setState(() {
+                                showAd = false;
+                              });
+                            }
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 40.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                Constant.ASSETS_IMG + 'ic_launcher.png',
-                                width: 50.0,
-                                height: 50.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Hi,豆芽',
-                                  style: TextStyle(
-                                      color: Colors.green,
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )
-                            ],
+                        decoration: BoxDecoration(
+                            color: Color(0xffEDEDED),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0))),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 40.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/ic_notify.png',
+                            width: 50.0,
+                            height: 50.0,
                           ),
-                        )
-                      ],
-                    ))
+                          Padding(
+                            padding: const EdgeInsets.only(left: 0.0),
+                            child: Text(
+                              '欢迎使用聚马车队',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ))
               ],
             ),
             width: ScreenUtils.screenW(context),
