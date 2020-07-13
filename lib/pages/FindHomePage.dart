@@ -8,49 +8,33 @@
  */
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/constant/constant.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class FindHomePage extends StatelessWidget {
+  List imgList = [
+    "http://file02.16sucai.com/d/file/2014/0617/be2f5973a60156df0c6aeb2aace791c6.jpg",
+    "http://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3b292df5e0fe99257d8c844b34a85edf8db1712d.jpg",
+    "http://cache.5ikfc.com/imgs/kfc/2014/05/quanjiatong.jpg",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
-      body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.only(top: 10.0),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: false,
-          slivers: <Widget>[
-            // SliverAppBar(
-            //   backgroundColor: Colors.transparent,
-            //   flexibleSpace: HeartImgWidget(Image.asset(
-            //       Constant.ASSETS_IMG + 'bg_person_center_default.webp')),
-            //   expandedHeight: 200.0,
-            // ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 10.0, top: 15.0, bottom: 20.0, right: 10.0),
-                    child: Image.asset(
-                      Constant.ASSETS_IMG + 'ic_notify.png',
-                      width: 30.0,
-                      height: 30.0,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '首页找车',
-                      style: TextStyle(fontSize: 17.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
-    );
+        backgroundColor: Colors.orange,
+        body: Container(
+          height: 200,
+          margin: EdgeInsets.fromLTRB(10, 40, 10, 0),
+          child: new Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return Image.network(imgList[index], fit: BoxFit.fitWidth);
+            },
+            itemHeight: 100,
+            itemWidth: 50,
+            autoplay: true,
+            duration: 300,
+            itemCount: 3,
+            // pagination: new SwiperPagination(),
+            // control: new SwiperControl(),
+          ),
+        ));
   }
 }

@@ -31,10 +31,19 @@ dependencies:
 
   flutter_webview_plugin: 0.3.0+2
 
+  #加载网页
   webview_flutter: 0.3.3+1
 
-  # dio: 1.0.13
+  #轮播图
+  flutter_swiper : any
 
+  #路由跳转
+  fluro: "^1.6.3"
+
+  #网络请求
+  dio: any
+
+  #弹框
   fluttertoast: 3.0.4
 
 dev_dependencies:
