@@ -15,12 +15,12 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-// --  1. dart 基本语法的掌握
-// --  2. flutter 基本组件的掌握
-// --  3. apk和ipa包的生成和发布
+- // --  1. dart 基本语法的掌握
+- // --  2. flutter 基本组件的掌握
+- // --  3. apk和ipa包的生成和发布
 
 
-## 常见框架的使用
+### 常见框架的使用
    - 网络请求的封装  dio
    - 本地数据的存储  shared_preferences
    - 常见弹框       fluttertoast
@@ -53,7 +53,7 @@ samples, guidance on mobile development, and a full API reference.
 
   //本地图片的加载
 
-## 常用组件
+### 常用组件
   //容器组件 和 可视组件
     1 - 滚动型容器组件 ListView()
     2 - 网格型布局 - GridView篇
@@ -96,23 +96,23 @@ flutter常用控件示例
 
 
 该项目的主要实现
-  1 - 订单中心  使用listview 加载订单   使用刷新组件   网络请求   gradview
-  2 - 找车首页  使用gradview 展示常见功能  轮播图的实现
-  3 - 个人中心 使用listView 加载常用模块
-  4 - 登录模块 - 调用接口 实现登录功能 常见控件的封装  路由跳转
+   - 订单中心  使用listview 加载订单   使用刷新组件   网络请求   gradview
+   - 找车首页  使用gradview 展示常见功能  轮播图的实现
+   - 个人中心 使用listView 加载常用模块
+   - 登录模块 - 调用接口 实现登录功能 常见控件的封装  路由跳转
 
 
 
-  1 网络请求的封装 json的转换
-  2 路由的使用 flutter_fluro
-  3 刷新 加载控件的使用
-  4 
+  - 网络请求的封装 json的转换
+  - 路由的使用 flutter_fluro
+  - 刷新 加载控件的使用
+  
 
 
 
 完成目标  
 
-# dio 处理网络请求
+### dio 处理网络请求
 
 #fluro 处理路由跳转
 
@@ -122,7 +122,7 @@ flutter常用控件示例
   - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
   - final 和 const var 定义变量和常量
   - dart中的函数Function 
-    3.1 自定义方法的基本格式
+    - 3.1 自定义方法的基本格式
     返回类型 方法名称(形式参数1，形式参数2，......){
           方法体 具体执行逻辑
         return 返回值;
