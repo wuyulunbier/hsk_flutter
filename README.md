@@ -31,16 +31,17 @@ samples, guidance on mobile development, and a full API reference.
 注意点：StatelessWidget和StatefulWidget是flutter的基础组件，日常开发中自定义Widget都是选择继承这两者之一
 两者的区别在于状态的改变，StatelessWidget面向那些始终不变的UI控件，比如标题栏中的标题；而StatefulWidget则是面向可能会改变UI状态的控件，比如有点击反馈的按钮
 
-1 - 组件之间的通信
-    * 父子组件通信        * 兄弟组件通信 
+- 1 - 组件之间的通信
+    * 父子组件通信        
+    * 兄弟组件通信 
 
 
-2 - 原生和混合的交互   
+- 2 - 原生和混合的交互   
 
-3 - 加载图片的相对路径
-     1 pubspec.yaml中配置图片
-     2 使用 key 从AssetBundle获得的图片·
-     3 加载网络图片
+- 3 - 加载图片的相对路径
+    - 1 pubspec.yaml中配置图片
+    - 2 使用 key 从AssetBundle获得的图片·
+    - 3 加载网络图片
 
 
 
@@ -54,13 +55,13 @@ samples, guidance on mobile development, and a full API reference.
   //本地图片的加载
 
 ### 常用组件
-  //容器组件 和 可视组件
-    1 - 滚动型容器组件 ListView()
-    2 - 网格型布局 - GridView篇
+  - //容器组件 和 可视组件
+    - 1 - 滚动型容器组件 ListView()
+    - 2 - 网格型布局 - GridView篇
 
 
 //常用属性
- GridView({
+- GridView({
   Key key,
   Axis scrollDirection = Axis.vertical,
   bool reverse = false,
@@ -73,7 +74,7 @@ samples, guidance on mobile development, and a full API reference.
   List<Widget> children = const <Widget>[],
 })
 
-ListView({
+- ListView({
   Axis scrollDirection = Axis.vertical,
   ScrollController controller,
   ScrollPhysics physics,
@@ -112,11 +113,11 @@ flutter常用控件示例
 
 完成目标  
 
-### dio 处理网络请求
+#### dio 处理网络请求
 
-#fluro 处理路由跳转
+#### fluro 处理路由跳转
 
-#登录功能界面
+#### 登录功能界面
 
 ### dart基本语法
   - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
@@ -128,13 +129,16 @@ flutter常用控件示例
         return 返回值;
        }
      print();//内置方法/函数
-  - dart路程控制语句 
+  - dart流程控制语句 
   - dart支持泛型
   - dart类的概念 一个类通常由属相和方法组成
      子类使用extends类关键字来继承父类
      子类会集成父类中可见的属性和方法 但是不会继承构造函数
      子类能重写父类的方法getter和setter方法
   - async & await
+  - Function Dart是面向对象的语言
+  - 匿名函数
+  - 
 
 
 
