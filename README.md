@@ -20,7 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 // --  3. apk和ipa包的生成和发布
 
 
-1  常见框架的使用
+## 常见框架的使用
    1 网络请求的封装  dio
    2 本地数据的存储  shared_preferences
    3 常见弹框       fluttertoast
@@ -53,7 +53,7 @@ samples, guidance on mobile development, and a full API reference.
 
   //本地图片的加载
 
-
+## 常用组件
   //容器组件 和 可视组件
     1 - 滚动型容器组件 ListView()
     2 - 网格型布局 - GridView篇
@@ -118,7 +118,7 @@ flutter常用控件示例
 
 #登录功能界面
 
-#  dart基本语法
+### dart基本语法
   1 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
   2 final 和 const var 定义变量和常量
   3 dart中的函数Function 
