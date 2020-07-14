@@ -21,12 +21,12 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## 常见框架的使用
-   1 网络请求的封装  dio
-   2 本地数据的存储  shared_preferences
-   3 常见弹框       fluttertoast
-   4 状态管理       flutter_redux 
-   5 滚动图         flutter_swiper
-   6 路由跳转       flutter_fluro
+   - 网络请求的封装  dio
+   - 本地数据的存储  shared_preferences
+   - 常见弹框       fluttertoast
+   - 状态管理       flutter_redux 
+   - 滚动图         flutter_swiper
+   - 路由跳转       flutter_fluro
 
 注意点：StatelessWidget和StatefulWidget是flutter的基础组件，日常开发中自定义Widget都是选择继承这两者之一
 两者的区别在于状态的改变，StatelessWidget面向那些始终不变的UI控件，比如标题栏中的标题；而StatefulWidget则是面向可能会改变UI状态的控件，比如有点击反馈的按钮
@@ -119,22 +119,22 @@ flutter常用控件示例
 #登录功能界面
 
 ### dart基本语法
-  1 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
-  2 final 和 const var 定义变量和常量
-  3 dart中的函数Function 
+  - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
+  - final 和 const var 定义变量和常量
+  - dart中的函数Function 
     3.1 自定义方法的基本格式
     返回类型 方法名称(形式参数1，形式参数2，......){
           方法体 具体执行逻辑
         return 返回值;
        }
      print();//内置方法/函数
-  4 dart路程控制语句 
-  5 dart支持泛型
-  6 dart类的概念 一个类通常由属相和方法组成
+  - dart路程控制语句 
+  - dart支持泛型
+  - dart类的概念 一个类通常由属相和方法组成
      子类使用extends类关键字来继承父类
      子类会集成父类中可见的属性和方法 但是不会继承构造函数
      子类能重写父类的方法getter和setter方法
-  7 async & await
+  - async & await
 
 
 
