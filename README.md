@@ -83,8 +83,10 @@ ListView({
   double cacheExtent,
   List<Widget> children = const <Widget>[],
 })
-        
+  
 
+控件的包含采用child来装载
+flutter常用控件示例
 
   
   //编译和打包
@@ -94,10 +96,10 @@ ListView({
 
 
 该项目的主要实现
-  1 - 订单中心  使用listview 加载订单   使用刷新组件   网络请求   
+  1 - 订单中心  使用listview 加载订单   使用刷新组件   网络请求   gradview
   2 - 找车首页  使用gradview 展示常见功能  轮播图的实现
   3 - 个人中心 使用listView 加载常用模块
-  4 - 登录模块 - 调用接口 实现登录功能
+  4 - 登录模块 - 调用接口 实现登录功能 常见控件的封装  路由跳转
 
 
 
@@ -106,3 +108,36 @@ ListView({
   3 刷新 加载控件的使用
   4 
 
+
+
+完成目标  
+
+# dio 处理网络请求
+
+#fluro 处理路由跳转
+
+#登录功能界面
+
+#dart基本语法
+  1 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。Set是没有顺序且不能重复的集合） Map（无序的键值对）
+  2 final 和 const var 定义变量和常量
+  3 dart中的函数Function 
+    3.1 自定义方法的基本格式
+    返回类型 方法名称(形式参数1，形式参数2，......){
+          方法体 具体执行逻辑
+        return 返回值;
+       }
+     print();//内置方法/函数
+  4 dart路程控制语句 
+  5 dart支持泛型
+  6 dart类的概念 一个类通常由属相和方法组成
+     子类使用extends类关键字来继承父类
+     子类会集成父类中可见的属性和方法 但是不会继承构造函数
+     子类能重写父类的方法getter和setter方法
+  7 async & await
+
+
+
+  #打包
+    1 android  在gradle中配置签名 构建release版本 通过flutter build apk生成   
+    2 iOS 配置相关证书 生成ipa文件

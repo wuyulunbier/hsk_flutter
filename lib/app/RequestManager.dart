@@ -7,3 +7,15 @@
  * @FilePath: /hsk_flutter/lib/app/request.dart
  */ 
 
+
+import 'API.dart';
+import 'package:dio/dio.dart';//处理网络请求
+import 'dart:convert';
+
+import 'package:hsk_flutter/app/API.dart';//处理json
+
+class RequestManager  {
+
+
+  
+}

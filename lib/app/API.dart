@@ -5,4 +5,14 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/app/API.dart
- */ 
+ */
+
+
+class API {
+
+  static const BASE_URL = 'http://apiwl3.atjubo.com/atapiwuliu/';
+    
+   
+
+
+}
