@@ -53,14 +53,11 @@ class _SplashWidgetState extends State<SplashWidget> {
                       //   backgroundImage:
                       //       Image.asset('assets/images/home_v1.png'),
                       // ),
-                      Image.asset('assets/images/home_v1.png'),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(
-                          '聚火山玻璃,创绿色生态',
-                          style: TextStyle(fontSize: 15.0, color: Colors.black),
-                        ),
-                      )
+
+                      Image.asset(
+                        'assets/images/home_v1.png',
+                        height: ScreenUtils.screenH(context),
+                      ),
                     ],
                   ),
                 ),
@@ -90,15 +87,10 @@ class _SplashWidgetState extends State<SplashWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 40.0),
+                      padding: const EdgeInsets.only(bottom: 0.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset(
-                            'assets/images/ic_notify.png',
-                            width: 50.0,
-                            height: 50.0,
-                          ),
                           Padding(
                             padding: const EdgeInsets.only(left: 0.0),
                             child: Text(

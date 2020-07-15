@@ -15,9 +15,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-- // --  1. dart 基本语法的掌握
-- // --  2. flutter 基本组件的掌握
-- // --  3. apk和ipa包的生成和发布
+-  --  1. dart 基本语法的掌握
+-  --  2. flutter 基本组件的掌握
+-  --  3. apk和ipa包的生成和发布
 
 
 ### 项目运行环境
@@ -33,8 +33,10 @@ samples, guidance on mobile development, and a full API reference.
    - 滚动图         flutter_swiper
    - 路由跳转       flutter_fluro
 
-注意点：StatelessWidget和StatefulWidget是flutter的基础组件，日常开发中自定义Widget都是选择继承这两者之一
-两者的区别在于状态的改变，StatelessWidget面向那些始终不变的UI控件，比如标题栏中的标题；而StatefulWidget则是面向可能会改变UI状态的控件，比如有点击反馈的按钮
+### 注意点：
+     StatelessWidget和StatefulWidget是flutter的基础组件，日常开发中自定义Widget都是选择继承这两者之一
+     两者的区别在于状态的改变，StatelessWidget面向那些始终不变的UI控件，比如标题栏中的标题；
+     StatefulWidget则是面向可能会改变UI状态的控件，比如有点击反馈的按钮
 
 - 1 - 组件之间的通信
     * 父子组件通信        
@@ -60,7 +62,7 @@ samples, guidance on mobile development, and a full API reference.
   //本地图片的加载
 
 ### 常用组件
-  - //容器组件 和 可视组件
+  - //容器组件 和 可视组件 Container  Row Column 
     - 1 - 滚动型容器组件 ListView()
     - 2 - 网格型布局 - GridView篇
     - 3 - 下拉刷新的实现
@@ -90,7 +92,14 @@ samples, guidance on mobile development, and a full API reference.
   double cacheExtent,
   List<Widget> children = const <Widget>[],
 })
-  
+
+### 自定义组件
+  -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
+  -  StatelessWidget是‘‘无状态控件’’,不可变状态控件,通过构建其他控件来描述用户界面的一部分。必须实现build方法，返回一个widget对象。 Icon、 IconButton, 和Text等都是无状态widget, 他们都是 StatelessWidget的子类
+  -   StatefulWidget 是动态的. 用户可以和其交互 (例如输入一个表单、 或者移动一个slider滑块),或者可以随时间改变 (也许是数据改变导致的UI更新).Checkbox, Radio, Slider, Form, 和TextField 都是 stateful widgets, 他们都是 StatefulWidget的子类
+
+  -  自定义Widget：继承StatefulWidget，并重写createState()方法，返回一个State对象。自定义无状态的widget
+  -  组件的隐藏和显示
 
 
 控件的包含采用child来装载
