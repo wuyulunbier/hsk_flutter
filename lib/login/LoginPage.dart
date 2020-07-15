@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hsk_flutter/util/screen_utils.dart';
 
 /**
  * audio_recorder: any #录音、播放
@@ -87,13 +88,20 @@ class LoginPage extends StatelessWidget {
           elevation: 10,
         ),
         SizedBox(
-          width: double.infinity,
+          width: 300,
           height: 50,
           child: RaisedButton(
             onPressed: () {},
             child: Text("宽度占满了"),
             color: Colors.green,
             textColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                side: BorderSide(
+                    color: Color(0xFFF0F00),
+                    style: BorderStyle.solid,
+                    width: 2)),
+            clipBehavior: Clip.antiAlias,
           ),
         ),
         RaisedButton(
@@ -108,6 +116,13 @@ class LoginPage extends StatelessWidget {
           onPressed: () => {
             print("88888"),
           },
+        ),
+        FlatButton(
+          onPressed: () => {},
+          child: Text("FlatButton"),
+          textColor: Colors.white,
+          textTheme: ButtonTextTheme.normal,
+          color: Color(0xFF82B1FF),
         )
       ],
     );
