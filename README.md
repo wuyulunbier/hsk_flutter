@@ -49,9 +49,9 @@ samples, guidance on mobile development, and a full API reference.
     - 1 pubspec.yaml中配置图片
     - 2 使用 key 从AssetBundle获得的图片·
     - 3 加载网络图片
-        [flutter-go]（https://github.com/alibaba/flutter-go）
-        [flutter中文网]（https://flutterchina.club）
-        [flutter官网]（https://flutter.dev/docs/get-started/install）
+        - [flutter-go]（https://github.com/alibaba/flutter-go）
+        - [flutter中文网]（https://flutterchina.club）
+        - [flutter官网]（https://flutter.dev/docs/get-started/install）
 
 
 
