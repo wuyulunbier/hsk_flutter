@@ -21,8 +21,8 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ### 项目运行环境
-   - 1.Flutter version 1.17.5
-   - 2.Dart version 2.8.4
+    1. Flutter version 1.17.5
+    2. Dart version 2.8.4
 
 
 ### 常见框架的使用
@@ -64,6 +64,7 @@ samples, guidance on mobile development, and a full API reference.
     - 1 - 滚动型容器组件 ListView()
     - 2 - 网格型布局 - GridView篇
     - 3 - 下拉刷新的实现
+    - 4 - 
 
 //常用属性
 - GridView({
