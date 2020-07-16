@@ -7,12 +7,9 @@
  * @FilePath: /hsk_flutter/lib/app/API.dart
  */
 
-
 class API {
-
   static const BASE_URL = 'http://apiwl3.atjubo.com/atapiwuliu/';
-    
-   
 
+  static const String login = 'CarLogin'; //登录
 
 }

@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hsk_flutter/util/screen_utils.dart';
 
+import 'package:hsk_flutter/app/API.dart';
+
+import 'package:hsk_flutter/app/RequestManager.dart';
+import 'package:dio/dio.dart';
+import 'package:hsk_flutter/widgets/Home_item.dart';
+
 /**
  * audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -123,7 +129,9 @@ class LoginPage extends StatelessWidget {
           textColor: Colors.white,
           textTheme: ButtonTextTheme.normal,
           color: Color(0xFF82B1FF),
-        )
+        ),
+
+        ///  HomeItem(),
       ],
     );
   }
@@ -134,10 +142,20 @@ class LoginPage extends StatelessWidget {
     ///api的基本调用
     ///
 
-    Fluttertoast.showToast(
-        msg: "登录成功",
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.blue);
+    FormData params = FormData.fromMap(
+        {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+    RequestManager.getInstance()
+        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
+      Fluttertoast.showToast(
+          msg: data.toString(),
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.blue);
+
+      Fluttertoast.showToast(
+          msg: '登录成功',
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.blue);
+    }, (error) {});
 
     print('button pressed');
   }

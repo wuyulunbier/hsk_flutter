@@ -3,7 +3,6 @@
  * 相当于cell
  */
 import 'package:flutter/material.dart';
-//import 'package:flutter_deer/res/resources.dart';
 
 class ClickItem extends StatelessWidget {
   const ClickItem(
