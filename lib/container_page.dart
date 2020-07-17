@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/pages/PersonCenterPage.dart';
 import 'package:hsk_flutter/pages/OrderListPage.dart';
 import 'package:hsk_flutter/pages/FindHomePage.dart';
+import 'package:hsk_flutter/login/LoginPage.dart';
 
 import 'package:hsk_flutter/pages/FindHomePage.dart';
 
@@ -41,6 +42,8 @@ class _ContainerPageState extends State<ContainerPage> {
     _Item('排期', 'assets/images/ic_tab_subject_active.png',
         'assets/images/ic_tab_subject_normal.png'),
     _Item('我的', 'assets/images/ic_tab_profile_active.png',
+        'assets/images/ic_tab_profile_normal.png'),
+    _Item('登录', 'assets/images/ic_tab_profile_active.png',
         'assets/images/ic_tab_profile_normal.png')
   ];
 
@@ -55,6 +58,7 @@ class _ContainerPageState extends State<ContainerPage> {
         FindHomePage(),
         OrderListPage(),
         PersonCenterPage(),
+        LoginPage(),
       ];
     }
     if (itemList == null) {
@@ -119,6 +123,7 @@ class _ContainerPageState extends State<ContainerPage> {
           _getPagesWidget(0),
           _getPagesWidget(1),
           _getPagesWidget(2),
+          _getPagesWidget(3),
         ],
       ),
 //        List<BottomNavigationBarItem>

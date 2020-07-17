@@ -9,7 +9,7 @@
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //常用组件的包
 
 import 'package:hsk_flutter/container_page.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
@@ -20,13 +20,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 ///打开APP首页
 class SplashWidget extends StatefulWidget {
   @override
-  _SplashWidgetState createState() => _SplashWidgetState();
+  _SplashWidgetState createState() =>
+      _SplashWidgetState(); //为StatefulWidget控件SplashWidget定义一个状态类
 }
 
+//定义了一个状态控件，继承自状态类State<SplashWidget>，<SplashWidget>指明这个状态控件是SplashWidget控件的
 class _SplashWidgetState extends State<SplashWidget> {
   var container = ContainerPage();
 
   bool showAd = true;
+
+  //return返回一个组件  如果包含有其他组件 使用chilid属性
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +51,10 @@ class _SplashWidgetState extends State<SplashWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // CircleAvatar(
-                      //   radius: ScreenUtils.screenW(context) / 3,
-                      //   backgroundColor: Colors.white,
-                      //   backgroundImage:
-                      //       Image.asset('assets/images/home_v1.png'),
-                      // ),
-                      Image.asset('assets/images/home_v1.png'),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(
-                          '聚火山玻璃,创绿色生态',
-                          style: TextStyle(fontSize: 15.0, color: Colors.black),
-                        ),
-                      )
+                      Image.asset(
+                        'assets/images/home_v1.png',
+                        height: ScreenUtils.screenH(context),
+                      ),
                     ],
                   ),
                 ),
@@ -90,15 +84,10 @@ class _SplashWidgetState extends State<SplashWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 40.0),
+                      padding: const EdgeInsets.only(bottom: 0.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset(
-                            'assets/images/ic_notify.png',
-                            width: 50.0,
-                            height: 50.0,
-                          ),
                           Padding(
                             padding: const EdgeInsets.only(left: 0.0),
                             child: Text(
@@ -143,7 +132,40 @@ class _CountDownWidgetState extends State<CountDownWidget> {
   @override
   void initState() {
     super.initState();
+
+    print("initState");
     _startTimer();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    print('didChangeDependencies');
+  }
+
+  @override
+  void didUpdateWidget(CountDownWidget oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+
+    print('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+
+    print("deactivate");
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    print('dispose');
   }
 
   @override
