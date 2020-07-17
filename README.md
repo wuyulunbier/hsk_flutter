@@ -1,4 +1,4 @@
-# hsk_flutter
+iq# hsk_flutter
 
 A new Flutter project.just for learning
 
@@ -52,7 +52,7 @@ samples, guidance on mobile development, and a full API reference.
         - [flutter-go]（https://github.com/alibaba/flutter-go）
         - [flutter中文网]（https://flutterchina.club）
         - [flutter官网]（https://flutter.dev/docs/get-started/install）
-
+        - [dart练习] （https://www.tutorialspoint.com/execute_dart_online.php）
 
 
 //目标
@@ -70,6 +70,16 @@ samples, guidance on mobile development, and a full API reference.
     - 3 - 下拉刷新的实现
     - 4 - 
 
+
+## 组件的生命周期
+   - 1 初始化
+   - 2 状态变化
+   - 3 移除组件
+
+## Flutter手势的学习
+   - 
+
+ 
 //常用属性
 - GridView({
   Key key,
@@ -132,9 +142,19 @@ flutter常用控件示例
 完成目标  
 
 #### dio 处理网络请求
+   - 拦截器的实现
+   - json的数据解析 
+   - 文件的上传和下载
+   - 
+#### http.dart的了解和使用 post和get
+   - flutter自带的网络请求库
+   
+
 
 #### fluro 处理路由跳转
-  - 路由跳转传值
+    - 路由跳转传值
+    - 路由的全局配置
+
 
 #### 登录功能界面
 
