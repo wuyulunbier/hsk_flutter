@@ -77,8 +77,17 @@ samples, guidance on mobile development, and a full API reference.
    - 3 移除组件
 
 ## Flutter手势的学习
-   - 
-
+   - onTapDown: (details) {},
+   - onTapUp: (details) {},
+   - onTap: () {},
+   - onTapCancel: () {},   
+   
+   - onDoubleTap: () {},
+   - onLongPress: () {},
+   - onLongPressStart: () {},
+   - onLongPressMoveUpdate: () {},
+   - onLongPressUp: () {},
+   - onLongPressEnd: () {},
  
 //常用属性
 - GridView({
@@ -142,6 +151,7 @@ flutter常用控件示例
 完成目标  
 
 #### dio 处理网络请求
+   - Get和Post请求的实现
    - 拦截器的实现
    - json的数据解析 
    - 文件的上传和下载
@@ -152,15 +162,21 @@ flutter常用控件示例
 
 
 #### fluro 处理路由跳转
-    - 路由跳转传值
-    - 路由的全局配置
+  - 路由跳转传值
+  - 路由的全局配置
 
+#### flutter的状态管理
+  - Redux和Provider
+  - Provider是官方推荐的状态管理框架
+  -  Provider  ListenableProvider  ChangeNotifierProvider ValueListenableProvider StreamProvider FutureProvider
 
 #### 登录功能界面
 
 ### dart基本语法
   - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。 Set是没有顺序且不能重复的集合） Map（无序的键值对）
   - final 和 const var 定义变量和常量
+  - 字符串转数字 var one = int.parse('test')
+  - 数字转字符串 var str = num.toString();
   - dart中的函数Function 
     - 3.1 自定义方法的基本格式
     返回类型 方法名称(形式参数1，形式参数2，......){
@@ -168,6 +184,7 @@ flutter常用控件示例
         return 返回值;
        }
      print();//内置方法/函数
+  - 箭头函数 void main() => runApp(new MyApp());
   - dart流程控制语句 
   - dart支持泛型
   - dart类的概念 一个类通常由属相和方法组成
@@ -177,8 +194,12 @@ flutter常用控件示例
   - async & await
   - Function Dart是面向对象的语言
   - 匿名函数
-  - 
-
+  - 函数作用域
+  - as , is 与 is!
+     - as : 判断属于某种类型
+     - is : 如果对象具有指定的类型，则为true
+     - is! : 如果对象具有指定的类型，则为false
+ 
 
 
   #打包
