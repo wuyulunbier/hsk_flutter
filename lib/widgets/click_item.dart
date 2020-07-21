@@ -22,6 +22,10 @@ class ClickItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+/**
+ *  采用先申明控件 在返回页面
+ */
+
     Widget child = Row(
       //为了数字类文字居中
       crossAxisAlignment:
@@ -70,6 +74,8 @@ class ClickItem extends StatelessWidget {
     );
 
     return InkWell(
+      //InkWell组件在用户点击时出现“水波纹”效果
+
       onTap: onTap,
       child: child,
     );

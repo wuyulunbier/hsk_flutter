@@ -3,57 +3,66 @@ import 'package:flutter/material.dart';
 class NewsCard extends StatelessWidget {
   final NewsViewModel data;
 
-  const NewsCard({Key key, this.data}) : super(key: key);
+  const NewsCard({
+    Key key,
+    this.data,
+    this.onTap,
+  }) : super(key: key);
 
-  void onItemClick(int index) {
-    print('你点击了' + index.toString() + '条数据');
+  final GestureTapCallback onTap;
+
+  void onItemClick() {
+    print('你点击了' + '条数据');
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  this.data.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF333333),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 3)),
-                Row(
+        padding: EdgeInsets.all(16),
+        //onTap: onTap,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${this.data.source}  ${this.data.comments}评论',
+                      this.data.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFF999999),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF333333),
                       ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 3)),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          '${this.data.source}  ${this.data.comments}评论',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF999999),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Padding(padding: EdgeInsets.only(left: 16)),
+              Image.network(
+                this.data.coverImgUrl,
+                width: 100,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ],
           ),
-          Padding(padding: EdgeInsets.only(left: 16)),
-          Image.network(
-            this.data.coverImgUrl,
-            width: 100,
-            height: 60,
-            fit: BoxFit.cover,
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
