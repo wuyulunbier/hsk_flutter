@@ -134,7 +134,7 @@ flutter常用控件示例
 
 
 #### 该项目的主要实现
-   - 订单中心  使用listview 加载订单   使用刷新组件   网络请求   gradview
+   - 订单中心  使用listview 加载订单 使用刷新组件 上拉加载组件 网络请求   gradview
    - 找车首页  使用gradview 展示常见功能  轮播图的实现
    - 个人中心 使用listView 加载常用模块
    - 登录模块 - 调用接口 实现登录功能 常见控件的封装  路由跳转
@@ -143,7 +143,7 @@ flutter常用控件示例
 
   - 网络请求的封装 json的转换
   - 路由的使用 flutter_fluro
-  - 刷新 加载控件的使用
+  - 刷新 加载控件的使用 数据的拼接
   
 
 
@@ -165,9 +165,9 @@ flutter常用控件示例
   - 路由跳转传值
   - 路由的全局配置
 
-#### flutter的状态管理
+#### flutter的状态管理(待学习)
   - Redux和Provider
-  - Provider是官方推荐的状态管理框架
+  - Provider是官方推荐的状态管理框架[Provider]（https://pub.dev/packages/provider）
   -  Provider  ListenableProvider  ChangeNotifierProvider ValueListenableProvider StreamProvider FutureProvider
 
 #### 登录功能界面
@@ -202,6 +202,6 @@ flutter常用控件示例
  
 
 
-  #打包
-    1 android  在gradle中配置签名 构建release版本 通过flutter build apk生成   
-    2 iOS 配置相关证书 生成ipa文件
+  ### 打包
+    - 1 android  在gradle中配置签名 构建release版本 通过flutter build apk生成   
+    - 2 iOS 配置相关证书 生成ipa文件

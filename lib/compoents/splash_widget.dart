@@ -17,6 +17,24 @@ import "package:hsk_flutter/util/screen_utils.dart";
 import 'package:hsk_flutter/constant/constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+/***
+ *  image 的相关属性
+ * fit 属性中有很多值可以设置 
+ * BoxFit.cover	图片可能拉伸，也可能裁剪，但是充满容器
+ * BoxFit.contain	全图居中显示但不充满，显示原比例
+ * BoxFit.fill	全图显示且填充满，图片可能会拉伸
+ * BoxFit.fitHeight	图片可能拉伸，可能裁剪，高度充满
+ * BoxFit.fitWidth	图片可能拉伸，可能裁剪，宽度充满
+ * BoxFit.scaleDown	效果和contain差不多， 但是只能缩小图片，不能放大图片
+ * 
+ * 
+ * 
+ * 控制child是否显示
+ * 当offstage为true，控件隐藏； 当offstage为false，显示；
+ * 当Offstage不可见的时候，如果child有动画等，需要手动停掉，Offstage并不会停掉动画等操作。
+ *  const Offstage({ Key key, this.offstage = true, Widget child })
+ */
+
 ///打开APP首页
 class SplashWidget extends StatefulWidget {
   @override
@@ -54,6 +72,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                       Image.asset(
                         'assets/images/home_v1.png',
                         height: ScreenUtils.screenH(context),
+                        fit: BoxFit.fitWidth,
                       ),
                     ],
                   ),
@@ -126,8 +145,10 @@ class CountDownWidget extends StatefulWidget {
 }
 
 class _CountDownWidgetState extends State<CountDownWidget> {
-  var _seconds = 6;
+  var _seconds = 3;
   Timer _timer;
+
+//组件的生命周期
 
   @override
   void initState() {
