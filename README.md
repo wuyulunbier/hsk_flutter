@@ -114,6 +114,12 @@ samples, guidance on mobile development, and a full API reference.
   List<Widget> children = const <Widget>[],
 })
 
+- SingleChildScrollView
+- Row
+- Column
+- Stack
+- Table
+
 ### 自定义组件
   -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
   -  StatelessWidget是‘‘无状态控件’’,不可变状态控件,通过构建其他控件来描述用户界面的一部分。必须实现build方法，返回一个widget对象。 Icon、 IconButton, 和Text等都是无状态widget, 他们都是 StatelessWidget的子类
@@ -205,3 +211,4 @@ flutter常用控件示例
   ### 打包
     - 1 android  在gradle中配置签名 构建release版本 通过flutter build apk生成   
     - 2 iOS 配置相关证书 生成ipa文件
+    - 3 发布应用市场
