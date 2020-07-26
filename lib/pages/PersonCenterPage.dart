@@ -31,12 +31,12 @@ class PersonCenterPage extends StatelessWidget {
                   NavigatorUtils.push(context, CenterRouter.orderDetailPage)),
           ClickItem(
               title: '关于我们',
-              onTap: () =>
-                  NavigatorUtils.push(context, CenterRouter.orderDetailPage)),
+              onTap: () => NavigatorUtils.goWebViewPage(
+                  context, '聚马车队', 'https://www.baidu.com/')),
           ClickItem(
-            title: '退出当前账号',
-            // onTap: () => _showExitDialog(),
-          ),
+              title: '退出当前账号',
+              onTap: () => NavigatorUtils.goWebViewPage(
+                  context, 'Flutter', 'https://flutter.cn')),
         ],
       ),
     );

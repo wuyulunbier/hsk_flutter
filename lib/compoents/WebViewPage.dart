@@ -5,32 +5,64 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/compoents/WebViewPage.dart
- */ 
-
+ */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'dart:async';
+import 'package:webview_flutter/webview_flutter.dart';
 
+class WebViewPage extends StatefulWidget {
+  const WebViewPage({
+    Key key,
+    @required this.title,
+    @required this.url,
+  }) : super(key: key);
 
-class WebViewPage extends StatelessWidget {
+  final String title;
   final String url;
-  final dynamic params;
-  static final String TITLE = 'title';
 
-  WebViewPage(this.url, {Key key, this.params}) : super(key: key);
-//  final _webviewReference = FlutterWebviewPlugin();
+  @override
+  _WebViewPageState createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
   @override
   Widget build(BuildContext context) {
-//    _webviewReference.close();
-//    _webviewReference.dispose();
-
-    return WebviewScaffold(
-      url: url,
-      appBar: AppBar(
-        title: Text(params[TITLE]),
-        backgroundColor: Colors.green,
-      ),
-    );
+    print(widget.url + '66666');
+    return FutureBuilder<WebViewController>(
+        future: _controller.future, //使用异步加载
+        builder: (context, snapshot) {
+          return WillPopScope(
+            onWillPop: () async {
+              if (snapshot.hasData) {
+                var canGoBack = await snapshot.data.canGoBack();
+                if (canGoBack) {
+                  // 网页可以返回时，优先返回上一页
+                  await snapshot.data.goBack();
+                  return Future.value(false);
+                }
+              }
+              return Future.value(true);
+            },
+            child: Scaffold(
+                appBar: AppBar(
+                  // centerTitle: widget.title,
+                  title: Text(
+                    widget.title,
+                    style: new TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+                body: WebView(
+                  initialUrl: widget.url,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controller.complete(webViewController);
+                  },
+                )),
+          );
+        });
   }
-
 }

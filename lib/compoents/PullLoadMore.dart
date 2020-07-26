@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
-
 import 'NewsCard.dart';
 
-class PullDownRefreshList extends StatefulWidget {
-  const PullDownRefreshList({Key key}) : super(key: key);
+/**
+ * 上拉加载组件
+ */
+
+class PullUpLoadMoreList extends StatefulWidget {
+  const PullUpLoadMoreList({Key key}) : super(key: key);
 
   @override
-  _PullDownRefreshListState createState() => _PullDownRefreshListState();
+  _PullUpLoadMoreListState createState() => _PullUpLoadMoreListState();
 }
 
-class _PullDownRefreshListState extends State<PullDownRefreshList> {
-  ScrollController scrollController = ScrollController();
+class _PullUpLoadMoreListState extends State<PullUpLoadMoreList> {
   bool isLoading = false;
-  List list = [
+  ScrollController scrollController = ScrollController();
+  List<NewsViewModel> list = [
     NewsViewModel(
       title: '中方将派军舰赴马六甲海峡护航本国船只？外交部：那是谣言',
       source: '环球网',
@@ -48,31 +50,6 @@ class _PullDownRefreshListState extends State<PullDownRefreshList> {
       coverImgUrl:
           'https://p1.pstatp.com/list/190x124/pgc-image/RVi866A4f9cVK2',
     ),
-    NewsViewModel(
-      title: '李若彤：当年为爱作出任性选择，如今看来都是最好的安排',
-      source: '新京报',
-      comments: 243,
-      coverImgUrl:
-          'https://p3.pstatp.com/list/190x124/pgc-image/RVLwKBq5IQMvCW',
-    ),
-    NewsViewModel(
-        title: '好惨一首都！“史诗级”暴雨把华盛顿淹成了……这个样子',
-        source: '环球网',
-        comments: 750,
-        coverImgUrl:
-            'https://p1.pstatp.com/list/190x124/pgc-image/RVic5NyDDeVAi0'),
-    NewsViewModel(
-        title: '原子弹爆炸半衰期动不动几万年，为何广岛和长崎现在就能居住了？',
-        source: '怪罗科普',
-        comments: 325,
-        coverImgUrl:
-            'https://p1.pstatp.com/list/190x124/pgc-image/317a92302937426c999ea9a5b52121b1'),
-    NewsViewModel(
-        title: '马超和关羽到底谁强？古书记载颠覆历史，学者：根本不是一个级别',
-        source: '田君良',
-        comments: 856,
-        coverImgUrl:
-            'https://p3.pstatp.com/list/190x124/pgc-image/470fb21c5c884b119116179813b82d2b'),
   ];
 
   @override
@@ -96,18 +73,28 @@ class _PullDownRefreshListState extends State<PullDownRefreshList> {
     this.scrollController.dispose();
   }
 
-  Future onRefresh() {
-    return Future.delayed(Duration(seconds: 1), () {
-      Toast.show('当前已是最新数据', context);
-    });
-  }
-
   Future loadMoreData() {
     return Future.delayed(Duration(seconds: 1), () {
       setState(() {
+        List<NewsViewModel> list1 = [
+          NewsViewModel(
+            title: '中方将派军舰赴马六甲海峡护航本国船只？外交部：那是谣言',
+            source: '环球网',
+            comments: 71,
+            coverImgUrl:
+                'https://p3.pstatp.com/list/190x124/pgc-image/RGSD09itseweQ',
+          ),
+          NewsViewModel(
+            title: '211高校被误认野鸡大学发怒，名气还没“野鸡”大',
+            source: '中国新闻周刊',
+            comments: 980,
+            coverImgUrl:
+                'https://p1.pstatp.com/list/190x124/pgc-image/7026a3edfe2b47f59eea94f2b8cd86a4',
+          ),
+        ];
         this.isLoading = false;
 
-        this.list.addAll(list); //拼接数据
+        this.list.addAll(list1); //拼接数据
       });
     });
   }
@@ -152,21 +139,19 @@ class _PullDownRefreshListState extends State<PullDownRefreshList> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: this.onRefresh,
-      child: ListView.separated(
-        itemCount: this.list.length,
-        itemBuilder: (context, index) {
-          if (index < this.list.length) {
-            return NewsCard(data: this.list[index]);
-          } else {
-            return this.renderBottom();
-          }
-        },
-        separatorBuilder: (context, index) {
-          return Divider(height: .5, color: Color(0xFFDDDDDD));
-        },
-      ),
+    return ListView.separated(
+      controller: this.scrollController,
+      itemCount: this.list.length + 1,
+      separatorBuilder: (context, index) {
+        return Divider(height: .5, color: Color(0xFFDDDDDD));
+      },
+      itemBuilder: (context, index) {
+        if (index < this.list.length) {
+          return NewsCard(data: this.list[index]);
+        } else {
+          return this.renderBottom();
+        }
+      },
     );
   }
 }
