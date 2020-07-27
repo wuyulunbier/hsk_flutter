@@ -173,8 +173,14 @@ flutter常用控件示例
 
 #### flutter的状态管理(待学习)
   - Redux和Provider
-  - Provider是官方推荐的状态管理框架[Provider]（https://pub.dev/packages/provider）
+  - Provider是官方推荐的状态管理框架[Provider](https://pub.dev/packages/provider)
   -  Provider  ListenableProvider  ChangeNotifierProvider ValueListenableProvider StreamProvider FutureProvider
+     - 在项目的 pubspec.yml 添加 provider
+     - 构建混合ChangeNotifier的类，操作全局数据，使用notifyListeners方法来通知 UI 更新
+     - ChangeNotifierProvider 方法将数据注册到整个应用
+     - 使用 provider 的数据首先要导入 provider 以及对应的currentIndex CurrentIndexProvide，然后用 Consumer 加类型 CurrentIndexProvide 来使用这个currentIndex
+
+。
 
 #### 登录功能界面
 
