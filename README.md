@@ -55,16 +55,16 @@ samples, guidance on mobile development, and a full API reference.
         - [dart练习](https://www.tutorialspoint.com/execute_dart_online.php)
 
 
-//目标
+ - 目标
   - 1  导航栏的实现
   - 2  tabbar的实现
   - 3  刷新组件的使用
   - 4  滚动组件的使用
 
-  //本地图片的加载
+  - 本地图片的加载
 
 ### 常用组件
-  - //容器组件 和 可视组件 Container  Row Column 
+  - 容器组件 和 可视组件 Container  Row Column 
     - 1 - 滚动型容器组件 ListView()
     - 2 - 网格型布局 - GridView篇
     - 3 - 下拉刷新的实现
