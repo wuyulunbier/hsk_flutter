@@ -43,33 +43,52 @@ class FindHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '聚马车队',
-            style: new TextStyle(fontSize: 22, color: Colors.white),
-          ),
-        ),
-        backgroundColor: Colors.orange,
-        body: Container(
-          height: 200,
-          margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: new Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.network(imgList[index], fit: BoxFit.fitWidth);
-            },
-            itemHeight: 100,
-            itemWidth: 50,
-            autoplay: true,
-            duration: 300,
-            itemCount: 3,
-            // pagination: new SwiperPagination(),
-            control: new SwiperControl(),
-          ),
-        ));
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            expandedHeight: 230,
+            title: Text('聚马车队'),
+            flexibleSpace: Padding(
+              padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+              child: rendSwiper(),
+            ),
+          )
+        ];
+      },
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            height: 100,
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            color: Colors.primaries[index % Colors.primaries.length],
+            alignment: Alignment.center,
+            child: Text(
+              '$index',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          );
+        },
+        itemCount: 20,
+      ),
+    );
   }
 
-  //
+  Widget rendSwiper() {
+    return new Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return Image.network(imgList[index], fit: BoxFit.fitWidth);
+      },
+      itemHeight: 60,
+      itemWidth: 50,
+      autoplay: true,
+      duration: 300,
+      itemCount: 3,
+      // pagination: new SwiperPagination(),
+      //control: new SwiperControl(),
+    );
+  }
+
   Widget renderCenter() {
     return GridView.builder(
       itemCount: 5,

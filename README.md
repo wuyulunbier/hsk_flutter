@@ -49,10 +49,10 @@ samples, guidance on mobile development, and a full API reference.
     - 1 pubspec.yaml中配置图片
     - 2 使用 key 从AssetBundle获得的图片·
     - 3 加载网络图片
-        - [flutter-go]（https://github.com/alibaba/flutter-go）
-        - [flutter中文网]（https://flutterchina.club）
-        - [flutter官网]（https://flutter.dev/docs/get-started/install）
-        - [dart练习] （https://www.tutorialspoint.com/execute_dart_online.php）
+        - [flutter-go](https://github.com/alibaba/flutter-go)
+        - [flutter中文网](https://flutterchina.club)
+        - [flutter官网](https://flutter.dev/docs/get-started/install)
+        - [dart练习](https://www.tutorialspoint.com/execute_dart_online.php)
 
 
 //目标
@@ -114,6 +114,12 @@ samples, guidance on mobile development, and a full API reference.
   List<Widget> children = const <Widget>[],
 })
 
+- SingleChildScrollView
+- Row
+- Column
+- Stack
+- Table
+
 ### 自定义组件
   -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
   -  StatelessWidget是‘‘无状态控件’’,不可变状态控件,通过构建其他控件来描述用户界面的一部分。必须实现build方法，返回一个widget对象。 Icon、 IconButton, 和Text等都是无状态widget, 他们都是 StatelessWidget的子类
@@ -167,8 +173,14 @@ flutter常用控件示例
 
 #### flutter的状态管理(待学习)
   - Redux和Provider
-  - Provider是官方推荐的状态管理框架[Provider]（https://pub.dev/packages/provider）
+  - Provider是官方推荐的状态管理框架[Provider](https://pub.dev/packages/provider)
   -  Provider  ListenableProvider  ChangeNotifierProvider ValueListenableProvider StreamProvider FutureProvider
+     - 在项目的 pubspec.yml 添加 provider
+     - 构建混合ChangeNotifier的类，操作全局数据，使用notifyListeners方法来通知 UI 更新
+     - ChangeNotifierProvider 方法将数据注册到整个应用
+     - 使用 provider 的数据首先要导入 provider 以及对应的currentIndex CurrentIndexProvide，然后用 Consumer 加类型 CurrentIndexProvide 来使用这个currentIndex
+
+。
 
 #### 登录功能界面
 
@@ -205,3 +217,4 @@ flutter常用控件示例
   ### 打包
     - 1 android  在gradle中配置签名 构建release版本 通过flutter build apk生成   
     - 2 iOS 配置相关证书 生成ipa文件
+    - 3 发布应用市场
