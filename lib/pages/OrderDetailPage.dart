@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hsk_flutter/widgets/MyButton.dart';
 
 class OrderDetailPage extends StatelessWidget {
   @override
@@ -13,7 +14,8 @@ class OrderDetailPage extends StatelessWidget {
         body: Container(
           height: 200,
           margin: EdgeInsets.fromLTRB(10, 40, 10, 0),
-          child: Text('测试路由跳转'),
+          child:
+              MyButton(key: const Key('login'), onPressed: null, text: '退出登录'),
         ));
   }
 }

@@ -10,6 +10,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:hsk_flutter/compoents/HomeCard.dart';
 
 class FindHomePage extends StatelessWidget {
   List imgList = [
@@ -17,7 +18,21 @@ class FindHomePage extends StatelessWidget {
     "http://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3b292df5e0fe99257d8c844b34a85edf8db1712d.jpg",
     "http://cache.5ikfc.com/imgs/kfc/2014/05/quanjiatong.jpg",
   ];
-
+  List list = [
+    NewsViewModel(
+      title: '车辆管理',
+      source: '添加车辆',
+      comments: 71,
+      coverImgUrl: 'https://p3.pstatp.com/list/190x124/pgc-image/RGSD09itseweQ',
+    ),
+    NewsViewModel(
+      title: '新手指南',
+      source: '新手知道',
+      comments: 980,
+      coverImgUrl:
+          'https://p1.pstatp.com/list/190x124/pgc-image/7026a3edfe2b47f59eea94f2b8cd86a4',
+    ),
+  ];
 /**
  * 
  *  extAlign: TextAlign.center, //文本对齐方式  居中
@@ -43,34 +58,210 @@ class FindHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            expandedHeight: 230,
-            title: Text('聚马车队'),
-            flexibleSpace: Padding(
-              padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
-              child: rendSwiper(),
-            ),
-          )
-        ];
-      },
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 100,
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            color: Colors.primaries[index % Colors.primaries.length],
-            alignment: Alignment.center,
-            child: Text(
-              '$index',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          );
-        },
-        itemCount: 20,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('聚马车队'),
       ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          new SliverToBoxAdapter(
+            child: new Container(
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+              alignment: Alignment.center,
+              color: Colors.white,
+              child: rendSwiper(),
+              height: 180,
+            ),
+          ),
+
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+            sliver: new SliverGrid(
+              //Grid
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, //Grid按两列显示
+                mainAxisSpacing: 250.0,
+
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 2.4,
+              ),
+              delegate: new SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  //创建子widget
+                  return new Container(
+                    alignment: Alignment.center,
+                    color: Colors.blue,
+                    //margin: EdgeInsets.all(5.0),
+                    child: new Text('grid item $index'),
+                  );
+                },
+                childCount: 2,
+              ),
+            ),
+          ),
+          //List
+          SliverPadding(
+            padding: const EdgeInsets.all(8),
+            sliver: new SliverFixedExtentList(
+              itemExtent: 50.0,
+              delegate: new SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                //创建列表项
+                return new Container(
+                  alignment: Alignment.center,
+                  color: Colors.green,
+                  child: new Text('物流信息'),
+                );
+              }, childCount: 1 //10个列表项
+                  ),
+            ),
+          ),
+
+          SliverPadding(
+            padding: const EdgeInsets.all(8),
+            sliver: new SliverGrid(
+              //Grid
+
+              gridDelegate: new SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200, //Grid按两列显示
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 2.5,
+              ),
+              delegate: new SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  //创建子widget
+                  return HomeCard(data: this.list[index]);
+
+                  // return new Container(
+                  //   alignment: Alignment.center,
+                  //   color: Colors.orange,
+                  //   child: new Text('grid item $index'),
+                  // );
+                },
+                childCount: 2,
+              ),
+            ),
+          ),
+
+          SliverPadding(
+            padding: const EdgeInsets.all(8),
+            sliver: new SliverFixedExtentList(
+              itemExtent: 100.0,
+              delegate: new SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                //创建列表项
+                return new Container(
+                  alignment: Alignment.center,
+                  color: Colors.green,
+                  child: new Text('进行中订单'),
+                );
+              }, childCount: 1 //10个列表项
+                  ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    // return NestedScrollView(
+    //   headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+    //     return <Widget>[
+    //       SliverAppBar(
+    //         expandedHeight: 230,
+    //         title: Text('聚马车队'),
+    //         flexibleSpace: Padding(
+    //           padding: EdgeInsets.fromLTRB(10, 100, 10, 10),
+    //           child: rendSwiper(),
+    //         ),
+    //       )
+    //     ];
+    //   },
+    //   body: ListView.builder(
+    //     itemBuilder: (BuildContext context, int index) {
+    //       return Container(
+    //         height: 100,
+    //         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+    //         color: Colors.primaries[index % Colors.primaries.length],
+    //         alignment: Alignment.center,
+    //         child: Text(
+    //           '$index',
+    //           style: TextStyle(color: Colors.white, fontSize: 20),
+    //         ),
+    //       );
+    //     },
+    //     itemCount: 20,
+    //   ),
+    // );
+  }
+
+  Widget rendScrollView() {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverPadding(
+          padding: const EdgeInsets.all(8.0),
+          sliver: new SliverGrid(
+            //Grid
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, //Grid按两列显示
+              mainAxisSpacing: 250.0,
+
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 2.4,
+            ),
+            delegate: new SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                //创建子widget
+                return new Container(
+                  alignment: Alignment.center,
+                  color: Colors.blue,
+                  child: new Text('grid item $index'),
+                );
+              },
+              childCount: 2,
+            ),
+          ),
+        ),
+        //List
+        new SliverFixedExtentList(
+          itemExtent: 50.0,
+          delegate:
+              new SliverChildBuilderDelegate((BuildContext context, int index) {
+            //创建列表项
+            return new Container(
+              alignment: Alignment.center,
+              color: Colors.green,
+              child: new Text('list item $index'),
+            );
+          }, childCount: 1 //10个列表项
+                  ),
+        ),
+
+        SliverPadding(
+          padding: const EdgeInsets.all(8),
+          sliver: new SliverGrid(
+            //Grid
+
+            gridDelegate: new SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 400, //Grid按两列显示
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 4.0,
+            ),
+            delegate: new SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                //创建子widget
+                return new Container(
+                  alignment: Alignment.center,
+                  color: Colors.orange,
+                  child: new Text('grid item $index'),
+                );
+              },
+              childCount: 2,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -79,6 +270,7 @@ class FindHomePage extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Image.network(imgList[index], fit: BoxFit.fitWidth);
       },
+
       itemHeight: 60,
       itemWidth: 50,
       autoplay: true,

@@ -1,14 +1,19 @@
+import 'package:hsk_flutter/login/LoginPage.dart';
 import 'package:hsk_flutter/routers/router_init.dart';
 import 'package:fluro/fluro.dart';
 
 import 'package:hsk_flutter/pages/OrderDetailPage.dart';
+
+import 'package:hsk_flutter/pages/PersonSetPage.dart';
+
 import 'package:hsk_flutter/compoents/WebViewPage.dart';
 
 class CenterRouter implements IRouterProvider {
-  static String orderDetailPage = "/login";
+  static String orderDetailPage = "/ordrdetail";
   static String registerPage = "/login/register";
+  static String personsetPage = "/set";
   static String webViewPage = "/webview";
-
+  static String loginPage = "/login";
   @override
   void initRouter(Router router) {
     router.define(webViewPage, handler: Handler(handlerFunc: (_, params) {
@@ -20,5 +25,11 @@ class CenterRouter implements IRouterProvider {
 
     router.define(orderDetailPage,
         handler: Handler(handlerFunc: (_, params) => OrderDetailPage()));
+
+    router.define(personsetPage,
+        handler: Handler(handlerFunc: (_, params) => PersonSetPage()));
+
+    router.define(loginPage,
+        handler: Handler(handlerFunc: (_, params) => LoginPage()));
   }
 }

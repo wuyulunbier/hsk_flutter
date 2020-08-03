@@ -75,61 +75,104 @@ class LoginPage extends StatelessWidget {
   Widget buildTextView() {
     return Column(
       children: <Widget>[
-        Text(
-          "欢迎使用聚马车队",
-        ),
-        TextField(
-          decoration: InputDecoration(
-              fillColor: Colors.blue.shade100, filled: true, hintText: '输入手机号'),
-        ),
-        TextField(
-          decoration: InputDecoration(
-              fillColor: Colors.blue.shade100, filled: true, hintText: '输入密码'),
-        ),
-        RaisedButton(
-          onPressed: _login,
-          color: Colors.green,
-          child: Text("登录"),
-          textColor: Colors.white,
-          elevation: 10,
-        ),
-        SizedBox(
-          width: 300,
-          height: 50,
-          child: RaisedButton(
-            onPressed: () {},
-            child: Text("宽度占满了"),
-            color: Colors.green,
-            textColor: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                side: BorderSide(
-                    color: Color(0xFFF0F00),
-                    style: BorderStyle.solid,
-                    width: 2)),
-            clipBehavior: Clip.antiAlias,
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+          child: TextField(
+            ////Image.asset('assets/images/login_number@2x.png',
+            decoration: InputDecoration(
+                prefixIcon: new Icon(Icons.phone),
+                //  / fillColor: Colors.blue.shade100,
+                // filled: true,
+                hintText: '输入手机号'),
           ),
         ),
-        RaisedButton(
-          onPressed: _register,
-          color: Colors.green,
-          child: Text("注册"),
-          textColor: Colors.white,
-          elevation: 10,
+
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+          child: TextField(
+            obscureText: true, //是否是密码
+            decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(10.0),
+                prefixIcon: new Icon(Icons.phone),
+                //fillColor: Colors.blue.shade100,
+                // filled: true,
+
+                hintText: '输入密码'),
+          ),
         ),
-        RaisedButton(
-          child: new Text('箭头语法'),
-          onPressed: () => {
-            print("88888"),
-          },
-        ),
-        FlatButton(
-          onPressed: () => {},
-          child: Text("FlatButton"),
-          textColor: Colors.white,
-          textTheme: ButtonTextTheme.normal,
-          color: Color(0xFF82B1FF),
-        ),
+
+        // RaisedButton(
+        //   onPressed: _login,
+        //   color: Colors.green,
+        //   child: Text("登录"),
+        //   textColor: Colors.white,
+        //   elevation: 10,
+        // ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+          child: GestureDetector(
+            onTap: _login,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(17),
+                color: Colors.blue,
+              ),
+              width: 280,
+              height: 40,
+              //color: Colors.red,
+              child: Text(
+                '登录',
+                style: TextStyle(
+                  color: Colors.white, //字体颜色
+                  fontSize: 16.0, //字体大小，注意flutter里面是double类型
+                  fontWeight: FontWeight.bold, //字体粗细
+                  //fontStyle: FontStyle.italic, // 斜体显示
+                  letterSpacing: 5.0, //字体间距
+                  wordSpacing: 30.0, //词间距
+                ),
+              ),
+              alignment: Alignment.center,
+            ),
+          ),
+        )
+
+        // SizedBox(
+        //   width: 300,
+        //   height: 50,
+        //   child: RaisedButton(
+        //     onPressed: () {},
+        //     child: Text("宽度占满了"),
+        //     color: Colors.green,
+        //     textColor: Colors.white,
+        //     shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.all(Radius.circular(10)),
+        //         side: BorderSide(
+        //             color: Color(0xFFF0F00),
+        //             style: BorderStyle.solid,
+        //             width: 2)),
+        //     clipBehavior: Clip.antiAlias,
+        //   ),
+        // ),
+        // RaisedButton(
+        //   onPressed: _register,
+        //   color: Colors.green,
+        //   child: Text("注册"),
+        //   textColor: Colors.white,
+        //   elevation: 10,
+        // ),
+        // RaisedButton(
+        //   child: new Text('箭头语法'),
+        //   onPressed: () => {
+        //     print("88888"),
+        //   },
+        // ),
+        // FlatButton(
+        //   onPressed: () => {},
+        //   child: Text("FlatButton"),
+        //   textColor: Colors.white,
+        //   textTheme: ButtonTextTheme.normal,
+        //   color: Color(0xFF82B1FF),
+        // ),
 
         ///  HomeItem(),
       ],

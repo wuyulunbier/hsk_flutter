@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/widgets/click_item.dart';
+import 'package:hsk_flutter/widgets/app_bar.dart';
 
 class PersonCenterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        flexibleSpace: const FlexibleSpaceBar(
-          title: const Text('个人中心'),
-        ),
+      appBar: MyAppBar(
+        //key: _hintKey,
+        title: '个人中心',
+        actionName: '设置',
+
+        backgroundColor: Colors.blue,
+        onPressed: () {
+          NavigatorUtils.push(context, CenterRouter.personsetPage);
+        },
       ),
       body: Column(
         children: <Widget>[
