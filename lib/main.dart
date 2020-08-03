@@ -1,28 +1,26 @@
+
 import 'package:flutter/services.dart';
-import 'package:fluro/fluro.dart';
-import 'package:hsk_flutter/routers/Routers.dart';
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/routers/application.dart';
 
 import 'package:hsk_flutter/compoents/splash_widget.dart';
 
-void main() {
-  //项目的启动入口
+void main() {//项目的启动入口
   runApp(MyApp());
+
+  
+
+
 }
 
-class MyApp extends StatelessWidget {
-  //继承于有状态的组件
+class MyApp extends StatelessWidget {//继承于有状态的组件
   // This widget is the root of your application.
-
-  MyApp() {
-    final Router router = Router();
-    Routes.configureRoutes(router);
-    Application.router = router;
-  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+
+      
+
       title: '聚马车队',
       theme: ThemeData(
         // This is the theme of your application.
@@ -40,7 +38,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(resizeToAvoidBottomPadding: false, body: SplashWidget()),
+      home: Scaffold(resizeToAvoidBottomPadding: false,
+        body:SplashWidget(),)
     );
   }
 }
@@ -59,6 +58,8 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -75,6 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+
+
+
+
+
   }
 
   @override
@@ -112,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'wwwwww',
+             'wwwwww',
             ),
             Text(
               '$_counter',
@@ -129,3 +135,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
