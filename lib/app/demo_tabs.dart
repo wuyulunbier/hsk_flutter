@@ -27,10 +27,14 @@ class DemoTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // backgroundColor: Colors.red,
         title: Text(this.title),
         bottom: TabBar(
+          labelPadding: EdgeInsets.only(left: 30, right: 30),
+          indicatorColor: Colors.white,
           controller: this.tabController,
           isScrollable: this.tabScrollable,
+          indicatorSize: TabBarIndicatorSize.label,
           tabs: this.demos.map((item) => Tab(text: item.title)).toList(),
         ),
       ),

@@ -46,10 +46,10 @@ class _ContainerPageState extends State<ContainerPage> {
         'assets/images/ic_tab_subject_normal.png'),
     _Item('我的', 'assets/images/ic_tab_profile_active.png',
         'assets/images/ic_tab_profile_normal.png'),
-    //  _Item('登录', 'assets/images/ic_tab_profile_active.png',
-    //      'assets/images/ic_tab_profile_normal.png'),
-    _Item('设置', 'assets/images/ic_tab_profile_active.png',
+    _Item('登录', 'assets/images/ic_tab_profile_active.png',
         'assets/images/ic_tab_profile_normal.png'),
+    // _Item('设置', 'assets/images/ic_tab_profile_active.png',
+    //   'assets/images/ic_tab_profile_normal.png'),
     _Item('角色', 'assets/images/ic_tab_profile_active.png',
         'assets/images/ic_tab_profile_normal.png')
   ];

@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hsk_flutter/util/screen_utils.dart';
 
-import 'package:hsk_flutter/app/API.dart';
-
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:dio/dio.dart';
-import 'package:hsk_flutter/widgets/Home_item.dart';
 
 /**
  * audio_recorder: any #录音、播放
@@ -59,154 +56,199 @@ import 'package:hsk_flutter/widgets/Home_item.dart';
   ota_update : any#App下载更新
   flutter_slidable：#item侧滑控件
  */
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  LoginPageState createState() => LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+  bool _switchvalue = false;
+  String _loginValue = 'login';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("登录"),
       ),
+      backgroundColor: Colors.white,
       body: Container(
-        child: buildTextView(),
+        child: Column(
+          children: <Widget>[
+            CupertinoSwitch(
+              value: _switchvalue,
+              onChanged: (value) {
+                print("value = $value");
+
+                setState(() {
+                  _switchvalue = value;
+                });
+              },
+            ),
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: CupertinoSegmentedControl(
+                  selectedColor: Colors.red,
+                  unselectedColor: Colors.white,
+                  // groupValue: _loginValue,
+                  children: {
+                    "login": Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: Text("登录"),
+                    ),
+                    "register": Text("注册"),
+                  },
+                  onValueChanged: (value) {
+                    print(value + '66');
+                    setState(() {
+                      // 数据改变时通过setState改变选中状态
+                      _loginValue = value;
+                    });
+                  }),
+            ),
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+              child: TextField(
+                ////Image.asset('assets/images/login_number@2x.png',
+                decoration: InputDecoration(
+                    prefixIcon: new Icon(Icons.phone),
+                    //  / fillColor: Colors.blue.shade100,
+                    // filled: true,
+                    hintText: '输入手机号'),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              child: TextField(
+                obscureText: true, //是否是密码
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(10.0),
+                    prefixIcon: new Icon(Icons.phone),
+                    //fillColor: Colors.blue.shade100,
+                    // filled: true,
+
+                    hintText: '输入密码'),
+              ),
+            ),
+
+            // RaisedButton(
+            //   onPressed: _login,
+            //   color: Colors.green,
+            //   child: Text("登录"),
+            //   textColor: Colors.white,
+            //   elevation: 10,
+            // ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+              child: GestureDetector(
+                onTap: _login,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(17),
+                    color: Colors.blue,
+                  ),
+                  width: 280,
+                  height: 40,
+                  //color: Colors.red,
+                  child: Text(
+                    '登录',
+                    style: TextStyle(
+                      color: Colors.white, //字体颜色
+                      fontSize: 16.0, //字体大小，注意flutter里面是double类型
+                      fontWeight: FontWeight.bold, //字体粗细
+                      //fontStyle: FontStyle.italic, // 斜体显示
+                      letterSpacing: 5.0, //字体间距
+                      wordSpacing: 30.0, //词间距
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                ),
+              ),
+            )
+
+            // SizedBox(
+            //   width: 300,
+            //   height: 50,
+            //   child: RaisedButton(
+            //     onPressed: () {},
+            //     child: Text("宽度占满了"),
+            //     color: Colors.green,
+            //     textColor: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(10)),
+            //         side: BorderSide(
+            //             color: Color(0xFFF0F00),
+            //             style: BorderStyle.solid,
+            //             width: 2)),
+            //     clipBehavior: Clip.antiAlias,
+            //   ),
+            // ),
+            // RaisedButton(
+            //   onPressed: _register,
+            //   color: Colors.green,
+            //   child: Text("注册"),
+            //   textColor: Colors.white,
+            //   elevation: 10,
+            // ),
+            // RaisedButton(
+            //   child: new Text('箭头语法'),
+            //   onPressed: () => {
+            //     print("88888"),
+            //   },
+            // ),
+            // FlatButton(
+            //   onPressed: () => {},
+            //   child: Text("FlatButton"),
+            //   textColor: Colors.white,
+            //   textTheme: ButtonTextTheme.normal,
+            //   color: Color(0xFF82B1FF),
+            // ),
+
+            ///  HomeItem(),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget buildTextView() {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-          child: TextField(
-            ////Image.asset('assets/images/login_number@2x.png',
-            decoration: InputDecoration(
-                prefixIcon: new Icon(Icons.phone),
-                //  / fillColor: Colors.blue.shade100,
-                // filled: true,
-                hintText: '输入手机号'),
-          ),
-        ),
+_login() {
+  //log('press button');
+  ///tosi的基本使用
+  ///api的基本调用
+  ///
 
-        Padding(
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-          child: TextField(
-            obscureText: true, //是否是密码
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10.0),
-                prefixIcon: new Icon(Icons.phone),
-                //fillColor: Colors.blue.shade100,
-                // filled: true,
-
-                hintText: '输入密码'),
-          ),
-        ),
-
-        // RaisedButton(
-        //   onPressed: _login,
-        //   color: Colors.green,
-        //   child: Text("登录"),
-        //   textColor: Colors.white,
-        //   elevation: 10,
-        // ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
-          child: GestureDetector(
-            onTap: _login,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                color: Colors.blue,
-              ),
-              width: 280,
-              height: 40,
-              //color: Colors.red,
-              child: Text(
-                '登录',
-                style: TextStyle(
-                  color: Colors.white, //字体颜色
-                  fontSize: 16.0, //字体大小，注意flutter里面是double类型
-                  fontWeight: FontWeight.bold, //字体粗细
-                  //fontStyle: FontStyle.italic, // 斜体显示
-                  letterSpacing: 5.0, //字体间距
-                  wordSpacing: 30.0, //词间距
-                ),
-              ),
-              alignment: Alignment.center,
-            ),
-          ),
-        )
-
-        // SizedBox(
-        //   width: 300,
-        //   height: 50,
-        //   child: RaisedButton(
-        //     onPressed: () {},
-        //     child: Text("宽度占满了"),
-        //     color: Colors.green,
-        //     textColor: Colors.white,
-        //     shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.all(Radius.circular(10)),
-        //         side: BorderSide(
-        //             color: Color(0xFFF0F00),
-        //             style: BorderStyle.solid,
-        //             width: 2)),
-        //     clipBehavior: Clip.antiAlias,
-        //   ),
-        // ),
-        // RaisedButton(
-        //   onPressed: _register,
-        //   color: Colors.green,
-        //   child: Text("注册"),
-        //   textColor: Colors.white,
-        //   elevation: 10,
-        // ),
-        // RaisedButton(
-        //   child: new Text('箭头语法'),
-        //   onPressed: () => {
-        //     print("88888"),
-        //   },
-        // ),
-        // FlatButton(
-        //   onPressed: () => {},
-        //   child: Text("FlatButton"),
-        //   textColor: Colors.white,
-        //   textTheme: ButtonTextTheme.normal,
-        //   color: Color(0xFF82B1FF),
-        // ),
-
-        ///  HomeItem(),
-      ],
-    );
-  }
-
-  _login() {
-    //log('press button');
-    ///tosi的基本使用
-    ///api的基本调用
-    ///
-
-    FormData params = FormData.fromMap(
-        {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
-    RequestManager.getInstance()
-        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
-      Fluttertoast.showToast(
-          msg: data.toString(),
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue);
-
-      Fluttertoast.showToast(
-          msg: '登录成功',
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue);
-    }, (error) {});
-
-    print('button pressed');
-  }
-
-  _register() {
+  FormData params = FormData.fromMap(
+      {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+  RequestManager.getInstance()
+      .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
     Fluttertoast.showToast(
-        msg: "注册成功",
-        gravity: ToastGravity.BOTTOM,
+        msg: data.toString(),
+        gravity: ToastGravity.CENTER,
         backgroundColor: Colors.blue);
-  }
+
+    Fluttertoast.showToast(
+        msg: '登录成功',
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.blue);
+  }, (error) {});
+
+  print('button pressed');
+}
+
+_register() {
+  Fluttertoast.showToast(
+      msg: "注册成功", gravity: ToastGravity.BOTTOM, backgroundColor: Colors.blue);
 }
