@@ -72,6 +72,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                       Image.asset(
                         'assets/images/home_v1.png',
                         height: ScreenUtils.screenH(context),
+                        width: ScreenUtils.screenW(context),
                         fit: BoxFit.fitWidth,
                       ),
                     ],
