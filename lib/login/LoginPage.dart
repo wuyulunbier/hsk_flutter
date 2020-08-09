@@ -1,11 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2020-08-08 17:52:36
- * @LastEditTime: 2020-08-09 18:09:52
+ * @LastEditTime: 2020-08-09 22:03:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/login/LoginPage.dart
- */ 
+ */
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -19,6 +19,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hsk_flutter/container_page.dart';
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
+import 'package:hsk_flutter/res/SharedPreferenceUtil.dart';
+
 /**
  * audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -74,6 +76,7 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   bool _switchvalue = false;
   String _loginValue = 'login';
+  SharedPreferences pres;
 
   @override
   void initState() {
@@ -164,7 +167,25 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
               child: GestureDetector(
-                onTap: _login(),
+                onTap: () => {
+                  NavigatorUtils.push(context, CenterRouter.mainContainPage),
+
+                  // FormData params = FormData.fromMap(
+                  //     {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+                  // RequestManager.getInstance()
+                  //     .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
+                  //   Fluttertoast.showToast(
+                  //       msg: data.toString(),
+                  //       gravity: ToastGravity.CENTER,
+                  //       backgroundColor: Colors.blue);
+
+                  //   Fluttertoast.showToast(
+                  //       msg: '登录成功',
+                  //       gravity: ToastGravity.CENTER,
+                  //       backgroundColor: Colors.blue);
+
+                  // }, (error) {});
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(17),
@@ -172,7 +193,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   width: 280,
                   height: 40,
-                  //color: Colors.red,
+                  //color: Colors.red,//
                   child: Text(
                     '登录',
                     style: TextStyle(
@@ -187,7 +208,7 @@ class LoginPageState extends State<LoginPage> {
                   alignment: Alignment.center,
                 ),
               ),
-            )
+            ),
 
             // SizedBox(
             //   width: 300,
@@ -206,26 +227,26 @@ class LoginPageState extends State<LoginPage> {
             //     clipBehavior: Clip.antiAlias,
             //   ),
             // ),
-            // RaisedButton(
-            //   onPressed: _register,
-            //   color: Colors.green,
-            //   child: Text("注册"),
-            //   textColor: Colors.white,
-            //   elevation: 10,
-            // ),
+            RaisedButton(
+              onPressed: _storeForm,
+              color: Colors.green,
+              child: Text("注册4"),
+              textColor: Colors.white,
+              elevation: 10,
+            ),
             // RaisedButton(
             //   child: new Text('箭头语法'),
             //   onPressed: () => {
             //     print("88888"),
             //   },
             // ),
-            // FlatButton(
-            //   onPressed: () => {},
-            //   child: Text("FlatButton"),
-            //   textColor: Colors.white,
-            //   textTheme: ButtonTextTheme.normal,
-            //   color: Color(0xFF82B1FF),
-            // ),
+            FlatButton(
+              onPressed: _login,
+              child: Text("FlatButton66"),
+              textColor: Colors.white,
+              textTheme: ButtonTextTheme.normal,
+              color: Color(0xFF82B1FF),
+            ),
 
             ///  HomeItem(),
           ],
@@ -235,21 +256,49 @@ class LoginPageState extends State<LoginPage> {
   }
 }
 
-_add () async{
-
+_add() async {
   SharedPreferences pres = await SharedPreferences.getInstance();
 
-var username = '';
-var pwd = '';
+  var username = '';
+  var pwd = '';
 
-  pres.setBool('islogin',true);
+  pres.setBool('islogin', true);
   pres.setString('userName', username);
   pres.setString('pwd', pwd);
-
-
 }
 
-_login() {
+void _storeForm() async {
+  SharedPreferences pres = await SharedPreferences.getInstance();
+
+  bool login = pres.get('islogin');
+
+  String name = pres.get('userName');
+  String pwd = pres.get('pwd');
+
+  Future<bool> result = SharedPreferenceUtil.getBool('islogin');
+  result.then((value) {
+    print("is setBool success=$value");
+  });
+  print('test is login');
+
+  print(name + pwd + '8888');
+
+  print(pres.get('islogin') + 666);
+}
+
+void testBool() {
+  Future<bool> result = SharedPreferenceUtil.setBool("key", false);
+  result.then((value) {
+    print("is setBool success=$value");
+  });
+
+  Future<bool> result2 = SharedPreferenceUtil.getBool("key");
+  result2.then((value) {
+    print("getBoolResult=$value");
+  });
+}
+
+void _login() async {
   //log('press button');
   ///tosi的基本使用
   ///api的基本调用
@@ -257,15 +306,17 @@ _login() {
   ///
   ///
   ///share_preference 本地存储的使用
-  ///
-  ///
 
-   _add();
+  SharedPreferences pres1 = await SharedPreferences.getInstance();
+  //pres1.setBool('islogin', true);
+  pres1.setString('userName', '13866850026');
+  pres1.setString('pwd', '123456');
 
+  SharedPreferenceUtil.setBool("islogin", true);
+  //数据存储和状态通知
 
-   //NavigatorUtils.push(context, CenterRouter.mainContainPage);
+  //NavigatorUtils.push(null, CenterRouter.mainContainPage);
 
-   
   FormData params = FormData.fromMap(
       {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
   RequestManager.getInstance()
@@ -279,7 +330,6 @@ _login() {
         msg: '登录成功',
         gravity: ToastGravity.CENTER,
         backgroundColor: Colors.blue);
-
   }, (error) {});
 
   print('button pressed');
