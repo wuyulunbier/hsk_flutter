@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-08-03 21:39:52
+ * @LastEditTime: 2020-08-09 17:12:15
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /hsk_flutter/lib/login/RoleItem.dart
+ */ 
 /**
  * 
  * 相当于cell

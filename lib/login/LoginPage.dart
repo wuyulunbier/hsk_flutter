@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-08-08 17:52:36
+ * @LastEditTime: 2020-08-09 18:09:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /hsk_flutter/lib/login/LoginPage.dart
+ */ 
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -7,7 +15,10 @@ import 'package:hsk_flutter/util/screen_utils.dart';
 
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:dio/dio.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hsk_flutter/container_page.dart';
+import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/routers/CenterPouter.dart';
 /**
  * audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -153,7 +164,7 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
               child: GestureDetector(
-                onTap: _login,
+                onTap: _login(),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(17),
@@ -224,12 +235,37 @@ class LoginPageState extends State<LoginPage> {
   }
 }
 
+_add () async{
+
+  SharedPreferences pres = await SharedPreferences.getInstance();
+
+var username = '';
+var pwd = '';
+
+  pres.setBool('islogin',true);
+  pres.setString('userName', username);
+  pres.setString('pwd', pwd);
+
+
+}
+
 _login() {
   //log('press button');
   ///tosi的基本使用
   ///api的基本调用
   ///
+  ///
+  ///
+  ///share_preference 本地存储的使用
+  ///
+  ///
 
+   _add();
+
+
+   //NavigatorUtils.push(context, CenterRouter.mainContainPage);
+
+   
   FormData params = FormData.fromMap(
       {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
   RequestManager.getInstance()
@@ -243,6 +279,7 @@ _login() {
         msg: '登录成功',
         gravity: ToastGravity.CENTER,
         backgroundColor: Colors.blue);
+
   }, (error) {});
 
   print('button pressed');

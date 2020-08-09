@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-12 20:45:50
- * @LastEditTime: 2020-07-12 22:13:39
+ * @LastEditTime: 2020-08-09 17:11:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/compoents/splash_widget.dart
@@ -13,6 +13,7 @@ import 'package:flutter/material.dart'; //常用组件的包
 
 import 'package:hsk_flutter/container_page.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
+import 'package:hsk_flutter/login/SelectRolePage.dart';
 
 import 'package:hsk_flutter/constant/constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -46,6 +47,8 @@ class SplashWidget extends StatefulWidget {
 class _SplashWidgetState extends State<SplashWidget> {
   var container = ContainerPage();
 
+  var loginPage = SelectRolePage();
+
   bool showAd = true;
 
   //return返回一个组件  如果包含有其他组件 使用chilid属性
@@ -53,10 +56,13 @@ class _SplashWidgetState extends State<SplashWidget> {
   @override
   Widget build(BuildContext context) {
     print('build splash77777');
+
+    
+
     return Stack(
       children: <Widget>[
         Offstage(
-          child: container,
+          child: loginPage,
           offstage: showAd,
         ),
         Offstage(

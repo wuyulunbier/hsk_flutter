@@ -1,13 +1,17 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hsk_flutter/routers/Routers.dart';
+import 'package:fluro/fluro.dart';
+import 'package:hsk_flutter/routers/application.dart';
 import 'package:hsk_flutter/compoents/splash_widget.dart';
 
 void main() {//项目的启动入口
   runApp(MyApp());
 
-  
+  final router = Router();
+  Routes.configureRoutes(router);
+  Application.router = router;
 
 
 }
@@ -18,10 +22,8 @@ class MyApp extends StatelessWidget {//继承于有状态的组件
   Widget build(BuildContext context) {
     return MaterialApp(
 
-
-      
-
       title: '聚马车队',
+      onGenerateRoute: Application.router.generator,
       theme: ThemeData(
         // This is the theme of your application.
         //

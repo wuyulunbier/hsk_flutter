@@ -8,12 +8,16 @@ import 'package:hsk_flutter/pages/PersonSetPage.dart';
 
 import 'package:hsk_flutter/compoents/WebViewPage.dart';
 
+import 'package:hsk_flutter/container_page.dart';
+
 class CenterRouter implements IRouterProvider {
   static String orderDetailPage = "/ordrdetail";
   static String registerPage = "/login/register";
   static String personsetPage = "/set";
   static String webViewPage = "/webview";
   static String loginPage = "/login";
+  static String mainContainPage = '/container';
+
   @override
   void initRouter(Router router) {
     router.define(webViewPage, handler: Handler(handlerFunc: (_, params) {
@@ -31,5 +35,8 @@ class CenterRouter implements IRouterProvider {
 
     router.define(loginPage,
         handler: Handler(handlerFunc: (_, params) => LoginPage()));
+
+
+    router.define(mainContainPage, handler: Handler(handlerFunc: (_, params) => ContainerPage()));
   }
 }

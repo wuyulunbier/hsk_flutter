@@ -35,6 +35,8 @@ class selectRolePageState extends State<SelectRolePage> {
               title: '我是司机',
               imgUrl: 'assets/images/driver_role_select_v1@2x.png',
               onTap: () =>
+
+                  //  nav
                   NavigatorUtils.push(context, CenterRouter.loginPage)),
           RoleItem(
               title: '我是承运商',
