@@ -5,7 +5,7 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /hsk_flutter/lib/login/RoleItem.dart
- */ 
+ */
 /**
  * 
  * 相当于cell
@@ -41,7 +41,7 @@ class RoleItem extends StatelessWidget {
       children: <Widget>[
         Container(
           width: 400,
-          height: 250,
+          height: 210,
           color: Colors.white,
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: IconButton(

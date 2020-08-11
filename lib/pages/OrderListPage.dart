@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/app/demo_tabs.dart';
 import 'color_grids.dart';
 import 'color_list.dart';
+import 'OrderItemPage.dart';
 
 import 'package:hsk_flutter/compoents/PullDownRefresh.dart';
 import 'package:hsk_flutter/compoents/PullLoadMore.dart';
@@ -11,7 +12,7 @@ class OrderListPage extends StatefulWidget {
 }
 
 List<DemoTabViewModel> demos = [
-  DemoTabViewModel(title: '待受理', widget: ColorGrids()),
+  DemoTabViewModel(title: '待受理', widget: OrderItemPage()),
   DemoTabViewModel(title: '待发货', widget: ColorList()),
   DemoTabViewModel(title: '运输中', widget: PullUpLoadMoreList()),
   DemoTabViewModel(title: '已完成', widget: PullDownRefreshList()),

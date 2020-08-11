@@ -11,12 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/pages/PersonCenterPage.dart';
 import 'package:hsk_flutter/pages/OrderListPage.dart';
 import 'package:hsk_flutter/pages/FindHomePage.dart';
-import 'package:hsk_flutter/login/LoginPage.dart';
 
-import 'package:hsk_flutter/pages/FindHomePage.dart';
-import 'package:hsk_flutter/pages/PersonSetPage.dart';
-
-import 'package:hsk_flutter/login/SelectRolePage.dart';
 
 class ContainerPage extends StatefulWidget {
   ContainerPage({Key key}) : super(key: key);
@@ -46,12 +41,6 @@ class _ContainerPageState extends State<ContainerPage> {
         'assets/images/ic_tab_subject_normal.png'),
     _Item('我的', 'assets/images/ic_tab_profile_active.png',
         'assets/images/ic_tab_profile_normal.png'),
-    _Item('登录', 'assets/images/ic_tab_profile_active.png',
-        'assets/images/ic_tab_profile_normal.png'),
-    // _Item('设置', 'assets/images/ic_tab_profile_active.png',
-    //   'assets/images/ic_tab_profile_normal.png'),
-    _Item('角色', 'assets/images/ic_tab_profile_active.png',
-        'assets/images/ic_tab_profile_normal.png')
   ];
 
   List<BottomNavigationBarItem> itemList;
@@ -65,9 +54,6 @@ class _ContainerPageState extends State<ContainerPage> {
         FindHomePage(),
         OrderListPage(),
         PersonCenterPage(),
-        LoginPage(),
-        //PersonSetPage(),
-        SelectRolePage(),
       ];
     }
     if (itemList == null) {
@@ -132,8 +118,8 @@ class _ContainerPageState extends State<ContainerPage> {
           _getPagesWidget(0),
           _getPagesWidget(1),
           _getPagesWidget(2),
-          _getPagesWidget(3),
-          _getPagesWidget(4),
+          // _getPagesWidget(3),
+          //_getPagesWidget(4),
           // _getPagesWidget(5)
         ],
       ),

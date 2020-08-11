@@ -1,48 +1,49 @@
-
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:hsk_flutter/login/LoginPage.dart';
 import 'package:hsk_flutter/routers/Routers.dart';
 import 'package:fluro/fluro.dart';
 import 'package:hsk_flutter/routers/application.dart';
 import 'package:hsk_flutter/compoents/splash_widget.dart';
+import 'package:provider/provider.dart';
 
-void main() {//项目的启动入口
+void main() {
+  //项目的启动入口
   runApp(MyApp());
 
   final router = Router();
   Routes.configureRoutes(router);
   Application.router = router;
-
-
 }
 
-class MyApp extends StatelessWidget {//继承于有状态的组件
+class MyApp extends StatelessWidget {
+  //继承于有状态的组件
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-      title: '聚马车队',
-      onGenerateRoute: Application.router.generator,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Scaffold(resizeToAvoidBottomPadding: false,
-        body:SplashWidget(),)
-    );
+        title: '聚马车队',
+        onGenerateRoute: Application.router.generator,
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+          // This makes the visual density adapt to the platform that you run
+          // the app on. For desktop platforms, the controls will be smaller and
+          // closer together (more dense) than on mobile platforms.
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          body: SplashWidget(),
+        ));
   }
 }
 
@@ -60,8 +61,6 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -78,11 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-
-
-
-
-
   }
 
   @override
@@ -120,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-             'wwwwww',
+              'wwwwww',
             ),
             Text(
               '$_counter',
@@ -137,5 +131,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-

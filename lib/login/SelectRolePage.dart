@@ -43,32 +43,36 @@ class selectRolePageState extends State<SelectRolePage> {
               imgUrl: 'assets/images/company_role_select_v1@2x.png',
               onTap: () =>
                   NavigatorUtils.push(context, CenterRouter.loginPage)),
-          FlatButton(
-            padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-            onPressed: null,
-            child: GestureDetector(
-                onTap: () =>
-                    {NavigatorUtils.push(context, CenterRouter.loginPage)},
-                child: Container(
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.blue,
-                  ),
-                  child: Text(
-                    '下一步',
-                    style: TextStyle(
-                      color: Colors.white, //字体颜色
-                      fontSize: 16.0, //字体大小，注意flutter里面是double类型
-                      fontWeight: FontWeight.bold, //字体粗细
-                      //fontStyle: FontStyle.italic, // 斜体显示
-                      letterSpacing: 10.0, //字体间距
-                      wordSpacing: 30.0, //词间距
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: FlatButton(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              onPressed: null,
+              child: GestureDetector(
+                  onTap: () =>
+                      {NavigatorUtils.push(context, CenterRouter.loginPage)},
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.blue,
                     ),
-                  ),
-                  width: 160,
-                  alignment: Alignment.center,
-                )),
+                    child: Text(
+                      '下一步',
+                      style: TextStyle(
+                        color: Colors.white, //字体颜色
+                        fontSize: 16.0, //字体大小，注意flutter里面是double类型
+                        fontWeight: FontWeight.bold, //字体粗细
+                        //fontStyle: FontStyle.italic, // 斜体显示
+                        letterSpacing: 10.0, //字体间距
+                        wordSpacing: 30.0, //词间距
+                      ),
+                    ),
+                    width: 180,
+                    alignment: Alignment.center,
+                  )),
+            ),
           )
         ],
       ),

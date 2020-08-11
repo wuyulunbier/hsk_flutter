@@ -30,7 +30,7 @@ class DemoTabs extends StatelessWidget {
         // backgroundColor: Colors.red,
         title: Text(this.title),
         bottom: TabBar(
-          labelPadding: EdgeInsets.only(left: 30, right: 30),
+          labelPadding: EdgeInsets.only(left: 20, right: 20),
           indicatorColor: Colors.white,
           controller: this.tabController,
           isScrollable: this.tabScrollable,

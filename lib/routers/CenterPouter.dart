@@ -36,7 +36,7 @@ class CenterRouter implements IRouterProvider {
     router.define(loginPage,
         handler: Handler(handlerFunc: (_, params) => LoginPage()));
 
-
-    router.define(mainContainPage, handler: Handler(handlerFunc: (_, params) => ContainerPage()));
+    router.define(mainContainPage,
+        handler: Handler(handlerFunc: (_, params) => ContainerPage()));
   }
 }

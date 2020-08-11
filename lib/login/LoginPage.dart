@@ -98,16 +98,16 @@ class LoginPageState extends State<LoginPage> {
       body: Container(
         child: Column(
           children: <Widget>[
-            CupertinoSwitch(
-              value: _switchvalue,
-              onChanged: (value) {
-                print("value = $value");
+            // CupertinoSwitch(
+            //   value: _switchvalue,
+            //   onChanged: (value) {
+            //     print("value = $value");
 
-                setState(() {
-                  _switchvalue = value;
-                });
-              },
-            ),
+            //     setState(() {
+            //       _switchvalue = value;
+            //     });
+            //   },
+            // ),
 
             Padding(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -167,32 +167,35 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
               child: GestureDetector(
-                onTap: () => {
-                  NavigatorUtils.push(context, CenterRouter.mainContainPage),
+                onTap: () => _login(),
+                // onTap: () => {
+                //   NavigatorUtils.push(context, CenterRouter.mainContainPage,
+                //       clearStack: true),
+                //   // NavigatorUtils.push(context, CenterRouter.mainContainPage),
 
-                  // FormData params = FormData.fromMap(
-                  //     {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
-                  // RequestManager.getInstance()
-                  //     .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
-                  //   Fluttertoast.showToast(
-                  //       msg: data.toString(),
-                  //       gravity: ToastGravity.CENTER,
-                  //       backgroundColor: Colors.blue);
+                //   // FormData params = FormData.fromMap(
+                //   //     {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+                //   // RequestManager.getInstance()
+                //   //     .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
+                //   //   Fluttertoast.showToast(
+                //   //       msg: data.toString(),
+                //   //       gravity: ToastGravity.CENTER,
+                //   //       backgroundColor: Colors.blue);
 
-                  //   Fluttertoast.showToast(
-                  //       msg: '登录成功',
-                  //       gravity: ToastGravity.CENTER,
-                  //       backgroundColor: Colors.blue);
+                //   Fluttertoast.showToast(
+                //       msg: '登录成功',
+                //       gravity: ToastGravity.CENTER,
+                //       backgroundColor: Colors.blue),
 
-                  // }, (error) {});
-                },
+                //   // }, (error) {});
+                // },
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(17),
+                    borderRadius: BorderRadius.circular(20),
                     color: Colors.blue,
                   ),
-                  width: 280,
-                  height: 40,
+                  width: 300,
+                  height: 45,
                   //color: Colors.red,//
                   child: Text(
                     '登录',
@@ -227,32 +230,70 @@ class LoginPageState extends State<LoginPage> {
             //     clipBehavior: Clip.antiAlias,
             //   ),
             // ),
-            RaisedButton(
-              onPressed: _storeForm,
-              color: Colors.green,
-              child: Text("注册4"),
-              textColor: Colors.white,
-              elevation: 10,
-            ),
+            // RaisedButton(
+            //   onPressed: _storeForm,
+            //   color: Colors.green,
+            //   child: Text("注册4"),
+            //   textColor: Colors.white,
+            //   elevation: 10,
+            // ),
             // RaisedButton(
             //   child: new Text('箭头语法'),
             //   onPressed: () => {
             //     print("88888"),
             //   },
             // ),
-            FlatButton(
-              onPressed: _login,
-              child: Text("FlatButton66"),
-              textColor: Colors.white,
-              textTheme: ButtonTextTheme.normal,
-              color: Color(0xFF82B1FF),
-            ),
+            // FlatButton(
+            //   onPressed: _login,
+            //   child: Text("FlatButton66"),
+            //   textColor: Colors.white,
+            //   textTheme: ButtonTextTheme.normal,
+            //   color: Color(0xFF82B1FF),
+            // ),
 
             ///  HomeItem(),
           ],
         ),
       ),
     );
+  }
+
+  _login() async {
+    //log('press button');
+    ///tosi的基本使用
+    ///api的基本调用
+    ///
+    ///
+    ///
+    ///share_preference 本地存储的使用
+    SharedPreferences pres1 = await SharedPreferences.getInstance();
+    //pres1.setBool('islogin', true);
+    pres1.setString('userName', '13866850026');
+    pres1.setString('pwd', '123456');
+
+    SharedPreferenceUtil.setBool("islogin", true);
+    //数据存储和状态通知
+
+    //NavigatorUtils.push(null, CenterRouter.mainContainPage);
+
+    FormData params = FormData.fromMap(
+        {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+    RequestManager.getInstance()
+        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
+      NavigatorUtils.push(context, CenterRouter.mainContainPage,
+          clearStack: true);
+      // Fluttertoast.showToast(
+      //     msg: data.toString(),
+      //     gravity: ToastGravity.CENTER,
+      //     backgroundColor: Colors.blue);
+
+      Fluttertoast.showToast(
+          msg: '登录成功',
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.blue);
+    }, (error) {});
+
+    print('button pressed');
   }
 }
 
@@ -296,43 +337,6 @@ void testBool() {
   result2.then((value) {
     print("getBoolResult=$value");
   });
-}
-
-void _login() async {
-  //log('press button');
-  ///tosi的基本使用
-  ///api的基本调用
-  ///
-  ///
-  ///
-  ///share_preference 本地存储的使用
-
-  SharedPreferences pres1 = await SharedPreferences.getInstance();
-  //pres1.setBool('islogin', true);
-  pres1.setString('userName', '13866850026');
-  pres1.setString('pwd', '123456');
-
-  SharedPreferenceUtil.setBool("islogin", true);
-  //数据存储和状态通知
-
-  //NavigatorUtils.push(null, CenterRouter.mainContainPage);
-
-  FormData params = FormData.fromMap(
-      {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
-  RequestManager.getInstance()
-      .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
-    Fluttertoast.showToast(
-        msg: data.toString(),
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.blue);
-
-    Fluttertoast.showToast(
-        msg: '登录成功',
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.blue);
-  }, (error) {});
-
-  print('button pressed');
 }
 
 _register() {

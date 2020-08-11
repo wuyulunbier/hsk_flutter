@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hsk_flutter/login/LoginPage.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,15 @@ import 'package:hsk_flutter/widgets/MyButton.dart';
 import 'package:hsk_flutter/widgets/click_item.dart';
 
 import 'package:hsk_flutter/widgets/my_scroll_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hsk_flutter/widgets/Exit_dialog.dart';
 
-class PersonSetPage extends StatelessWidget {
+class PersonSetPage extends StatefulWidget {
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<PersonSetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,21 +49,27 @@ class PersonSetPage extends StatelessWidget {
             horizontal: 16.0,
             vertical: 8.0,
           ),
-          child:
-              MyButton(key: const Key('login'), onPressed: null, text: '退出登录'),
+          child: MyButton(
+              key: const Key('login'),
+              onPressed: () => _showExitDialog(),
+              // onPressed: () => NavigatorUtils.goBackWithParams(context, 'add'),
+              // onPressed: () => {
+              //       print('退出登录'),
+              //       //NavigatorUtils.goBackWithParams(context, 'add'), f返回上一层
+              //       //NavigatorUtils.push(context, CenterRouter.loginPage),
+              //       Navigator.of(context).push(MaterialPageRoute(
+              //           fullscreenDialog: true,
+              //           builder: (context) => LoginPage())),
+              //       Fluttertoast.showToast(
+              //           msg: '登出成功', gravity: ToastGravity.CENTER),
+              //     },
+              text: '退出登录'),
         ),
-        // Column(
-        // children:
-        // <Widget>[
-        //
-        //   Padding(
-        //     padding:
-        //         const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0,),
-        //     child: MyButton(
-        //         key: const Key('login'), onPressed: null, text: '退出登录'),
-        //   )
-        // ],)
       ),
     );
+  }
+
+  void _showExitDialog() {
+    showDialog<void>(context: context, builder: (_) => const ExitDialog());
   }
 }

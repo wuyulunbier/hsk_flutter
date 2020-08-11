@@ -124,9 +124,9 @@ class FindHomePage extends StatelessWidget {
 
               gridDelegate: new SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200, //Grid按两列显示
-                mainAxisSpacing: 10.0,
+                mainAxisSpacing: 15.0,
                 crossAxisSpacing: 10.0,
-                childAspectRatio: 2.5,
+                childAspectRatio: 2.0,
               ),
               delegate: new SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

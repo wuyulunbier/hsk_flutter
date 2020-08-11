@@ -22,12 +22,6 @@ class ColorGrids extends StatelessWidget {
           color: Colors.red,
           child: new Text("gridview"),
         ),
-        Container(color: Colors.indigo),
-        Container(color: Colors.lime),
-        Container(color: Colors.purple),
-        Container(color: Colors.green),
-        Container(color: Colors.pink),
-        Container(color: Colors.cyan),
         Container(
           color: Colors.amber,
           child: new Text("gridview"),

@@ -180,8 +180,17 @@ flutter常用控件示例
      - ChangeNotifierProvider 方法将数据注册到整个应用
      - 使用 provider 的数据首先要导入 provider 以及对应的currentIndex CurrentIndexProvide，然后用 Consumer 加类型 CurrentIndexProvide 来使用这个currentIndex
 
-。
-
+- provider的使用步骤
+  - ValueListenableProvider.value()，ValueListenableProvider()数据的监听
+  - //此方法将从BuildContext关联的小部件树中查找，它将返回找到的最近的类型变量T
+                Provider.of<T> ( BuildContext context,
+                   {bool listen = true}//listen：默认true监听状态变化，false为不监听状态改变
+              )
+                   //也可以使用Consumer组件获取，Consumer可用在没有context的地方，还可以优化性能
+                 Consumer<T>({
+                @required this.builder,//这边写布局
+                   this.child,//可以控制刷新性能优化，当数据数据发生改变，不会重新build，
+                })
 #### 登录功能界面
 
 ### dart基本语法
