@@ -178,7 +178,12 @@ flutter常用控件示例
      - 在项目的 pubspec.yml 添加 provider
      - 构建混合ChangeNotifier的类，操作全局数据，使用notifyListeners方法来通知 UI 更新
      - ChangeNotifierProvider 方法将数据注册到整个应用
-     - 使用 provider 的数据首先要导入 provider 以及对应的currentIndex CurrentIndexProvide，然后用 Consumer 加类型 CurrentIndexProvide 来使用这个currentIndex
+     - 使用 provider 的数据首先要导入 provider 以及对应的currentIndex CurrentIndexProvide，然后用 Consumer 加类型 CurrentIndexProvide 来使用这个
+
+     -  添加Provider依赖
+     -  创建Model 混入ChangeNotifier 写一个增加的方法，然后需要调用notifyListeners();这个方法是通知用到Counter对象的widget刷新用的 get方法
+     -  使用ChangeNotifierProvider 管理多个对象可以用MultiProvider
+     -  使用Provider获取Counter的值
 
 - provider的使用步骤
   - ValueListenableProvider.value()，ValueListenableProvider()数据的监听
