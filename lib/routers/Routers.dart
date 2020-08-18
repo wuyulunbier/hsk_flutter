@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
+import 'package:hsk_flutter/routers/LoginRouter.dart';
 import 'package:hsk_flutter/routers/router_init.dart';
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/compoents/WebViewPage.dart';
@@ -17,6 +18,7 @@ class Routes {
 
     /// 各自路由由各自模块管理，统一在此添加初始化
     _listRouter.add(CenterRouter());
+    _listRouter.add(LoginRouter());
 
     router.define(webViewPage, handler: Handler(handlerFunc: (_, params) {
       final String title = params['title']?.first;

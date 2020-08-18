@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/login/LoginPage.dart';
+import 'package:hsk_flutter/routers/LoginRouter.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:flutter/material.dart';
@@ -33,16 +34,16 @@ class _SettingPageState extends State<PersonSetPage> {
           ClickItem(
               title: '更换手机号码',
               onTap: () =>
-                  NavigatorUtils.push(context, CenterRouter.orderDetailPage)),
+                  NavigatorUtils.push(context, LoginRouter.changePage)),
           ClickItem(
               title: '修改密码',
               content: '',
               onTap: () =>
-                  NavigatorUtils.push(context, CenterRouter.orderDetailPage)),
+                  NavigatorUtils.push(context, LoginRouter.updatePwdPage)),
           ClickItem(
               title: '推送设置',
               onTap: () =>
-                  NavigatorUtils.push(context, CenterRouter.orderDetailPage)),
+                  NavigatorUtils.push(context, LoginRouter.notifyPage)),
         ],
         bottomButton: Padding(
           padding: const EdgeInsets.symmetric(

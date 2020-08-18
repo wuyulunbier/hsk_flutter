@@ -36,51 +36,54 @@ class _OrderListPageState extends State<OrderItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
-    // return NotificationListener(
-    //   onNotification: (ScrollNotification note) {
-    //     if (note.metrics.pixels == note.metrics.maxScrollExtent) {
-    //       _loadMore();
-    //     }
-    //     return true;
-    //   },
-    //   child: RefreshIndicator(
-    //     onRefresh: _onRefresh,
-    //     displacement: 120.0, /// 默认40， 多添加的80为Header高度
-    //     child: Consumer<OrderPageProvider>(
-    //       builder: (_, provider, child) {
-    //         return CustomScrollView(
-    //           /// 这里指定controller可以与外层NestedScrollView的滚动分离，避免一处滑动，5个Tab中的列表同步滑动。
-    //           /// 这种方法的缺点是会重新layout列表
-    //           controller: _index != provider.index ? _controller : null,
-    //           key: PageStorageKey<String>('$_index'),
-    //           slivers: <Widget>[
-    //             SliverOverlapInjector(
-    //               ///SliverAppBar的expandedHeight高度,避免重叠
-    //               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-    //             ),
-    //             child,
-    //           ],
-    //         );
-    //       },
-    //       child: SliverPadding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    //         sliver: _list.isEmpty ? SliverFillRemaining(child: StateLayout(type: _stateType)) :
-    //         SliverList(
-    //           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-    //             return index < _list.length ?
-    //             (index % 5 == 0 ?
-    //                 OrderTagItem(date: '2019年2月5日', orderTotal: 4) :
-    //                 OrderItem(key: Key('order_item_$index'), index: index, tabIndex: _index,)
-    //             ) :
-    //             MoreWidget(_list.length, _hasMore(), 10);
-    //           },
-    //           childCount: _list.length + 1),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
+    // super.build(context);
+    return NotificationListener(
+      onNotification: (ScrollNotification note) {
+        if (note.metrics.pixels == note.metrics.maxScrollExtent) {
+          _loadMore();
+        }
+        return true;
+      },
+      child: RefreshIndicator(
+        onRefresh: _onRefresh,
+        displacement: 120.0,
+
+        /// 默认40， 多添加的80为Header高度
+        child: Text('tt'),
+        // child: Consumer<OrderPageProvider>(
+        //   builder: (_, provider, child) {
+        //     return CustomScrollView(
+        //       /// 这里指定controller可以与外层NestedScrollView的滚动分离，避免一处滑动，5个Tab中的列表同步滑动。
+        //       /// 这种方法的缺点是会重新layout列表
+        //       controller: _index != provider.index ? _controller : null,
+        //       key: PageStorageKey<String>('$_index'),
+        //       slivers: <Widget>[
+        //         SliverOverlapInjector(
+        //           ///SliverAppBar的expandedHeight高度,避免重叠
+        //           handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+        //         ),
+        //         child,
+        //       ],
+        //     );
+        //   },
+        //   child: SliverPadding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        //     sliver: _list.isEmpty ? SliverFillRemaining(child: StateLayout(type: _stateType)) :
+        //     SliverList(
+        //       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        //         return index < _list.length ?
+        //         (index % 5 == 0 ?
+        //             OrderTagItem(date: '2019年2月5日', orderTotal: 4) :
+        //             OrderItem(key: Key('order_item_$index'), index: index, tabIndex: _index,)
+        //         ) :
+        //         MoreWidget(_list.length, _hasMore(), 10);
+        //       },
+        //       childCount: _list.length + 1),
+        //     ),
+        //   ),
+        // ),
+      ),
+    );
   }
 
   List<String> _list = <String>[];
