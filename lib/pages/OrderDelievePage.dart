@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:hsk_flutter/widgets/my_scroll_view.dart';
 import 'package:hsk_flutter/res/gaps.dart';
 import 'package:hsk_flutter/res/dimens.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-class OrderItemPage extends StatefulWidget {
-  const OrderItemPage({
-    Key key,
-    @required this.index,
-  }) : super(key: key);
-
-  final int index;
-
-  @override
-  _OrderListPageState createState() => _OrderListPageState();
+class OrderDelievePage extends StatefulWidget {
+  _orderDelievePageState createState() => _orderDelievePageState();
 }
 
-class _OrderListPageState extends State<OrderItemPage> {
+class _orderDelievePageState extends State<OrderDelievePage> {
   EasyRefreshController _controller;
   ScrollController _scrollController;
 
@@ -72,21 +63,8 @@ class _OrderListPageState extends State<OrderItemPage> {
                 topBouncing: _topBouncing,
                 bottomBouncing: _bottomBouncing,
                 header: _enableRefresh
-                    ? ClassicalHeader(
-                        enableInfiniteRefresh: false,
-                        bgColor: _headerFloat
-                            ? Theme.of(context).primaryColor
-                            : null,
-                        infoColor: _headerFloat ? Colors.black87 : Colors.teal,
-                        float: _headerFloat,
-                        enableHapticFeedback: _vibration,
-                        // refreshText: S.of(context).pullToRefresh,
-                        // refreshReadyText: S.of(context).releaseToRefresh,
-                        // refreshingText: S.of(context).refreshing,
-                        // refreshedText: S.of(context).refreshed,
-                        // refreshFailedText: S.of(context).refreshFailed,
-                        // noMoreText: S.of(context).noMore,
-                        // infoText: S.of(context).updateAt,
+                    ? DeliveryHeader(
+                        backgroundColor: Colors.grey[100],
                       )
                     : null,
                 footer: _enableLoad

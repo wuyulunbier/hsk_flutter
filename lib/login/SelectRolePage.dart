@@ -25,13 +25,13 @@ class selectRolePageState extends State<SelectRolePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          color: Colors.red,
+          color: Colors.white,
           height: ScreenUtils.screenH(context),
           width: ScreenUtils.screenW(context),
           child: Column(
             children: <Widget>[
               Container(
-                color: Colors.red,
+                color: Colors.white,
                 child: Text("选择身份"),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(0, 64, 0, 0),
@@ -48,13 +48,13 @@ class selectRolePageState extends State<SelectRolePage> {
                   imgUrl: 'assets/images/company_role_select_v1@2x.png',
                   onTap: () =>
                       NavigatorUtils.push(context, CenterRouter.loginPage)),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Text('data'),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              //   child: Text('data'),
+              // ),
               Container(
                 color: Colors.blue,
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: FlatButton(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   onPressed: null,
@@ -84,12 +84,12 @@ class selectRolePageState extends State<SelectRolePage> {
                       )),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8.0,
-                  ),
-                  child: Text('data'))
+              // Padding(
+              //     padding: const EdgeInsets.symmetric(
+              //       horizontal: 16.0,
+              //       vertical: 8.0,
+              //     ),
+              //     child: Text('data'))
             ],
           ),
         ));
