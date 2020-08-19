@@ -164,6 +164,29 @@ flutter常用控件示例
    - 
 #### http.dart的了解和使用 post和get
    - flutter自带的网络请求库
+
+#### json转model
+
+ - 1 手动转化
+
+ - 2 json_serializable
+  - json_serializable是dart官方推荐和提供的JSON转Model的方式
+  - 一个自动化源代码生成器来为你生成 JSON 序列化数据模
+### example
+     {
+    "url":"xxx",
+    "tabs":[
+        {
+            "labelName":"推荐",
+            "groupChannelCode":"tourphoto_global1"
+        },
+        {
+            "labelName":"拍照技巧",
+            "groupChannelCode":"tab—photo"
+        }
+     ]
+    }      
+   
    
 
 

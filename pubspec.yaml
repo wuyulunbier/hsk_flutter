@@ -76,6 +76,16 @@ dependencies:
   #本地存储
   shared_preferences: 0.5.3+2
 
+  #扫码
+  barcode_scan: ^3.0.1
+
+  #日期格式化
+  date_format: ^1.0.8
+
+
+  #json转model
+  json_serializable: ^3.4.0
+
 
   
 
