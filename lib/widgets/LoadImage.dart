@@ -3,7 +3,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/util/image_utils.dart';
 
-/// 图片加载（支持本地与网络图片）
+// 图片加载（支持本地与网络图片）
 class LoadImage extends StatelessWidget {
   const LoadImage(this.image,
       {Key key,
@@ -29,11 +29,11 @@ class LoadImage extends StatelessWidget {
     } else {
       if (image.startsWith('http')) {
         return CachedNetworkImage(
-          imageUrl: image,
-          placeholder: (_, __) =>
-              LoadAssetImage(holderImg, height: height, width: width, fit: fit),
-          errorWidget: (_, __, dynamic error) =>
-              LoadAssetImage(holderImg, height: height, width: width, fit: fit),
+          // imageUrl: image,
+          //  placeholder: (_, __) =>
+          //   LoadAssetImage(holderImg, height: height, width: width, fit: fit),
+          // errorWidget: (_, __, dynamic error) =>
+          // LoadAssetImage(holderImg, height: height, width: width, fit: fit),
           width: width,
           height: height,
           fit: fit,

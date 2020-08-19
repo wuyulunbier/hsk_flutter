@@ -92,7 +92,7 @@ samples, guidance on mobile development, and a full API reference.
    - onLongPressUp: () {},
    - onLongPressEnd: () {},
  
-## 常用属性
+## 常用控件
        GridView({
          Key key,
          Axis scrollDirection = Axis.vertical,

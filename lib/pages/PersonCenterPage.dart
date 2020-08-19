@@ -10,15 +10,20 @@ class PersonCenterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: MyAppBar(
-        //key: _hintKey,
-        title: '个人中心',
-        actionName: '设置',
-
-        backgroundColor: Colors.blue,
-        onPressed: () {
-          NavigatorUtils.push(context, CenterRouter.personsetPage);
-        },
+      appBar: AppBar(
+        title: Text('个人中心'),
+        // backgroundColor: Colors.white,
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              "设置",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              NavigatorUtils.push(context, CenterRouter.personsetPage);
+            },
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[

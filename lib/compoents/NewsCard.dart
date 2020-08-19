@@ -19,9 +19,9 @@ class NewsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(16),
-        //onTap: onTap,
+        // onTap: onTap,
         child: GestureDetector(
-          onTap: onTap,
+          onTap: onItemClick,
           child: Row(
             children: <Widget>[
               Expanded(
