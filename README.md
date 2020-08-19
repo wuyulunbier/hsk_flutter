@@ -76,6 +76,9 @@ samples, guidance on mobile development, and a full API reference.
    - 2 状态变化
    - 3 移除组件
 
+## flutter渲染原理
+    
+
 ## Flutter手势的学习
    - onTapDown: (details) {},
    - onTapUp: (details) {},
@@ -89,30 +92,30 @@ samples, guidance on mobile development, and a full API reference.
    - onLongPressUp: () {},
    - onLongPressEnd: () {},
  
-//常用属性
-- GridView({
-  Key key,
-  Axis scrollDirection = Axis.vertical,
-  bool reverse = false,
-  ScrollController controller,
-  ScrollPhysics physics,
-  bool shrinkWrap = false,
-  EdgeInsetsGeometry padding,
-  @required this.gridDelegate,
-  double cacheExtent,
-  List<Widget> children = const <Widget>[],
-})
+## 常用属性
+       GridView({
+         Key key,
+         Axis scrollDirection = Axis.vertical,
+          bool reverse = false,
+          ScrollController controller,
+          ScrollPhysics physics,
+          bool shrinkWrap = false,
+          EdgeInsetsGeometry padding,
+          @required this.gridDelegate,
+           double cacheExtent,
+           List<Widget> children = const <Widget>[],
+        })
 
-- ListView({
-  Axis scrollDirection = Axis.vertical,
-  ScrollController controller,
-  ScrollPhysics physics,
-  bool shrinkWrap = false,
-  EdgeInsetsGeometry padding,
-  this.itemExtent,
-  double cacheExtent,
-  List<Widget> children = const <Widget>[],
-})
+      ListView({
+        Axis scrollDirection = Axis.vertical,
+        ScrollController controller,
+        ScrollPhysics physics,
+        bool shrinkWrap = false,
+        EdgeInsetsGeometry padding,
+        this.itemExtent,
+        double cacheExtent,
+        List<Widget> children = const <Widget>[],
+       })
 
 - SingleChildScrollView
 - Row
@@ -208,7 +211,7 @@ flutter常用控件示例
   - 一个自动化源代码生成器来为你生成 JSON 序列化数据模
     - 1 添加第三方库和依赖
     - 2 创建model和自动化配置@JsonSerializable() part 'peesonModel.g.dart'
-    - 3 生成Json解析文件 flutter packages pub run build_runner build
+    - 3 生成Json解析文件 flutter packages pub run build_runner build 或者 flutter pub run build_runner watch
     - 4 重新构建model类
     - 5 业务场景的使用 json转成Map, Json 转 Model ，Model转成Map
 

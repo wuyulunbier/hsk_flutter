@@ -25,6 +25,9 @@ import 'package:hsk_flutter/JSON/personModel.dart';
 import 'dart:convert';
 import 'package:hsk_flutter/res/mockData.dart';
 
+import 'package:hsk_flutter/JSON/loginInfoModel.dart';
+import 'package:hsk_flutter/res/mockInfo.dart';
+
 /**
  * audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -82,6 +85,11 @@ class LoginPageState extends State<LoginPage> {
   String _loginValue = 'login';
   SharedPreferences pres;
 
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _nodeText1 = FocusNode();
+  final FocusNode _nodeText2 = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -138,9 +146,12 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
               child: TextField(
+                key: const Key('phone'),
+                focusNode: _nodeText1,
+                controller: _nameController,
                 ////Image.asset('assets/images/login_number@2x.png',
                 decoration: InputDecoration(
-                    prefixIcon: new Icon(Icons.phone),
+                    // prefixIcon: new Icon(Icons.phone),
                     //  / fillColor: Colors.blue.shade100,
                     // filled: true,
                     hintText: '输入手机号'),
@@ -150,10 +161,13 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextField(
+                key: const Key('password'),
+                focusNode: _nodeText2,
+                controller: _passwordController,
                 obscureText: true, //是否是密码
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(10.0),
-                    prefixIcon: new Icon(Icons.phone),
+                    //prefixIcon: new Icon(Icons.phone),
                     //fillColor: Colors.blue.shade100,
                     // filled: true,
 
@@ -247,13 +261,13 @@ class LoginPageState extends State<LoginPage> {
             //     print("88888"),
             //   },
             // ),
-            FlatButton(
-              onPressed: _register,
-              child: Text("FlatButton66"),
-              textColor: Colors.white,
-              textTheme: ButtonTextTheme.normal,
-              color: Color(0xFF82B1FF),
-            ),
+            // FlatButton(
+            //   onPressed: _register,
+            //   child: Text("FlatButton66"),
+            //   textColor: Colors.white,
+            //   textTheme: ButtonTextTheme.normal,
+            //   color: Color(0xFF82B1FF),
+            // ),
 
             ///  HomeItem(),
           ],
@@ -271,33 +285,56 @@ class LoginPageState extends State<LoginPage> {
     ///
     ///share_preference 本地存储的使用
     SharedPreferences pres1 = await SharedPreferences.getInstance();
-    //pres1.setBool('islogin', true);
-    pres1.setString('userName', '13866850026');
-    pres1.setString('pwd', '123456');
 
     SharedPreferenceUtil.setBool("islogin", true);
     //数据存储和状态通知
 
-    //NavigatorUtils.push(null, CenterRouter.mainContainPage);
+    if (_nameController.text.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
+      return;
+    }
 
-    FormData params = FormData.fromMap(
-        {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
+    if (_passwordController.text.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
+      return;
+    }
+    // FormData params = FormData.fromMap({
+    //   'Umengid': 'ios',
+    //   'tel': _nameController.text,
+    //   'pwd': _passwordController.text
+    // });
+    var param = {
+      'Umengid': 'ios',
+      'tel': _nameController.text,
+      'pwd': _passwordController.text
+    };
+
+    print(param);
+    print('99999');
+
     RequestManager.getInstance()
-        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
+        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', param, (data) {
+      print(data);
       NavigatorUtils.push(context, CenterRouter.mainContainPage,
           clearStack: true);
-      // Fluttertoast.showToast(
-      //     msg: data.toString(),
-      //     gravity: ToastGravity.CENTER,
-      //     backgroundColor: Colors.blue);
+      loginInfo info = loginInfo.fromJson(data['ReObj']);
+
+      print(info.DriverName);
+      print(info.DriverName);
+
+      pres1.setBool('islogin', true);
+      pres1.setString('userName', _nameController.text);
+      pres1.setString('pwd', _passwordController.text);
 
       Fluttertoast.showToast(
-          msg: '登录成功',
+          msg: '登录成功' + info.DriverName,
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.blue);
-    }, (error) {});
+    }, (error) {
+      print('错误');
 
-    print('button pressed');
+      Fluttertoast.showToast(msg: '账号或者密码错误', gravity: ToastGravity.CENTER);
+    });
   }
 }
 
@@ -344,11 +381,21 @@ void testBool() {
 }
 
 _register() {
-  Fluttertoast.showToast(
-      msg: "注册成功", gravity: ToastGravity.BOTTOM, backgroundColor: Colors.blue);
-
   Map dataMap = json.decode(JsonString.mockdata);
+
   Data data1 = Data.fromJson(dataMap);
 
-  print('模型数据' + data1.title);
+  Map infoMap = json.decode(LoginInfo.mockdata);
+  loginInfo info = loginInfo.fromJson(infoMap);
+
+  print(info.DriverName);
+
+  print(data1.kids);
+
+  print(info.CarHeight.toString() + "车高");
+
+  Fluttertoast.showToast(
+      msg: info.DriverName,
+      gravity: ToastGravity.CENTER,
+      backgroundColor: Colors.blue);
 }

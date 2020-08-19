@@ -9,7 +9,6 @@ part of 'personModel.dart';
 Data _$DataFromJson(Map<String, dynamic> json) {
   return Data(
     by: json['by'] as String,
-    descendants: json['descendants'] as int,
     id: json['id'] as int,
     kids: (json['kids'] as List)?.map((e) => e as int)?.toList(),
     score: json['score'] as int,
@@ -17,12 +16,12 @@ Data _$DataFromJson(Map<String, dynamic> json) {
     title: json['title'] as String,
     type: json['type'] as String,
     url: json['url'] as String,
+    name: json['name'] as String,
   );
 }
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'by': instance.by,
-      'descendants': instance.descendants,
       'id': instance.id,
       'kids': instance.kids,
       'score': instance.score,
@@ -30,4 +29,5 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'title': instance.title,
       'type': instance.type,
       'url': instance.url,
+      'name': instance.name,
     };

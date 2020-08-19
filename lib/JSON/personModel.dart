@@ -4,7 +4,7 @@ part 'personModel.g.dart';
 @JsonSerializable()
 class Data {
   final String by;
-  final int descendants;
+  //final int descendants;
   final int id;
   final List<int> kids;
   final int score;
@@ -12,17 +12,20 @@ class Data {
   final String title;
   final String type;
   final String url;
+  final String name;
 
   Data(
       {this.by,
-      this.descendants,
+
+      ///this.descendants,
       this.id,
       this.kids,
       this.score,
       this.time,
       this.title,
       this.type,
-      this.url});
+      this.url,
+      this.name});
 
   // 使用命名构造函数从另一类或现有的数据中快速实现构造函数。
   // 一个User.fromJson 构造函数, 用于从一个map构造出一个 User实例 map structure

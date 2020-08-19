@@ -39,7 +39,7 @@ class RequestManager {
   }
 
   //get请求
-  get(String url, FormData params, Function successCallBack,
+  get(String url, Map params, Function successCallBack,
       Function errorCallBack) async {
     print('6666' + url);
     _requstHttp(url, successCallBack, 'get', params, errorCallBack);
@@ -52,25 +52,20 @@ class RequestManager {
   }
 
   _requstHttp(String url, Function successCallBack,
-      [String method, FormData params, Function errorCallBack]) async {
+      [String method, Map params, Function errorCallBack]) async {
     Response response;
     try {
       if (method == 'get') {
         if (params != null) {
-          print('param 9999' + params.fields.toString());
-          //&& params.isNotEmptyget(url, queryParameters: params);
-          response = await dio.get(url, queryParameters: {
-            'Umengid': 'ios',
-            'tel': '13866850026',
-            'pwd': '654321'
-          });
+          response = await dio.get(url, queryParameters: params);
         } else {
           response = await dio.get(url);
         }
       } else if (method == 'post') {
         if (params != null) {
           // && params.isNotEmpty
-          response = await dio.post(url, data: params);
+          FormData p = FormData.fromMap(params);
+          response = await dio.post(url, data: p);
         } else {
           response = await dio.post(url);
         }
@@ -116,13 +111,8 @@ class RequestManager {
     }
     String dataStr = json.encode(response.data);
     Map<String, dynamic> dataMap = json.decode(dataStr);
-    if (dataMap == null || dataMap['state'] == 0) {
-      _error(
-          errorCallBack,
-          '错误码：' +
-              dataMap['errorCode'].toString() +
-              '，' +
-              response.data.toString());
+    if (dataMap == null || dataMap['Success'] == -1) {
+      _error(errorCallBack, response.data.toString());
     } else if (successCallBack != null) {
       successCallBack(dataMap);
     }

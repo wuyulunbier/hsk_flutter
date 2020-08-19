@@ -44,7 +44,7 @@ dependencies:
   fluro: "^1.6.3"
 
   #网络请求
-  dio: any
+  dio: ^3.0.10
 
   #弹框
   fluttertoast: 3.0.4
