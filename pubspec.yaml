@@ -84,14 +84,19 @@ dependencies:
 
 
   #json转model
+  
+  json_annotation: ^3.0.0
   json_serializable: ^3.4.0
-
+  build_runner: ^1.6.6
 
   
 
 dev_dependencies:
+  
   flutter_test:
     sdk: flutter
+
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -21,6 +21,10 @@ import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/res/SharedPreferenceUtil.dart';
 
+import 'package:hsk_flutter/JSON/personModel.dart';
+import 'dart:convert';
+import 'package:hsk_flutter/res/mockData.dart';
+
 /**
  * audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -243,13 +247,13 @@ class LoginPageState extends State<LoginPage> {
             //     print("88888"),
             //   },
             // ),
-            // FlatButton(
-            //   onPressed: _login,
-            //   child: Text("FlatButton66"),
-            //   textColor: Colors.white,
-            //   textTheme: ButtonTextTheme.normal,
-            //   color: Color(0xFF82B1FF),
-            // ),
+            FlatButton(
+              onPressed: _register,
+              child: Text("FlatButton66"),
+              textColor: Colors.white,
+              textTheme: ButtonTextTheme.normal,
+              color: Color(0xFF82B1FF),
+            ),
 
             ///  HomeItem(),
           ],
@@ -342,4 +346,9 @@ void testBool() {
 _register() {
   Fluttertoast.showToast(
       msg: "注册成功", gravity: ToastGravity.BOTTOM, backgroundColor: Colors.blue);
+
+  Map dataMap = json.decode(JsonString.mockdata);
+  Data data1 = Data.fromJson(dataMap);
+
+  print('模型数据' + data1.title);
 }

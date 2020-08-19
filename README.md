@@ -169,9 +169,49 @@ flutter常用控件示例
 
  - 1 手动转化
 
+### example 
+    {
+        "icon": "http://www.devio.org/io/flutter_app/img/ln_food.png",
+        "title": "美食林",
+        "url": "https://m.ctrip.com/webapp/you/foods/address.html?new=1&ishideheader=true",
+        "statusBarColor": "19A0F0",
+        "hideAppBar": true
+    }
+       解析:
+       Map<String,dynamic> map = JSON.decode(jsonStr);
+       将Map转换成model
+
+       class CommonModel {
+          final String icon;
+          final String title;
+          final String url;
+          final String statusBarColor;
+          final bool hideAppBar;
+
+           CommonModel({this.icon, this.title, this.url, this.statusBarColor,
+                 this.hideAppBar});
+
+            factory CommonModel.fromJson(Map<String, dynamic> json){//通过CommonModel.fromJson 构造函数 map构造出一个 通过CommonModel实例
+               return CommonModel(
+                   icon: json['icon'],
+                   title: json['title'],
+                   url: json['url'],
+                   statusBarColor: json['statusBarColor'],
+                   hideAppBar: json['hideAppBar']);
+          }
+
+       }
+    
+
  - 2 json_serializable
   - json_serializable是dart官方推荐和提供的JSON转Model的方式
   - 一个自动化源代码生成器来为你生成 JSON 序列化数据模
+    - 1 添加第三方库和依赖
+    - 2 创建model和自动化配置@JsonSerializable() part 'peesonModel.g.dart'
+    - 3 生成Json解析文件 flutter packages pub run build_runner build
+    - 4 重新构建model类
+    - 5 业务场景的使用 json转成Map, Json 转 Model ，Model转成Map
+
 ### example
      {
     "url":"xxx",
