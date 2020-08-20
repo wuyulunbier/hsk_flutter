@@ -4,6 +4,9 @@ import 'package:hsk_flutter/res/dimens.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
+import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/routers/CenterPouter.dart';
+
 class OrderCompletPage extends StatefulWidget {
   _orderCompletePageState createState() => _orderCompletePageState();
 }
@@ -138,6 +141,16 @@ class _orderCompletePageState extends State<OrderCompletPage> {
               Text(index % 2 == 0 ? '玫瑰香 520ml' : '125ml',
                   style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap8,
+              FlatButton(
+                onPressed: () {
+                  //NavigatorUtils.goWebViewPage(
+                  // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
+                  NavigatorUtils.push(context,
+                      '${CenterRouter.orderDetailPage}?orderId=${index.toString()}'); //路由传值  将订单的orderId传到详情页面
+                },
+                child: Text('第${index}个订单'),
+                color: Colors.orange,
+              ),
               Row(
                 children: <Widget>[
                   Container(

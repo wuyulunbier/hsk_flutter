@@ -53,17 +53,6 @@ class _SettingPageState extends State<PersonSetPage> {
           child: MyButton(
               key: const Key('login'),
               onPressed: () => _showExitDialog(),
-              // onPressed: () => NavigatorUtils.goBackWithParams(context, 'add'),
-              // onPressed: () => {
-              //       print('退出登录'),
-              //       //NavigatorUtils.goBackWithParams(context, 'add'), f返回上一层
-              //       //NavigatorUtils.push(context, CenterRouter.loginPage),
-              //       Navigator.of(context).push(MaterialPageRoute(
-              //           fullscreenDialog: true,
-              //           builder: (context) => LoginPage())),
-              //       Fluttertoast.showToast(
-              //           msg: '登出成功', gravity: ToastGravity.CENTER),
-              //     },
               text: '退出登录'),
         ),
       ),

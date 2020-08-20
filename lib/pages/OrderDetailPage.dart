@@ -5,6 +5,10 @@ import 'package:hsk_flutter/res/dimens.dart';
 //import "package:hsk_flutter/util/screen_utils.dart";
 
 class OrderDetailPage extends StatefulWidget {
+  const OrderDetailPage({Key key, this.orderId}) : super(key: key);
+
+  final String orderId;
+
   @override
   _orderInfoPageState createState() => _orderInfoPageState();
 }
@@ -23,6 +27,9 @@ class _orderInfoPageState extends State<OrderDetailPage> {
       ),
     ];
 
+    print('999');
+    print(widget.orderId);
+    print('888');
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -43,7 +50,7 @@ class _orderInfoPageState extends State<OrderDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          child: Text('data'),
+          child: Text(widget.orderId),
           margin: const EdgeInsets.only(top: 5.0),
         ),
         Gaps.hGap8,

@@ -5,6 +5,9 @@ import 'package:hsk_flutter/res/dimens.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
+import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/routers/CenterPouter.dart';
+
 class OrderDelievePage extends StatefulWidget {
   _orderDelievePageState createState() => _orderDelievePageState();
 }
@@ -118,19 +121,7 @@ class _orderDelievePageState extends State<OrderDelievePage> {
                       childCount: _count,
                     ),
                   ),
-                ])
-
-            // padding: const EdgeInsets.only(top: 16.0),
-            // child: ListView.builder(
-            //   // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
-            //   shrinkWrap: true,
-            //   // scrollDirection: Axis.vertical,
-            //   // 禁用ListView滑动，使用外层的ScrollView滑动
-            //   physics: const AlwaysScrollableScrollPhysics(),
-            //   itemCount: 26,
-            //   itemBuilder: (_, index) => _getOrderGoodsItem(index),
-            // ),
-            ));
+                ])));
   }
 
   Widget _getOrderGoodsItem(int index) {
@@ -155,6 +146,16 @@ class _orderDelievePageState extends State<OrderDelievePage> {
               Text(index % 2 == 0 ? '玫瑰香 520ml' : '125ml',
                   style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap8,
+              FlatButton(
+                onPressed: () {
+                  //NavigatorUtils.goWebViewPage(
+                  // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
+                  NavigatorUtils.push(context,
+                      '${CenterRouter.orderDetailPage}?orderId=${index.toString()}'); //路由传值  将订单的orderId传到详情页面
+                },
+                child: Text('第${index}个订单'),
+                color: Colors.orange,
+              ),
               Row(
                 children: <Widget>[
                   Container(

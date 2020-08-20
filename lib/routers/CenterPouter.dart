@@ -24,11 +24,17 @@ class CenterRouter implements IRouterProvider {
       final String title = params['title']?.first;
       final String url =
           params['https://github.com/simplezhli/flutter_deer']?.first;
+
       return WebViewPage(title: title, url: url);
     }));
 
-    router.define(orderDetailPage,
-        handler: Handler(handlerFunc: (_, params) => OrderDetailPage()));
+    router.define(orderDetailPage, handler: Handler(handlerFunc: (_, params) {
+      final String orderId = params['orderId']?.first;
+
+      print('555' + orderId);
+
+      return OrderDetailPage(orderId: orderId);
+    }));
 
     router.define(personsetPage,
         handler: Handler(handlerFunc: (_, params) => PersonSetPage()));

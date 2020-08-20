@@ -6,6 +6,9 @@ import 'package:hsk_flutter/res/dimens.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
+import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/routers/CenterPouter.dart';
+
 class OrderItemPage extends StatefulWidget {
   const OrderItemPage({
     Key key,
@@ -80,12 +83,12 @@ class _OrderListPageState extends State<OrderItemPage> {
                         infoColor: _headerFloat ? Colors.black87 : Colors.teal,
                         float: _headerFloat,
                         enableHapticFeedback: _vibration,
-                        // refreshText: S.of(context).pullToRefresh,
-                        // refreshReadyText: S.of(context).releaseToRefresh,
-                        // refreshingText: S.of(context).refreshing,
-                        // refreshedText: S.of(context).refreshed,
-                        // refreshFailedText: S.of(context).refreshFailed,
-                        // noMoreText: S.of(context).noMore,
+                        refreshText: '释放刷新',
+                        refreshReadyText: '释放刷新',
+                        refreshingText: '正在刷新',
+                        refreshedText: '刷新完成',
+                        refreshFailedText: '刷新失败',
+                        noMoreText: '暂无更多数据',
                         // infoText: S.of(context).updateAt,
                       )
                     : null,
@@ -98,7 +101,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                         // loadingText: S.of(context).loading,
                         // loadedText: S.of(context).loaded,
                         // loadFailedText: S.of(context).loadFailed,
-                        // noMoreText: S.of(context).noMore,
+                        noMoreText: '暂无更多数据',
                         // infoText: S.of(context).updateAt,
                       )
                     : null,
@@ -124,9 +127,9 @@ class _OrderListPageState extends State<OrderItemPage> {
                             setState(() {
                               _count += 20;
                             });
-                            if (!_enableControlFinish) {
-                              _controller.finishLoad(noMore: _count >= 80);
-                            }
+                            // if (!_enableControlFinish) {
+                            //   _controller.finishLoad(noMore: _count >= 80);
+                            // }
                           }
                         });
                       }
@@ -140,19 +143,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                       childCount: _count,
                     ),
                   ),
-                ])
-
-            // padding: const EdgeInsets.only(top: 16.0),
-            // child: ListView.builder(
-            //   // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
-            //   shrinkWrap: true,
-            //   // scrollDirection: Axis.vertical,
-            //   // 禁用ListView滑动，使用外层的ScrollView滑动
-            //   physics: const AlwaysScrollableScrollPhysics(),
-            //   itemCount: 26,
-            //   itemBuilder: (_, index) => _getOrderGoodsItem(index),
-            // ),
-            ));
+                ])));
   }
 
   Widget _getOrderGoodsItem(int index) {
@@ -177,6 +168,16 @@ class _OrderListPageState extends State<OrderItemPage> {
               Text(index % 2 == 0 ? '玫瑰香 520ml' : '125ml',
                   style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap8,
+              FlatButton(
+                onPressed: () {
+                  //NavigatorUtils.goWebViewPage(
+                  // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
+                  NavigatorUtils.push(context,
+                      '${CenterRouter.orderDetailPage}?orderId=${index.toString()}'); //路由传值  将订单的orderId传到详情页面
+                },
+                child: Text('第${index}个订单'),
+                color: Colors.orange,
+              ),
               Row(
                 children: <Widget>[
                   Container(
@@ -197,6 +198,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                   ),
                   Gaps.hGap4,
                   Offstage(
+                    //控制隐藏和展示
                     offstage: index % 2 != 0,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -206,13 +208,13 @@ class _OrderListPageState extends State<OrderItemPage> {
                       ),
                       height: 16.0,
                       alignment: Alignment.center,
-                      child: const Text(
-                        '抵扣2.50元',
+                      child: Text(
+                        '${index}元',
                         style: TextStyle(
                             color: Colors.white, fontSize: Dimens.font_sp10),
                       ),
                     ),
-                  )
+                  ),
                 ],
               )
             ],
@@ -220,7 +222,7 @@ class _OrderListPageState extends State<OrderItemPage> {
         ),
         Gaps.hGap8,
         Text(
-          'x1',
+          'x6',
         ),
         Gaps.hGap32,
         // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),

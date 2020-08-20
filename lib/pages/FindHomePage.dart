@@ -66,10 +66,16 @@ class FindHomePage extends StatelessWidget {
         slivers: <Widget>[
           new SliverToBoxAdapter(
             child: new Container(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-              alignment: Alignment.center,
-              color: Colors.white,
-              child: rendSwiper(),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Swiper(
+                itemCount: 3,
+                viewportFraction: 0.8,
+                scale: 0.9,
+                autoplay: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Image.network(imgList[index], fit: BoxFit.fitWidth);
+                },
+              ),
               height: 180,
             ),
           ),
@@ -262,22 +268,6 @@ class FindHomePage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget rendSwiper() {
-    return new Swiper(
-      itemBuilder: (BuildContext context, int index) {
-        return Image.network(imgList[index], fit: BoxFit.fitWidth);
-      },
-
-      itemHeight: 60,
-      itemWidth: 50,
-      autoplay: true,
-      duration: 300,
-      itemCount: 3,
-      // pagination: new SwiperPagination(),
-      //control: new SwiperControl(),
     );
   }
 

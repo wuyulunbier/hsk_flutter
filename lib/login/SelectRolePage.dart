@@ -48,10 +48,6 @@ class selectRolePageState extends State<SelectRolePage> {
                   imgUrl: 'assets/images/company_role_select_v1@2x.png',
                   onTap: () =>
                       NavigatorUtils.push(context, CenterRouter.loginPage)),
-              // Padding(
-              //   padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              //   child: Text('data'),
-              // ),
               Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -84,12 +80,15 @@ class selectRolePageState extends State<SelectRolePage> {
                       )),
                 ),
               ),
-              // Padding(
-              //     padding: const EdgeInsets.symmetric(
-              //       horizontal: 16.0,
-              //       vertical: 8.0,
-              //     ),
-              //     child: Text('data'))
+
+              // SafeArea(
+              //     child:Padding(padding: const EdgeInsets.only(bottom: 0),
+              //     child: FlatButton(
+              //       onPressed: (){
+
+              //     },
+              //     child: Text('data')
+              //     )),
             ],
           ),
         ));
