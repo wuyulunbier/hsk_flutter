@@ -67,8 +67,7 @@ samples, guidance on mobile development, and a full API reference.
   - 容器组件 和 可视组件 Container  Row Column 
     - 1 - 滚动型容器组件 ListView()
     - 2 - 网格型布局 - GridView篇
-    - 3 - 下拉刷新的实现
-    - 4 - 
+    - 3 - 下拉刷新的实现 上拉加载的实现
 
 
 ## 组件的生命周期
@@ -300,10 +299,15 @@ flutter常用控件示例
     - 3 发布应用市场+
 
 
+  ### flutter与原生开发的交互
+    -  
+
     ### 项目的实现
-     - 实现角色的选择
-     - 实现登录功能
-     - 实现首页排版
-     - 实现排期
-     - 实现个人中心
+     - 实现角色的选择  基本布局 
+     - 实现登录功能  网络请求 json转model 本地数据存储  provide状态管理
+     - 实现首页排版  customscrollview
+     - 实现排期  下拉刷新  上拉加载  基本cell布局 
+     - 实现个人中心 网页查看 退出登录 表单提交  相册和拍照功能  清理缓存   常用组件的封装
      
+
+     - 网络请求 模型转换  刷新组件的封装  provide的复杂实现 
