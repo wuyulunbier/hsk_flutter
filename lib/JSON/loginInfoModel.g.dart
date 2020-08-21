@@ -15,7 +15,6 @@ loginInfo _$loginInfoFromJson(Map<String, dynamic> json) {
     CarNo: json['CarNo'] as String,
     HeadPic: json['HeadPic'] as String,
     CarType: json['CarType'] as int,
-    CreateTime: json['CreateTime'] as String,
   );
 }
 
@@ -27,5 +26,4 @@ Map<String, dynamic> _$loginInfoToJson(loginInfo instance) => <String, dynamic>{
       'CarNo': instance.CarNo,
       'HeadPic': instance.HeadPic,
       'CarType': instance.CarType,
-      'CreateTime': instance.CreateTime,
     };

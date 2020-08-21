@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hsk_flutter/JSON/userOrderModel.dart';
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:hsk_flutter/widgets/my_scroll_view.dart';
 import 'package:hsk_flutter/res/gaps.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
+import 'package:hsk_flutter/JSON/userOrderModel.dart';
 
 class OrderItemPage extends StatefulWidget {
   const OrderItemPage({
@@ -51,9 +53,32 @@ class _OrderListPageState extends State<OrderItemPage> {
   // 底部回弹
   bool _bottomBouncing = true;
 
+  List<UserOrderModel> _listArr = <UserOrderModel>[];
+
   @override
   void initState() {
     super.initState();
+
+    var params = {'carid': 808, 'state': '3', 'page': 1};
+    RequestManager.getInstance().post(
+        'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+        params, (data) {
+      //  print(data);
+
+      var list = data['d']['ReList'][0];
+
+      print('88888');
+      for (Map order in list) {
+        UserOrderModel model = UserOrderModel.fromJson(order);
+        print(model.FromAddr);
+
+        _listArr.add(model);
+
+        print(model.ToAddr);
+      }
+    }, (error) {
+      print(error);
+    });
 
     _controller = EasyRefreshController();
     _scrollController = ScrollController();
@@ -123,7 +148,18 @@ class _OrderListPageState extends State<OrderItemPage> {
                         RequestManager.getInstance().post(
                             'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
                             params, (data) {
-                          print(data);
+                          //  print(data);
+
+                          var list = data['d']['ReList'][0];
+
+                          print('88888');
+                          for (Map order in list) {
+                            UserOrderModel model =
+                                UserOrderModel.fromJson(order);
+                            print(model.FromAddr);
+                            _listArr.add(model);
+                            print(model.ToAddr);
+                          }
                         }, (error) {
                           print(error);
                         });
@@ -162,13 +198,14 @@ class _OrderListPageState extends State<OrderItemPage> {
                       (context, index) {
                         return _getOrderGoodsItem(index);
                       },
-                      childCount: _count,
+                      childCount: _listArr.length,
                     ),
                   ),
                 ])));
   }
 
   Widget _getOrderGoodsItem(int index) {
+    UserOrderModel info = _listArr[index];
     var item = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -182,12 +219,12 @@ class _OrderListPageState extends State<OrderItemPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                index % 2 == 0 ? '浙江省杭州市中东国际' : '安徽省合肥市明发广场',
+                '${info.FromAddr}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Gaps.vGap4,
-              Text(index % 2 == 0 ? '火山玻璃 520ml' : '125ml',
+              Text('${info.ToAddr}',
                   style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap8,
               FlatButton(
@@ -195,7 +232,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                   //NavigatorUtils.goWebViewPage(
                   // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
                   NavigatorUtils.push(context,
-                      '${CenterRouter.orderDetailPage}?orderId=${index.toString()}'); //路由传值  将订单的orderId传到详情页面
+                      '${CenterRouter.orderDetailPage}?orderId=${info.OrderID}'); //路由传值  将订单的orderId传到详情页面
                 },
                 child: Text('第${index}个订单'),
                 color: Colors.orange,

@@ -12,7 +12,7 @@ class loginInfo {
   final String HeadPic;
   final int CarType;
   // final int CarRZState;
-  final String CreateTime;
+  //final String CreateTime;
 
   loginInfo({
     this.DriverName,
@@ -23,7 +23,7 @@ class loginInfo {
     this.HeadPic,
     this.CarType,
     // this.CarRZState,
-    this.CreateTime,
+    //this.CreateTime,
   });
 
   // 使用命名构造函数从另一类或现有的数据中快速实现构造函数。

@@ -42,6 +42,7 @@ class RequestManager {
   get(String url, Map params, Function successCallBack,
       Function errorCallBack) async {
     print('6666' + url);
+
     _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
@@ -71,9 +72,6 @@ class RequestManager {
 
           // var p = {"carid": 808, "state": "", "page": 1};
 
-          print('11');
-          print(params);
-          // print(p);
           response = await dio.post(url, data: params);
         } else {
           response = await dio.post(url);
@@ -95,8 +93,6 @@ class RequestManager {
       else if (error.type == DioErrorType.RECEIVE_TIMEOUT) {
         errorResponse.statusCode = ResultCode.RECEIVE_TIMEOUT;
       }
-
-      print(error.message + '8888');
 
       // debug模式才打印
       if (GlobalConfig.isDebug) {
