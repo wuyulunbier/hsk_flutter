@@ -13,6 +13,15 @@ class OrderDetailPage extends StatefulWidget {
   _orderInfoPageState createState() => _orderInfoPageState();
 }
 
+/**
+ * http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderDetailsByCar
+ * {
+	"id": 28852,
+	"type": 1,
+	"carid": 808
+}
+ */
+
 class _orderInfoPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {

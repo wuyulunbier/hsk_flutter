@@ -289,15 +289,16 @@ class LoginPageState extends State<LoginPage> {
     SharedPreferenceUtil.setBool("islogin", true);
     //数据存储和状态通知
 
-    if (_nameController.text.length == 0) {
-      Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
-      return;
-    }
+    // if (_nameController.text.length == 0) {
+    //   Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
+    //   return;
+    // }
 
-    if (_passwordController.text.length == 0) {
-      Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
-      return;
-    }
+    // if (_passwordController.text.length == 0) {
+    //   Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
+    //   return;
+    // }
+
     // FormData params = FormData.fromMap({
     //   'Umengid': 'ios',
     //   'tel': _nameController.text,
@@ -308,6 +309,9 @@ class LoginPageState extends State<LoginPage> {
       'tel': _nameController.text,
       'pwd': _passwordController.text
     };
+
+    NavigatorUtils.push(context, CenterRouter.mainContainPage,
+        clearStack: true);
 
     print(param);
     print('99999');

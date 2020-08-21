@@ -46,26 +46,35 @@ class RequestManager {
   }
 
   //post请求
-  post(String url, params, Function successCallBack,
+  post(String url, Map params, Function successCallBack,
       Function errorCallBack) async {
     _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
   _requstHttp(String url, Function successCallBack,
-      [String method, Map params, Function errorCallBack]) async {
+      [String method, params, Function errorCallBack]) async {
     Response response;
     try {
       if (method == 'get') {
         if (params != null) {
-          response = await dio.get(url, queryParameters: params);
+          // response = await dio.get(url, queryParameters: params);
         } else {
           response = await dio.get(url);
         }
       } else if (method == 'post') {
         if (params != null) {
           // && params.isNotEmpty
-          FormData p = FormData.fromMap(params);
-          response = await dio.post(url, data: p);
+
+          //  FormData p = FormData.fromMap(params);
+
+          // FormData p = FormData.fromMap({'carid': 808, 'state': '', 'page': 1});
+
+          var p = {'carid': 808, 'state': '', 'page': 1};
+
+          print('11');
+          print(params);
+          // print(p);
+          response = await dio.post(url, queryParameters: p);
         } else {
           response = await dio.post(url);
         }
@@ -86,6 +95,8 @@ class RequestManager {
       else if (error.type == DioErrorType.RECEIVE_TIMEOUT) {
         errorResponse.statusCode = ResultCode.RECEIVE_TIMEOUT;
       }
+
+      print(error.message + '8888');
 
       // debug模式才打印
       if (GlobalConfig.isDebug) {

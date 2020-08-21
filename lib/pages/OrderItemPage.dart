@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:hsk_flutter/widgets/my_scroll_view.dart';
@@ -53,9 +54,20 @@ class _OrderListPageState extends State<OrderItemPage> {
   @override
   void initState() {
     super.initState();
+
     _controller = EasyRefreshController();
     _scrollController = ScrollController();
   }
+
+  // http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid
+  //
+  /**
+    * {
+	 "carid": 808,
+	 "state": "3",
+	 "page": 1
+}
+    */
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +119,22 @@ class _OrderListPageState extends State<OrderItemPage> {
                     : null,
                 onRefresh: _enableRefresh
                     ? () async {
+                        // FormData params = FormData.fromMap(
+                        //     {'carid': '808', 'state': '3', 'page': '1'});
+
+                        var params = {'carid': 808, 'state': '3', 'page': 1};
+
+                        print('kkk');
+                        RequestManager.getInstance().post(
+                            'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+                            params, (data) {
+                          print(data);
+                          print('mmm');
+                        }, (error) {
+                          print('bb');
+                          print(error);
+                        });
+
                         await Future.delayed(Duration(seconds: 2), () {
                           if (mounted) {
                             setState(() {
@@ -135,6 +163,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                       }
                     : null,
                 slivers: <Widget>[
+                  //  Text('data'),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
