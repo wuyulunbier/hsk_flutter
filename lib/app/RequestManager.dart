@@ -69,12 +69,12 @@ class RequestManager {
 
           // FormData p = FormData.fromMap({'carid': 808, 'state': '', 'page': 1});
 
-          var p = {'carid': 808, 'state': '', 'page': 1};
+          // var p = {"carid": 808, "state": "", "page": 1};
 
           print('11');
           print(params);
           // print(p);
-          response = await dio.post(url, queryParameters: p);
+          response = await dio.post(url, data: params);
         } else {
           response = await dio.post(url);
         }

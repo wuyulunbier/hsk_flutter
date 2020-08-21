@@ -119,19 +119,12 @@ class _OrderListPageState extends State<OrderItemPage> {
                     : null,
                 onRefresh: _enableRefresh
                     ? () async {
-                        // FormData params = FormData.fromMap(
-                        //     {'carid': '808', 'state': '3', 'page': '1'});
-
                         var params = {'carid': 808, 'state': '3', 'page': 1};
-
-                        print('kkk');
                         RequestManager.getInstance().post(
                             'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
                             params, (data) {
                           print(data);
-                          print('mmm');
                         }, (error) {
-                          print('bb');
                           print(error);
                         });
 
