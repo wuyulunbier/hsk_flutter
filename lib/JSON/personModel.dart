@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'personModel.g.dart';
+
+part 'personModel.g.dart'; //严格区分大小写，且必须是文件名中间加上g.，否则无法成功。另外也是必须的，因为要生成一个转换部分文件
 
 @JsonSerializable()
 class Data {

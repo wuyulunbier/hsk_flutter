@@ -133,12 +133,12 @@ class _orderCompletePageState extends State<OrderCompletPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                index % 2 == 0 ? '666泊泉雅花瓣·浪漫亲肤玫瑰沐浴乳' : '日本纳鲁火多橙饮',
+                index % 2 == 0 ? '浙江省杭州市中东国际' : '安徽省合肥市明发广场',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Gaps.vGap4,
-              Text(index % 2 == 0 ? '玫瑰香 520ml' : '125ml',
+              Text(index % 2 == 0 ? '火山玻璃 520ml' : '125ml',
                   style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap8,
               FlatButton(

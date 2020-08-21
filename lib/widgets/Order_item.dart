@@ -26,6 +26,9 @@ class OrderItem extends StatelessWidget {
 /**
  *  采用先申明控件 在返回页面
  */
+
+    //Widget child1 = Container()
+
     Widget child = Row(
       //为了数字类文字居中
       crossAxisAlignment:

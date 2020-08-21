@@ -310,4 +310,15 @@ flutter常用控件示例
      - 实现个人中心 网页查看 退出登录 表单提交  相册和拍照功能  清理缓存   常用组件的封装
      
 
-     - 网络请求 模型转换  刷新组件的封装  provide的复杂实现 
+     - 网络请求 模型转换  刷新组件的封装  provide的复杂实现
+
+
+      ### 基本掌握
+        Swiper：掌握Swiper插件轮播组件的用法
+        Fluro：掌握企业级路由Fluro的配置及使用方法
+        ScreenUtils:解决不同屏幕适配的问题
+        EasyRefresh:学习并掌握移动开发中上拉加载刷新数据的方法
+        SharedPreferences:通过SharedPreferences的API使用，掌握本地存储的方法
+        Provide:使用Provide来管理Flutter应用的状态，使得程序结构更加清晰
+        Dio:学习Dio网络请求及返回操作
+        Json:学习Json格式处理,Json编解码及转换成模型的处理方法 
