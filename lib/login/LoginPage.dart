@@ -11,7 +11,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hsk_flutter/util/screen_utils.dart';
+import 'package:hsk_flutter/provider/LoginModel.dart';
 
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +27,7 @@ import 'package:hsk_flutter/res/mockData.dart';
 
 import 'package:hsk_flutter/JSON/loginInfoModel.dart';
 import 'package:hsk_flutter/res/mockInfo.dart';
+import 'package:provider/provider.dart';
 
 /**
  * audio_recorder: any #录音、播放
@@ -286,18 +287,21 @@ class LoginPageState extends State<LoginPage> {
     ///share_preference 本地存储的使用
     SharedPreferences pres1 = await SharedPreferences.getInstance();
 
-    SharedPreferenceUtil.setBool("islogin", true);
+    // pres1.setString('userName', 'wuyulunbier66667777');
+    // pres1.setString('phone', '13866850026');
+
+    // SharedPreferenceUtil.setBool("islogin", true);
     //数据存储和状态通知
 
-    // if (_nameController.text.length == 0) {
-    //   Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
-    //   return;
-    // }
+    if (_nameController.text.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
+      return;
+    }
 
-    // if (_passwordController.text.length == 0) {
-    //   Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
-    //   return;
-    // }
+    if (_passwordController.text.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
+      return;
+    }
 
     // FormData params = FormData.fromMap({
     //   'Umengid': 'ios',
@@ -310,8 +314,8 @@ class LoginPageState extends State<LoginPage> {
       'pwd': _passwordController.text
     };
 
-    NavigatorUtils.push(context, CenterRouter.mainContainPage,
-        clearStack: true);
+    // NavigatorUtils.push(context, CenterRouter.mainContainPage,
+    //    clearStack: true);
 
     print(param);
     print('99999');
@@ -327,8 +331,10 @@ class LoginPageState extends State<LoginPage> {
       print(info.DriverName);
 
       pres1.setBool('islogin', true);
-      pres1.setString('userName', _nameController.text);
-      pres1.setString('pwd', _passwordController.text);
+      pres1.setString('userName', info.DriverName);
+      pres1.setString('phone', info.DriverTel);
+
+      context.read<LoginModel>().loginSuccess();
 
       Fluttertoast.showToast(
           msg: '登录成功' + info.DriverName,

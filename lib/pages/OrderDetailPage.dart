@@ -25,26 +25,122 @@ class OrderDetailPage extends StatefulWidget {
 class _orderInfoPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [
-      ListView.builder(
-        // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
-        shrinkWrap: true,
-        // 禁用ListView滑动，使用外层的ScrollView滑动
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 6,
-        itemBuilder: (_, index) => _getOrderGoodsItem(index),
+    Widget bottomMenu = Container(
+      height: 60.0,
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          buttonTheme: const ButtonThemeData(
+            height: 44.0,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: FlatButton(
+                //  color:
+                //      isDark ? Colours.dark_material_bg : const Color(0xFFE1EAFA),
+                //  textColor: isDark ? Colours.dark_text : Colours.app_main,
+                child: const Text(
+                  '拒单',
+                  style: TextStyle(fontSize: Dimens.font_sp18),
+                ),
+                onPressed: () {},
+              ),
+            ),
+            Gaps.hGap16,
+            Expanded(
+              flex: 1,
+              child: FlatButton(
+                //color: blue,
+                // textColor: isDark ? Colours.dark_button_text : Colors.white,
+                child: const Text(
+                  '接单',
+                  style: TextStyle(fontSize: Dimens.font_sp18),
+                ),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
       ),
+    );
+
+    List<Widget> children = [
+      Gaps.vGap24,
+      const Text(
+        '货物信息',
+        style: TextStyle(fontSize: 17),
+      ),
+      // ListView.builder(
+      //   // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
+      //   shrinkWrap: true,
+      //   // 禁用ListView滑动，使用外层的ScrollView滑动
+      //   physics: const NeverScrollableScrollPhysics(),
+      //   itemCount: 0,
+      //   itemBuilder: (_, index) => _getOrderGoodsItem(index),
+      // ),
+      Gaps.vGap8,
+      _getOrderInfoItem('运输时间:', '2018/08/26 12:20'),
+      _getOrderInfoItem('发货人:', '测试'),
+      _getOrderInfoItem('发货地址:', '浙江省杭州市萧山区中东国际'),
+      _getOrderInfoItem('收货人:', '测试'),
+      _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
+      _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
+
+      // _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
+      // _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
+      // _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
+      // _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
+      //Gaps.line,
+
+      Gaps.vGap24,
+
+      const Text(
+        '备注信息',
+        style: TextStyle(fontSize: 17),
+      ),
+      // Gaps.line,
+      Gaps.vGap8,
+      _getOrderInfoItem('备注信息:', '1256324856942'),
+
+      Gaps.vGap24,
+
+      const Text(
+        '订单信息',
+        style: TextStyle(fontSize: 17),
+      ),
+      Gaps.vGap12,
+      _getOrderInfoItem('订单编号:', '1256324856942'),
+      _getOrderInfoItem('下单时间:', '2018/08/26 12:20'),
+      _getOrderInfoItem('运输费用:', '在线支付/支付宝'),
+      _getOrderInfoItem('配送方式:', '送货上门'),
+
+      Gaps.vGap24,
+
+      const Text(
+        '评价信息',
+        style: TextStyle(fontSize: 17),
+      ),
+      Gaps.vGap12,
+      _getOrderInfoItem('订单编号:', '1256324856942'),
+      // Gaps.line,
+      _getOrderInfoItem('下单时间:', '2018/08/26 12:20'),
+      // Gaps.line,
+      _getOrderInfoItem('支付方式:', '在线支付/支付宝'),
+      // Gaps.line,
+      _getOrderInfoItem('配送方式:', '送货上门'),
+      // Gaps.line,
+      _getOrderInfoItem('客户备注:', '无'),
+      //Gaps.line,
+      _getOrderInfoItem('配送方式:', '送货上门'),
     ];
 
-    print('999');
-    print(widget.orderId);
-    print('888');
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text(
-            '订单详情',
-          ),
+          title: Text('订单详情'),
         ),
         body: MyScrollView(
           key: const Key('order_info'),
@@ -54,14 +150,45 @@ class _orderInfoPageState extends State<OrderDetailPage> {
         ));
   }
 
+  Widget _getOrderInfoItem(String title, String content) {
+    return MergeSemantics(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(title,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2
+                    .copyWith(fontSize: Dimens.font_sp14)),
+            Gaps.hGap8,
+
+            Text(
+              content,
+              // textDirection: TextDirection.ltr,
+            ),
+
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: Text(
+            //     content,
+            //   ),
+            // )
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _getOrderGoodsItem(int index) {
     var item = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          child: Text(widget.orderId),
-          margin: const EdgeInsets.only(top: 5.0),
-        ),
+        // Container(
+        //   child: const LoadAssetImage('order/icon_goods', width: 56.0, height: 56.0),
+        //   margin: const EdgeInsets.only(top: 5.0),
+        // ),
         Gaps.hGap8,
         Expanded(
           child: Column(
@@ -118,11 +245,10 @@ class _orderInfoPageState extends State<OrderDetailPage> {
           ),
         ),
         Gaps.hGap8,
-        Text(
-          'x1',
-        ),
+        // Text('x1', style: TextStyles.textSize12),
         Gaps.hGap32,
-        // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
+
+        ///  Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
       ],
     );
 
@@ -136,6 +262,26 @@ class _orderInfoPageState extends State<OrderDetailPage> {
     );
   }
 
+  Widget _getGoodsInfoItem(String title, String content,
+      {Color contentTextColor}) {
+    return MergeSemantics(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(title),
+            Text(content,
+                style: TextStyle(
+                    color: contentTextColor ??
+                        Theme.of(context).textTheme.bodyText2.color,
+                    fontWeight: FontWeight.bold))
+          ],
+        ),
+      ),
+    );
+  }
+
   void _showCallPhoneDialog(String phone) {
     showDialog<void>(
         context: context,
@@ -146,14 +292,14 @@ class _orderInfoPageState extends State<OrderDetailPage> {
             content: Text('是否拨打：$phone ?'),
             actions: <Widget>[
               // FlatButton(
-              //   // onPressed: () => NavigatorUtils.goBack(context),
+              //   onPressed: () => NavigatorUtils.goBack(context),
               //   child: const Text('取消'),
               // ),
               FlatButton(
-                onPressed: () {
-                  // Utils.launchTelURL(phone);
-                  // NavigatorUtils.goBack(context);
-                },
+                // onPressed: () {
+                //   Utils.launchTelURL(phone);
+                //   NavigatorUtils.goBack(context);
+                // },
                 textColor: Theme.of(context).errorColor,
                 child: const Text('拨打'),
               ),

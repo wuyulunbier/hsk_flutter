@@ -58,7 +58,7 @@ class RequestManager {
     try {
       if (method == 'get') {
         if (params != null) {
-          // response = await dio.get(url, queryParameters: params);
+          response = await dio.get(url, queryParameters: params);
         } else {
           response = await dio.get(url);
         }

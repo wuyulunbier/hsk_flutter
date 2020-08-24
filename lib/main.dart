@@ -7,9 +7,18 @@ import 'package:hsk_flutter/routers/application.dart';
 import 'package:hsk_flutter/compoents/splash_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'provider/LoginModel.dart';
+
 void main() {
   //项目的启动入口
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => LoginModel(),
+      )
+    ],
+    child: MyApp(),
+  ));
 
   final router = Router();
   Routes.configureRoutes(router);

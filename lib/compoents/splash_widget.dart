@@ -14,6 +14,7 @@ import 'package:flutter/material.dart'; //常用组件的包
 import 'package:hsk_flutter/container_page.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
 import 'package:hsk_flutter/login/SelectRolePage.dart';
+import 'package:hsk_flutter/util/Utils.dart';
 
 import 'package:hsk_flutter/constant/constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,6 +44,10 @@ class SplashWidget extends StatefulWidget {
       _SplashWidgetState(); //为StatefulWidget控件SplashWidget定义一个状态类
 }
 
+//   test()  {
+//   return  aw Utils.isLogin();
+// }
+
 //定义了一个状态控件，继承自状态类State<SplashWidget>，<SplashWidget>指明这个状态控件是SplashWidget控件的
 class _SplashWidgetState extends State<SplashWidget> {
   var container = ContainerPage();
@@ -50,19 +55,28 @@ class _SplashWidgetState extends State<SplashWidget> {
   var loginPage = SelectRolePage();
 
   bool showAd = true;
+  bool islogin = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Utils.isLogin().then((value) {
+      islogin = value;
+
+      print(value);
+      print('44');
+    });
+  }
 
   //return返回一个组件  如果包含有其他组件 使用chilid属性
 
   @override
   Widget build(BuildContext context) {
-    print('build splash77777');
-
-    
-
     return Stack(
       children: <Widget>[
         Offstage(
-          child: loginPage,
+          child: islogin ? container : loginPage,
           offstage: showAd,
         ),
         Offstage(

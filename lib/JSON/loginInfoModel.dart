@@ -11,6 +11,7 @@ class loginInfo {
   final String CarNo;
   final String HeadPic;
   final int CarType;
+
   // final int CarRZState;
   //final String CreateTime;
 

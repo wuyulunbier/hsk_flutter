@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /**
  * 
@@ -7,4 +8,22 @@ import 'package:flutter/material.dart';
  * 3  将状态放入顶层
  * 4  获取状态
  */
-class LoginModel with ChangeNotifier {}
+class LoginModel with ChangeNotifier {
+  //声明
+  String _name;
+  String _phone;
+
+  //实现set方法
+  String get name => _name;
+  String get phone => _phone;
+
+  void loginSuccess() async {
+    SharedPreferences pres1 = await SharedPreferences.getInstance();
+
+    _name = pres1.getString('userName');
+    _phone = pres1.getString('phone');
+
+    //发送通知
+    notifyListeners();
+  }
+}

@@ -53,13 +53,15 @@ class _OrderListPageState extends State<OrderItemPage> {
   // 底部回弹
   bool _bottomBouncing = true;
 
+  int pageIndex = 1;
+
   List<UserOrderModel> _listArr = <UserOrderModel>[];
 
   @override
   void initState() {
     super.initState();
 
-    var params = {'carid': 808, 'state': '3', 'page': 1};
+    var params = {'carid': 808, 'state': '3', 'page': pageIndex};
     RequestManager.getInstance().post(
         'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
         params, (data) {
@@ -73,6 +75,7 @@ class _OrderListPageState extends State<OrderItemPage> {
         print(model.FromAddr);
 
         _listArr.add(model);
+        setState(() {});
 
         print(model.ToAddr);
       }
@@ -144,11 +147,17 @@ class _OrderListPageState extends State<OrderItemPage> {
                     : null,
                 onRefresh: _enableRefresh
                     ? () async {
-                        var params = {'carid': 808, 'state': '3', 'page': 1};
+                        pageIndex = 1;
+                        var params = {
+                          'carid': 808,
+                          'state': '3',
+                          'page': pageIndex
+                        };
                         RequestManager.getInstance().post(
                             'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
                             params, (data) {
                           //  print(data);
+                          _listArr.clear();
 
                           var list = data['d']['ReList'][0];
 
@@ -179,14 +188,34 @@ class _OrderListPageState extends State<OrderItemPage> {
                     : null,
                 onLoad: _enableLoad
                     ? () async {
+                        pageIndex += 1;
+                        var params = {
+                          'carid': 808,
+                          'state': '3',
+                          'page': pageIndex
+                        };
+
+                        RequestManager.getInstance().post(
+                            'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+                            params, (data) {
+                          var list = data['d']['ReList'][0];
+                          if (!_enableControlFinish) {
+                            _controller.finishLoad(noMore: list.length == 0);
+                          }
+
+                          for (Map order in list) {
+                            UserOrderModel model =
+                                UserOrderModel.fromJson(order);
+                            print(model.FromAddr);
+                            _listArr.add(model);
+                            print(model.ToAddr);
+                          }
+                        }, (error) {
+                          print(error);
+                        });
                         await Future.delayed(Duration(seconds: 2), () {
                           if (mounted) {
-                            setState(() {
-                              _count += 20;
-                            });
-                            // if (!_enableControlFinish) {
-                            //   _controller.finishLoad(noMore: _count >= 80);
-                            // }
+                            setState(() {});
                           }
                         });
                       }
@@ -209,15 +238,12 @@ class _OrderListPageState extends State<OrderItemPage> {
     var item = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          child: Text('data'),
-          margin: const EdgeInsets.only(top: 5.0),
-        ),
-        Gaps.hGap8,
+        Gaps.hGap16,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Gaps.vGap32,
               Text(
                 '${info.FromAddr}',
                 maxLines: 1,
@@ -229,8 +255,6 @@ class _OrderListPageState extends State<OrderItemPage> {
               Gaps.vGap8,
               FlatButton(
                 onPressed: () {
-                  //NavigatorUtils.goWebViewPage(
-                  // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
                   NavigatorUtils.push(context,
                       '${CenterRouter.orderDetailPage}?orderId=${info.OrderID}'); //路由传值  将订单的orderId传到详情页面
                 },
@@ -239,51 +263,36 @@ class _OrderListPageState extends State<OrderItemPage> {
               ),
               Row(
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).errorColor,
-                      borderRadius: BorderRadius.circular(2.0),
-                    ),
-                    height: 16.0,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '立减2.50元',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: Dimens.font_sp10,
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      child: const Text(
+                        '拒单',
+                        style: TextStyle(fontSize: Dimens.font_sp18),
                       ),
+                      onPressed: () {},
                     ),
                   ),
-                  Gaps.hGap4,
-                  Offstage(
-                    //控制隐藏和展示
-                    offstage: index % 2 != 0,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(2.0),
+                  Gaps.hGap16,
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      color: Colors.blue,
+                      // textColor: isDark ? Colours.dark_button_text : Colors.white,
+                      child: const Text(
+                        '接单',
+                        style: TextStyle(fontSize: Dimens.font_sp18),
                       ),
-                      height: 16.0,
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${index}元',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: Dimens.font_sp10),
-                      ),
+                      onPressed: () {},
                     ),
-                  ),
+                  )
                 ],
-              )
+              ),
+              // Gaps.hGap16,
+              // Gaps.hGap16,
             ],
           ),
         ),
-        Gaps.hGap8,
-        Text(
-          'x6',
-        ),
-        Gaps.hGap32,
         // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
       ],
     );
@@ -294,7 +303,7 @@ class _OrderListPageState extends State<OrderItemPage> {
         bottom: Divider.createBorderSide(context, width: 0.8),
       )),
       child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0), child: item),
+          padding: const EdgeInsets.symmetric(vertical: 0), child: item),
     );
   }
 }

@@ -81,6 +81,9 @@ dependencies:
   #日期格式化
   date_format: ^1.0.8
 
+  #
+  keyboard_actions: ^3.2.1+1
+
 
   #json转model
   json_annotation: ^3.0.0

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:keyboard_actions/keyboard_actions.dart';
-// import 'package:keyboard_actions/keyboard_actions_config.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:keyboard_actions/keyboard_actions_config.dart';
 
 /// 本项目通用的布局（SingleChildScrollView）
 /// 1.底部存在按钮
@@ -16,7 +16,7 @@ class MyScrollView extends StatelessWidget {
     this.physics = const BouncingScrollPhysics(),
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.bottomButton,
-    // this.keyboardConfig,
+    this.keyboardConfig,
     this.tapOutsideToDismiss = false,
     this.overScroll = 16.0,
   }) : super(key: key);
@@ -26,7 +26,8 @@ class MyScrollView extends StatelessWidget {
   final ScrollPhysics physics;
   final CrossAxisAlignment crossAxisAlignment;
   final Widget bottomButton;
-  //final KeyboardActionsConfig keyboardConfig;
+  final KeyboardActionsConfig keyboardConfig;
+
   /// 键盘外部按下将其关闭
   final bool tapOutsideToDismiss;
 
@@ -46,15 +47,19 @@ class MyScrollView extends StatelessWidget {
       if (padding != null) {
         contents = Padding(padding: padding, child: contents);
       }
+      contents = SingleChildScrollView(
+        padding: padding,
+        physics: physics,
+        child: contents,
+      );
 
       // contents = KeyboardActions(
       //   isDialog: bottomButton != null,
-      //   overscroll: overScroll,
-      //   config: keyboardConfig,
-      //   tapOutsideToDismiss: tapOutsideToDismiss,
-      //   child: contents
-      // );
-
+      // overscroll: overScroll,
+      //config: keyboardConfig,
+      //tapOutsideToDismiss: tapOutsideToDismiss,
+      //child: contents
+      //  );
     } else {
       contents = SingleChildScrollView(
         padding: padding,
