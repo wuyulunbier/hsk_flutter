@@ -7,27 +7,17 @@ import 'package:hsk_flutter/widgets/click_item.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
 import 'package:hsk_flutter/provider/LoginModel.dart';
 import 'package:provider/provider.dart';
+import 'package:hsk_flutter/widgets/Exit_dialog.dart';
 
 class PersonCenterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void _showExitDialog() {
+      showDialog<void>(context: context, builder: (_) => const ExitDialog());
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Text('个人中心'),
-      //   // backgroundColor: Colors.white,
-      //   actions: <Widget>[
-      //     FlatButton(
-      //       child: Text(
-      //         "设置",
-      //         style: TextStyle(color: Colors.white),
-      //       ),
-      //       onPressed: () {
-      //         NavigatorUtils.push(context, CenterRouter.personsetPage);
-      //       },
-      //     )
-      //   ],
-      // ),
       body: Column(
         children: <Widget>[
           Container(
@@ -38,7 +28,6 @@ class PersonCenterPage extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       'assets/images/system_person_bg@2x.png',
-                      // height: ScreenUtils.screenH(context),
                       width: ScreenUtils.screenW(context),
                       fit: BoxFit.fill,
                     ),
@@ -47,16 +36,24 @@ class PersonCenterPage extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             GestureDetector(
-                              onTap: () {
-                                print('点击头像');
-                              },
-                              child: Image.asset(
-                                'assets/images/Choose-carriers@2x.png',
-                                width: 60.0,
-                                height: 60.0,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                                onTap: () {
+                                  print('点击头像');
+                                },
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  child: CircleAvatar(
+                                      backgroundImage: new NetworkImage(
+                                    '${context.watch<LoginModel>().headUrl}',
+                                  )),
+                                )
+                                // child: Image.network(
+                                //   '${context.watch<LoginModel>().headUrl}',
+                                //   width: 60.0,
+                                //   height: 60.0,
+                                //   fit: BoxFit.fill,
+                                // )
+                                ),
                             Padding(
                                 padding: EdgeInsets.only(left: 15, top: 0),
                                 child: Column(
@@ -109,19 +106,21 @@ class PersonCenterPage extends StatelessWidget {
             color: Colors.white,
             padding: EdgeInsets.all(10),
             child: Card(
-              color: Colors.teal,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      '退出登录',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            ),
+                color: Colors.teal,
+                child: GestureDetector(
+                  onTap: () => _showExitDialog(),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          '退出登录',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ),
+                )),
           )
         ],
       ),

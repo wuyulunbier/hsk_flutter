@@ -12,6 +12,9 @@ UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) {
     ToAddr: json['ToAddr'] as String,
     OrderID: json['OrderID'] as String,
     HwPic: json['HwPic'] as String,
+    HwName: json['HwName'] as String,
+    HwQuantity: json['HwQuantity'] as num,
+    HwWeight: json['HwWeight'] as num,
   );
 }
 
@@ -21,4 +24,7 @@ Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
       'ToAddr': instance.ToAddr,
       'OrderID': instance.OrderID,
       'HwPic': instance.HwPic,
+      'HwName': instance.HwName,
+      'HwQuantity': instance.HwQuantity,
+      'HwWeight': instance.HwWeight,
     };

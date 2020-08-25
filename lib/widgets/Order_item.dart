@@ -4,20 +4,28 @@
  */
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/res/resources.dart';
+import 'package:hsk_flutter/JSON/userOrderModel.dart';
+import 'package:hsk_flutter/res/gaps.dart';
+import 'package:hsk_flutter/res/dimens.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem(
       {Key key,
       this.onTap,
-      @required this.title,
-      this.content = '',
+      this.onSelectAction,
+      this.onCancelAction,
+      @required this.index,
+      @required this.model,
       this.textAlign = TextAlign.start,
       this.maxLines = 1})
       : super(key: key);
 
   final GestureTapCallback onTap;
-  final String title;
-  final String content;
+  final GestureTapCallback onSelectAction;
+  final GestureTapCallback onCancelAction;
+
+  final int index;
+  final UserOrderModel model;
   final TextAlign textAlign;
   final int maxLines;
 
@@ -26,61 +34,92 @@ class OrderItem extends StatelessWidget {
 /**
  *  采用先申明控件 在返回页面
  */
-
-    //Widget child1 = Container()
-
-    Widget child = Row(
-      //为了数字类文字居中
-      crossAxisAlignment:
-          maxLines == 1 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+    var item = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title),
-        const Spacer(),
-        //Gaps.hGap16,
+        Gaps.hGap16,
         Expanded(
-          flex: 4,
-          child: Text(
-            content,
-            maxLines: maxLines,
-            textAlign: maxLines == 1 ? TextAlign.right : textAlign,
-            overflow: TextOverflow.ellipsis,
-            // style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: Dimens.font_sp14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Gaps.vGap32,
+              Text(
+                '${model.FromAddr}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Gaps.vGap4,
+              Text('${model.ToAddr}',
+                  style: Theme.of(context).textTheme.subtitle2),
+              Gaps.vGap16,
+              Row(
+                children: <Widget>[
+                  Text('订单编号:'),
+                  Text(
+                    '${model.OrderID}',
+                    style: TextStyle(color: Colors.blue),
+                  )
+                ],
+              ),
+              Gaps.vGap16,
+              Row(
+                children: <Widget>[
+                  Text('货物信息:'),
+                  Text(
+                    '${model.HwName}/' +
+                        '${model.HwWeight}/吨' +
+                        '${model.HwQuantity}件',
+                    //'${model.HwName + '/'+ model.HwWeight+ '/吨'+model.HwQuantity + '件'}',
+                    style: TextStyle(color: Colors.blue),
+                  )
+                ],
+              ),
+              Gaps.vGap16,
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      child: const Text(
+                        '拒单',
+                        style: TextStyle(fontSize: Dimens.font_sp18),
+                      ),
+                      onPressed: onCancelAction,
+                    ),
+                  ),
+                  Gaps.hGap16,
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      child: const Text(
+                        '接单',
+                        style: TextStyle(fontSize: Dimens.font_sp18),
+                      ),
+                      onPressed: onSelectAction,
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
         ),
-        //Gaps.hGap8,
-        Opacity(
-          // 无点击事件时，隐藏箭头图标
-          opacity: onTap == null ? 0 : 1,
-          child: Padding(
-            padding: EdgeInsets.only(top: maxLines == 1 ? 0.0 : 2.0),
-            child: Images.arrowRight,
-          ),
-        )
+        // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
       ],
     );
 
-    /// 分隔线
-    child = Container(
-      margin: const EdgeInsets.only(left: 15.0),
-      padding: const EdgeInsets.fromLTRB(0, 15.0, 15.0, 15.0),
-      constraints: const BoxConstraints(
-        maxHeight: double.infinity,
-        minHeight: 50.0,
-      ),
-      width: double.infinity,
+    return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: Divider.createBorderSide(context, width: 0.6),
-        ),
-      ),
-      child: child,
-    );
-
-    return InkWell(
-      //InkWell组件在用户点击时出现“水波纹”效果
-
-      onTap: onTap,
-      child: child,
+          border: Border(
+        bottom: Divider.createBorderSide(context, width: 0.8),
+      )),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0),
+          child: InkWell(
+            onTap: onTap,
+            child: item,
+          )),
     );
   }
 }

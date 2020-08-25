@@ -1,16 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/JSON/userOrderModel.dart';
-import 'package:hsk_flutter/app/RequestManager.dart';
-import 'package:hsk_flutter/widgets/my_scroll_view.dart';
-import 'package:hsk_flutter/res/gaps.dart';
-import 'package:hsk_flutter/res/dimens.dart';
 
+import 'package:hsk_flutter/app/RequestManager.dart';
+import 'package:hsk_flutter/widgets/Order_item.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
-import 'package:hsk_flutter/JSON/userOrderModel.dart';
+
+import 'package:hsk_flutter/public.dart';
+import 'package:hsk_flutter/widgets/OrderAction_dialog.dart';
 
 class OrderItemPage extends StatefulWidget {
   const OrderItemPage({
@@ -99,6 +98,15 @@ class _OrderListPageState extends State<OrderItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    void _showOrderDialog() {
+      showDialog<void>(
+          context: context,
+          builder: (_) => const OrderActionDialog(
+                title: '温馨提示',
+                content: '是否确认接单',
+              ));
+    }
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
@@ -136,13 +144,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                     ? ClassicalFooter(
                         enableInfiniteLoad: _enableInfiniteLoad,
                         enableHapticFeedback: _vibration,
-                        // loadText: S.of(context).pushToLoad,
-                        // loadReadyText: S.of(context).releaseToLoad,
-                        // loadingText: S.of(context).loading,
-                        // loadedText: S.of(context).loaded,
-                        // loadFailedText: S.of(context).loadFailed,
                         noMoreText: '暂无更多数据',
-                        // infoText: S.of(context).updateAt,
                       )
                     : null,
                 onRefresh: _enableRefresh
@@ -225,85 +227,25 @@ class _OrderListPageState extends State<OrderItemPage> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return _getOrderGoodsItem(index);
+                        UserOrderModel model = _listArr[index];
+
+                        return OrderItem(
+                          index: index,
+                          model: model,
+                          onCancelAction: () {
+                            print('我要拒单');
+                          },
+                          onSelectAction: () => _showOrderDialog(),
+                          onTap: () {
+                            print(model.OrderID + '88888');
+                            NavigatorUtils.push(context,
+                                '${CenterRouter.orderDetailPage}?orderId=${model.OrderID}'); //路由传值  将订单的orderId传到详情页面
+                          },
+                        );
                       },
                       childCount: _listArr.length,
                     ),
                   ),
                 ])));
-  }
-
-  Widget _getOrderGoodsItem(int index) {
-    UserOrderModel info = _listArr[index];
-    var item = Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Gaps.hGap16,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Gaps.vGap32,
-              Text(
-                '${info.FromAddr}',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Gaps.vGap4,
-              Text('${info.ToAddr}',
-                  style: Theme.of(context).textTheme.subtitle2),
-              Gaps.vGap8,
-              FlatButton(
-                onPressed: () {
-                  NavigatorUtils.push(context,
-                      '${CenterRouter.orderDetailPage}?orderId=${info.OrderID}'); //路由传值  将订单的orderId传到详情页面
-                },
-                child: Text('第${index}个订单'),
-                color: Colors.orange,
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      child: const Text(
-                        '拒单',
-                        style: TextStyle(fontSize: Dimens.font_sp18),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Gaps.hGap16,
-                  Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      color: Colors.blue,
-                      // textColor: isDark ? Colours.dark_button_text : Colors.white,
-                      child: const Text(
-                        '接单',
-                        style: TextStyle(fontSize: Dimens.font_sp18),
-                      ),
-                      onPressed: () {},
-                    ),
-                  )
-                ],
-              ),
-              // Gaps.hGap16,
-              // Gaps.hGap16,
-            ],
-          ),
-        ),
-        // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
-      ],
-    );
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-          border: Border(
-        bottom: Divider.createBorderSide(context, width: 0.8),
-      )),
-      child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0), child: item),
-    );
   }
 }

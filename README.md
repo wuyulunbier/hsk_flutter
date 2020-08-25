@@ -229,7 +229,9 @@ flutter常用控件示例
      ]
     }      
    
-   
+    手动序列化JSON：比较麻烦，效率低，但新手还是多做尝试和了解比较好。
+    json_serializable：效率高，watch很好用。
+    工具网站：效率高，更多功能可选。
 
 
 #### fluro 处理路由跳转
@@ -261,6 +263,13 @@ flutter常用控件示例
                 @required this.builder,//这边写布局
                    this.child,//可以控制刷新性能优化，当数据数据发生改变，不会重新build，
                 })
+
+### 状态管理 streamBuild
+       StreamBuild从字面意思来讲是数据流构建，是一种基于数据流的订阅管理  
+
+ 
+
+
 #### 登录功能界面
 
 ### dart基本语法
@@ -291,6 +300,12 @@ flutter常用控件示例
      - is : 如果对象具有指定的类型，则为true
      - is! : 如果对象具有指定的类型，则为false
  
+  - dart flutter 文件与库的引用导出
+    -   定义库的名字 ibrary global;
+    -   文件中引用的公共包 import 'dart:convert
+    -   组成这个库的其他文件 part './model/User.dart'; part部分一定要在import部分的后面
+    -   子文件的组织方式如下 part of global; 定义其他内容
+    -   延迟加载或者异步加载 使用deferred as  使用时 调用loadLibrary()来加载对应的内容
 
 
   ### 打包
@@ -322,3 +337,9 @@ flutter常用控件示例
         Provide:使用Provide来管理Flutter应用的状态，使得程序结构更加清晰
         Dio:学习Dio网络请求及返回操作
         Json:学习Json格式处理,Json编解码及转换成模型的处理方法 
+
+
+      ### 问题
+      - 键盘弹起对布局的影响
+          1 设置Scaffold的属性resizeToAvoidBottomPadding为false,
+          2 Scaffold的body包裹一个ListView（就是让这个视图具有弹性效果）, 把原本的Column放到ListView的   children里面 如果不想让body具有滚动效果可以设置ScrollPhysics属性

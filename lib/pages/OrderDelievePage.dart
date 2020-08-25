@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/widgets/my_scroll_view.dart';
-import 'package:hsk_flutter/res/gaps.dart';
-import 'package:hsk_flutter/res/dimens.dart';
-
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
+import 'package:hsk_flutter/widgets/Order_item.dart';
+import 'package:hsk_flutter/public.dart';
 
 class OrderDelievePage extends StatefulWidget {
   _orderDelievePageState createState() => _orderDelievePageState();
@@ -41,9 +38,34 @@ class _orderDelievePageState extends State<OrderDelievePage> {
   // 底部回弹
   bool _bottomBouncing = true;
 
+  int pageIndex = 1;
+
+  List<UserOrderModel> _listArr = <UserOrderModel>[];
+
   @override
   void initState() {
     super.initState();
+
+    var params = {'carid': 808, 'state': '', 'page': pageIndex};
+    RequestManager.getInstance().post(
+        'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+        params, (data) {
+      //  print(data);
+
+      var list = data['d']['ReList'][0];
+      for (Map order in list) {
+        UserOrderModel model = UserOrderModel.fromJson(order);
+        print(model.FromAddr);
+
+        _listArr.add(model);
+        setState(() {});
+
+        print(model.ToAddr);
+      }
+    }, (error) {
+      print(error);
+    });
+
     _controller = EasyRefreshController();
     _scrollController = ScrollController();
   }
@@ -74,17 +96,35 @@ class _orderDelievePageState extends State<OrderDelievePage> {
                     ? ClassicalFooter(
                         enableInfiniteLoad: _enableInfiniteLoad,
                         enableHapticFeedback: _vibration,
-                        // loadText: S.of(context).pushToLoad,
-                        // loadReadyText: S.of(context).releaseToLoad,
-                        // loadingText: S.of(context).loading,
-                        // loadedText: S.of(context).loaded,
-                        // loadFailedText: S.of(context).loadFailed,
-                        // noMoreText: S.of(context).noMore,
-                        // infoText: S.of(context).updateAt,
                       )
                     : null,
                 onRefresh: _enableRefresh
                     ? () async {
+                        pageIndex = 1;
+                        var params = {
+                          'carid': 808,
+                          'state': '',
+                          'page': pageIndex
+                        };
+                        RequestManager.getInstance().post(
+                            'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+                            params, (data) {
+                          //  print(data);
+                          _listArr.clear();
+
+                          var list = data['d']['ReList'][0];
+
+                          print('88888');
+                          for (Map order in list) {
+                            UserOrderModel model =
+                                UserOrderModel.fromJson(order);
+                            print(model.FromAddr);
+                            _listArr.add(model);
+                            print(model.ToAddr);
+                          }
+                        }, (error) {
+                          print(error);
+                        });
                         await Future.delayed(Duration(seconds: 2), () {
                           if (mounted) {
                             setState(() {
@@ -116,103 +156,25 @@ class _orderDelievePageState extends State<OrderDelievePage> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return _getOrderGoodsItem(index);
+                        if (_listArr.length > 0) {
+                          UserOrderModel model = _listArr[index];
+
+                          return OrderItem(
+                            index: index,
+                            model: model,
+                            onSelectAction: () {},
+                            onCancelAction: () {},
+                            onTap: () {
+                              print(model.OrderID + '88888');
+                              NavigatorUtils.push(context,
+                                  '${CenterRouter.orderDetailPage}?orderId=${model.OrderID}'); //路由传值  将订单的orderId传到详情页面
+                            },
+                          ); //_getOrderG
+                        }
                       },
                       childCount: _count,
                     ),
                   ),
                 ])));
-  }
-
-  Widget _getOrderGoodsItem(int index) {
-    var item = Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          child: Text('data'),
-          margin: const EdgeInsets.only(top: 5.0),
-        ),
-        Gaps.hGap8,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                index % 2 == 0 ? '浙江省杭州市中东国际' : '安徽省合肥市明发广场',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Gaps.vGap4,
-              Text(index % 2 == 0 ? '火山玻璃 520ml' : '125ml',
-                  style: Theme.of(context).textTheme.subtitle2),
-              Gaps.vGap8,
-              FlatButton(
-                onPressed: () {
-                  //NavigatorUtils.goWebViewPage(
-                  // context, 'Flutter', 'https://flutter.cn'))title=${Uri.encodeComponent(title)
-                  NavigatorUtils.push(context,
-                      '${CenterRouter.orderDetailPage}?orderId=${index.toString()}'); //路由传值  将订单的orderId传到详情页面
-                },
-                child: Text('第${index}个订单'),
-                color: Colors.orange,
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).errorColor,
-                      borderRadius: BorderRadius.circular(2.0),
-                    ),
-                    height: 16.0,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '立减2.50元',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: Dimens.font_sp10,
-                      ),
-                    ),
-                  ),
-                  Gaps.hGap4,
-                  Offstage(
-                    offstage: index % 2 != 0,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(2.0),
-                      ),
-                      height: 16.0,
-                      alignment: Alignment.center,
-                      child: const Text(
-                        '抵扣2.50元',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: Dimens.font_sp10),
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-        Gaps.hGap8,
-        Text(
-          'x1',
-        ),
-        Gaps.hGap32,
-        // Text(Utils.formatPrice('25'), style: TextStyles.textBold14),
-      ],
-    );
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-          border: Border(
-        bottom: Divider.createBorderSide(context, width: 0.8),
-      )),
-      child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0), child: item),
-    );
   }
 }

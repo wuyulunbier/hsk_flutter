@@ -15,6 +15,7 @@ import 'package:hsk_flutter/container_page.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
 import 'package:hsk_flutter/login/SelectRolePage.dart';
 import 'package:hsk_flutter/util/Utils.dart';
+import 'package:hsk_flutter/util/SpUtil.dart';
 
 import 'package:hsk_flutter/constant/constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -66,6 +67,7 @@ class _SplashWidgetState extends State<SplashWidget> {
 
       print(value);
       print('44');
+      setState(() {});
     });
   }
 

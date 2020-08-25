@@ -104,6 +104,7 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("登录"),
       ),
@@ -333,6 +334,7 @@ class LoginPageState extends State<LoginPage> {
       pres1.setBool('islogin', true);
       pres1.setString('userName', info.DriverName);
       pres1.setString('phone', info.DriverTel);
+      pres1.setString('HeadPic', info.HeadPic);
 
       context.read<LoginModel>().loginSuccess();
 

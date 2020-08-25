@@ -72,7 +72,8 @@ class _orderInfoPageState extends State<OrderDetailPage> {
       Gaps.vGap24,
       const Text(
         '货物信息',
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(
+            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
       ),
       // ListView.builder(
       //   // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
@@ -89,18 +90,12 @@ class _orderInfoPageState extends State<OrderDetailPage> {
       _getOrderInfoItem('收货人:', '测试'),
       _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
       _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
-
-      // _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
-      // _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
-      // _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
-      // _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
-      //Gaps.line,
-
       Gaps.vGap24,
 
       const Text(
         '备注信息',
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(
+            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
       ),
       // Gaps.line,
       Gaps.vGap8,
@@ -110,7 +105,8 @@ class _orderInfoPageState extends State<OrderDetailPage> {
 
       const Text(
         '订单信息',
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(
+            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
       ),
       Gaps.vGap12,
       _getOrderInfoItem('订单编号:', '1256324856942'),
@@ -122,19 +118,21 @@ class _orderInfoPageState extends State<OrderDetailPage> {
 
       const Text(
         '评价信息',
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(
+            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
       ),
       Gaps.vGap12,
-      _getOrderInfoItem('订单编号:', '1256324856942'),
-      // Gaps.line,
+
+      _getOrderInfoItem('订单编号:', widget.orderId),
+
       _getOrderInfoItem('下单时间:', '2018/08/26 12:20'),
-      // Gaps.line,
+
       _getOrderInfoItem('支付方式:', '在线支付/支付宝'),
-      // Gaps.line,
+
       _getOrderInfoItem('配送方式:', '送货上门'),
-      // Gaps.line,
+
       _getOrderInfoItem('客户备注:', '无'),
-      //Gaps.line,
+
       _getOrderInfoItem('配送方式:', '送货上门'),
     ];
 
