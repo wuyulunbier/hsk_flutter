@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hsk_flutter/util/SpUtil.dart';
 
 /**
  * 
@@ -19,13 +19,10 @@ class LoginModel with ChangeNotifier {
   String get phone => _phone;
   String get headUrl => _headUrl;
 
-  void loginSuccess() async {
-    SharedPreferences pres1 = await SharedPreferences.getInstance();
-
-    _name = pres1.getString('userName');
-    _phone = pres1.getString('phone');
-    _headUrl = pres1.getString('HeadPic');
-
+  void loginSuccess() {
+    _name = SpUtil.getString('userName');
+    _phone = SpUtil.getString('telphone');
+    _headUrl = SpUtil.getString('HeadPic');
     //发送通知
     notifyListeners();
   }

@@ -10,6 +10,7 @@ import 'package:hsk_flutter/routers/CenterPouter.dart';
 
 import 'package:hsk_flutter/public.dart';
 import 'package:hsk_flutter/widgets/OrderAction_dialog.dart';
+import 'package:hsk_flutter/res/i18n.dart';
 
 class OrderItemPage extends StatefulWidget {
   const OrderItemPage({
@@ -131,13 +132,13 @@ class _OrderListPageState extends State<OrderItemPage> {
                         infoColor: _headerFloat ? Colors.black87 : Colors.teal,
                         float: _headerFloat,
                         enableHapticFeedback: _vibration,
-                        refreshText: '释放刷新',
-                        refreshReadyText: '释放刷新',
-                        refreshingText: '正在刷新',
-                        refreshedText: '刷新完成',
-                        refreshFailedText: '刷新失败',
-                        noMoreText: '暂无更多数据',
-                        // infoText: S.of(context).updateAt,
+                        refreshText: S.of(context).pullToRefresh,
+                        refreshReadyText: S.of(context).releaseToRefresh,
+                        refreshingText: S.of(context).refreshing,
+                        refreshedText: S.of(context).refreshed,
+                        refreshFailedText: S.of(context).refreshFailed,
+                        noMoreText: S.of(context).noMore,
+                        infoText: S.of(context).updateAt,
                       )
                     : null,
                 footer: _enableLoad

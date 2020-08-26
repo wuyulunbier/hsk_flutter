@@ -1,6 +1,4 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:hsk_flutter/login/LoginPage.dart';
 import 'package:hsk_flutter/routers/Routers.dart';
 import 'package:fluro/fluro.dart';
 import 'package:hsk_flutter/routers/application.dart';
@@ -8,14 +6,28 @@ import 'package:hsk_flutter/compoents/splash_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/LoginModel.dart';
+import 'provider/SelctRoleModel.dart';
+import 'package:hsk_flutter/public.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:hsk_flutter/res/i18n.dart';
 
-void main() {
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// sp初始化
+  await SpUtil.getInstance();
+
   //项目的启动入口
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
         create: (_) => LoginModel(),
-      )
+      ),
+      ChangeNotifierProvider(
+        create: (_) => SelctRoleModel(),
+      ),
     ],
     child: MyApp(),
   ));
@@ -31,28 +43,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: '聚马车队',
-        onGenerateRoute: Application.router.generator,
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
-          // This makes the visual density adapt to the platform that you run
-          // the app on. For desktop platforms, the controls will be smaller and
-          // closer together (more dense) than on mobile platforms.
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: Scaffold(
-          resizeToAvoidBottomPadding: false,
-          body: SplashWidget(),
-        ));
+      title: '聚马车队',
+      onGenerateRoute: Application.router.generator,
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+        // This makes the visual density adapt to the platform that you run
+        // the app on. For desktop platforms, the controls will be smaller and
+        // closer together (more dense) than on mobile platforms.
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        body: SplashWidget(),
+      ),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        // GlobalEasyRefreshLocalizations.delegate
+      ],
+      supportedLocales: [Locale('zh', 'CN')],
+    );
   }
 }
 

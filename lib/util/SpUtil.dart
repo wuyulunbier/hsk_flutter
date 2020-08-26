@@ -4,14 +4,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:synchronized/synchronized.dart';
 
-/**
- * @Author: Sky24n
- * @GitHub: https://github.com/Sky24n
- * @Email: sky24no@gmail.com
- * @Date: 2018/9/8
- * @Description: Sp Util.
- */
-
 /// SharedPreferences Util.
 class SpUtil {
   static SpUtil _singleton;

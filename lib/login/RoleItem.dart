@@ -11,27 +11,46 @@
  * 相当于cell
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hsk_flutter/res/resources.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
+import 'package:hsk_flutter/provider/SelctRoleModel.dart';
+import 'package:hsk_flutter/public.dart';
 
-class RoleItem extends StatelessWidget {
-  const RoleItem(
-      {Key key,
-      this.onTap,
-      @required this.title,
-      @required this.imgUrl,
-      this.content = '',
-      this.textAlign = TextAlign.start,
-      this.maxLines = 1})
-      : super(key: key);
+class RoleItem extends StatefulWidget {
+  const RoleItem({
+    Key key,
+    this.onTap,
+    @required this.title,
+    @required this.imgUrl,
+    @required this.selectImgUrl,
+    this.isSelect,
+  }) : super(key: key);
 
   final GestureTapCallback onTap;
   final String title;
   final String imgUrl;
-  final String content;
-  final TextAlign textAlign;
-  final int maxLines;
+  final String selectImgUrl;
+  final bool isSelect;
+
+  _RoleItemState createState() => _RoleItemState();
+}
+
+class _RoleItemState extends State<RoleItem> {
+  GestureTapCallback onTap;
+  String title;
+  String imgUrl;
+  String selectImgUrl;
+  bool _isSelected = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isSelected = false;
+    title = widget.title;
+    imgUrl = widget.imgUrl;
+    selectImgUrl = widget.selectImgUrl;
+    onTap = widget.onTap;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +74,19 @@ class RoleItem extends StatelessWidget {
                   width: 150,
                   child: IconButton(
                     icon: Image.asset(
-                      imgUrl,
+                      _isSelected ? selectImgUrl : imgUrl,
                       height: 150,
                       width: 150,
                       // color: Colours.wh,
                       fit: BoxFit.cover,
                     ),
-                    onPressed: onTap,
+                    onPressed: () {
+                      setState(() {
+                        _isSelected = !_isSelected;
+                      });
+
+                      context.read<SelctRoleModel>().selectRole(_isSelected);
+                    },
                   ),
                 ),
               ),

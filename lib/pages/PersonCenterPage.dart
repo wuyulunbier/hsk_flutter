@@ -1,15 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hsk_flutter/routers/LoginRouter.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
+import 'package:hsk_flutter/util/SpUtil.dart';
 import 'package:hsk_flutter/widgets/click_item.dart';
 import "package:hsk_flutter/util/screen_utils.dart";
 import 'package:hsk_flutter/provider/LoginModel.dart';
 import 'package:provider/provider.dart';
 import 'package:hsk_flutter/widgets/Exit_dialog.dart';
 
-class PersonCenterPage extends StatelessWidget {
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+class PersonCenterPage extends StatefulWidget {
+  @override
+  PersonCenterPageState createState() => PersonCenterPageState();
+}
+
+class PersonCenterPageState extends State<PersonCenterPage> {
+  bool islogin = false;
+  String userName;
+  String telPhone;
+  String headPic;
+
+  File _imageFile;
+  File _imageFile1;
+
+  final ImagePicker picker = ImagePicker();
+
+  Future _getImage(ImageSource source, int type) async {
+    print('666');
+    try {
+      PickedFile pickedFile =
+          await picker.getImage(source: source, maxWidth: 800);
+      setState(() {
+        if (type == 0) {
+          _imageFile = File(pickedFile.path);
+        } else {
+          _imageFile = File(pickedFile.path);
+          // _imageFile1 = File(pickedFile.path);
+        }
+
+        // _imageFile = File(pickedFile.path);
+      });
+    } catch (e) {
+      print(e);
+      print('999');
+      Fluttertoast.showToast(msg: '没有权限，无法打开相册！', gravity: ToastGravity.CENTER);
+      //Toast.show('没有权限，无法打开相册！');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    islogin = SpUtil.getBool('islogin');
+    userName = SpUtil.getString('userName');
+    telPhone = SpUtil.getString('telphone');
+    headPic = SpUtil.getString('HeadPic');
+  }
+
   @override
   Widget build(BuildContext context) {
     void _showExitDialog() {
@@ -35,37 +89,32 @@ class PersonCenterPage extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(40, 100, 0, 0),
                         child: Row(
                           children: <Widget>[
+                            //'${context.watch<LoginModel>().headUrl}'
                             GestureDetector(
                                 onTap: () {
-                                  print('点击头像');
+                                  _showSelectionDialog(context);
                                 },
                                 child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  child: CircleAvatar(
+                                    width: 60,
+                                    height: 60,
+                                    child: CircleAvatar(
                                       backgroundImage: new NetworkImage(
-                                    '${context.watch<LoginModel>().headUrl}',
-                                  )),
-                                )
-                                // child: Image.network(
-                                //   '${context.watch<LoginModel>().headUrl}',
-                                //   width: 60.0,
-                                //   height: 60.0,
-                                //   fit: BoxFit.fill,
-                                // )
-                                ),
+                                        headPic,
+                                      ),
+                                    ))),
                             Padding(
                                 padding: EdgeInsets.only(left: 15, top: 0),
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      '${context.watch<LoginModel>().name}',
+                                      userName,
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     Padding(
+                                      //${context.watch<LoginModel>().phone}
                                       padding: EdgeInsets.only(top: 10),
                                       child: Text(
-                                        '${context.watch<LoginModel>().phone}',
+                                        telPhone,
                                         style: TextStyle(color: Colors.white),
                                         textAlign: TextAlign.left,
                                       ),
@@ -74,8 +123,6 @@ class PersonCenterPage extends StatelessWidget {
                                 )),
                           ],
                         )),
-
-                    // Container(child: Text('wuyulunbier'),padding: edgr,)
                   ],
                 )
               ],
@@ -104,7 +151,7 @@ class PersonCenterPage extends StatelessWidget {
           Container(
             width: double.infinity,
             color: Colors.white,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(20),
             child: Card(
                 color: Colors.teal,
                 child: GestureDetector(
@@ -123,6 +170,66 @@ class PersonCenterPage extends StatelessWidget {
                 )),
           )
         ],
+      ),
+    );
+  }
+
+  void _showSelectionDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: false,
+      builder: (ctx) {
+        return Container(
+          color: Colors.grey,
+          height: 130,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              GestureDetector(
+                child: _itemCreat(context, '相机'),
+                onTap: () {
+                  print('选中相机');
+                  Navigator.pop(context);
+                  _getImage(ImageSource.camera, 0);
+                  //getImage(ImageSource.camera,type);
+                },
+              ),
+              GestureDetector(
+                child: _itemCreat(context, '相册'),
+                onTap: () {
+                  print('选中相册');
+                  Navigator.pop(context);
+                  _getImage(ImageSource.gallery, 1);
+                },
+              ),
+              GestureDetector(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: _itemCreat(context, '取消'),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _itemCreat(BuildContext context, String title) {
+    return Container(
+      color: Colors.white,
+      height: 40,
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 16, color: Colors.black),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

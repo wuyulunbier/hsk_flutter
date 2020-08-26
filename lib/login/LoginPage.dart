@@ -15,8 +15,8 @@ import 'package:hsk_flutter/provider/LoginModel.dart';
 
 import 'package:hsk_flutter/app/RequestManager.dart';
 import 'package:dio/dio.dart';
+import 'package:hsk_flutter/util/SpUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hsk_flutter/container_page.dart';
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/res/SharedPreferenceUtil.dart';
@@ -26,8 +26,9 @@ import 'dart:convert';
 import 'package:hsk_flutter/res/mockData.dart';
 
 import 'package:hsk_flutter/JSON/loginInfoModel.dart';
-import 'package:hsk_flutter/res/mockInfo.dart';
+// import 'package:hsk_flutter/res/mockInfo.dart';
 import 'package:provider/provider.dart';
+import 'package:hsk_flutter/public.dart';
 
 /**
  * audio_recorder: any #录音、播放
@@ -94,6 +95,8 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
+    _nameController.text = SpUtil.getString('phone');
   }
 
   @override
@@ -110,6 +113,11 @@ class LoginPageState extends State<LoginPage> {
       ),
       backgroundColor: Colors.white,
       body: Container(
+          child: GestureDetector(
+        onTap: () {
+          // 触摸收起键盘
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
         child: Column(
           children: <Widget>[
             // CupertinoSwitch(
@@ -188,27 +196,6 @@ class LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
               child: GestureDetector(
                 onTap: () => _login(),
-                // onTap: () => {
-                //   NavigatorUtils.push(context, CenterRouter.mainContainPage,
-                //       clearStack: true),
-                //   // NavigatorUtils.push(context, CenterRouter.mainContainPage),
-
-                //   // FormData params = FormData.fromMap(
-                //   //     {'Umengid': 'ios', 'tel': '13866850026', 'pwd': '654321'});
-                //   // RequestManager.getInstance()
-                //   //     .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', params, (data) {
-                //   //   Fluttertoast.showToast(
-                //   //       msg: data.toString(),
-                //   //       gravity: ToastGravity.CENTER,
-                //   //       backgroundColor: Colors.blue);
-
-                //   Fluttertoast.showToast(
-                //       msg: '登录成功',
-                //       gravity: ToastGravity.CENTER,
-                //       backgroundColor: Colors.blue),
-
-                //   // }, (error) {});
-                // },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -274,7 +261,7 @@ class LoginPageState extends State<LoginPage> {
             ///  HomeItem(),
           ],
         ),
-      ),
+      )),
     );
   }
 
@@ -286,7 +273,11 @@ class LoginPageState extends State<LoginPage> {
     ///
     ///
     ///share_preference 本地存储的使用
-    SharedPreferences pres1 = await SharedPreferences.getInstance();
+    ///
+
+    SpUtil.putString('phone', _nameController.text);
+
+    // SharedPreferences pres1 = await SharedPreferences.getInstance();
 
     // pres1.setString('userName', 'wuyulunbier66667777');
     // pres1.setString('phone', '13866850026');
@@ -331,10 +322,15 @@ class LoginPageState extends State<LoginPage> {
       print(info.DriverName);
       print(info.DriverName);
 
-      pres1.setBool('islogin', true);
-      pres1.setString('userName', info.DriverName);
-      pres1.setString('phone', info.DriverTel);
-      pres1.setString('HeadPic', info.HeadPic);
+      SpUtil.putBool('islogin', true);
+      SpUtil.putString('userName', info.DriverName);
+      SpUtil.putString('telphone', info.DriverTel);
+      SpUtil.putString('HeadPic', info.HeadPic);
+
+      // pres1.setBool('islogin', true);
+      // pres1.setString('userName', info.DriverName);
+      // pres1.setString('phone', info.DriverTel);
+      // pres1.setString('HeadPic', info.HeadPic);
 
       context.read<LoginModel>().loginSuccess();
 
@@ -397,17 +393,15 @@ _register() {
 
   Data data1 = Data.fromJson(dataMap);
 
-  Map infoMap = json.decode(LoginInfo.mockdata);
-  loginInfo info = loginInfo.fromJson(infoMap);
+  // Map infoMap = json.decode(LoginInfo.mockdata);
+  // loginInfo info = loginInfo.fromJson(infoMap);
 
-  print(info.DriverName);
+  // print(info.DriverName);
+  // print(data1.kids);
+  // print(info.CarHeight.toString() + "车高");
 
-  print(data1.kids);
-
-  print(info.CarHeight.toString() + "车高");
-
-  Fluttertoast.showToast(
-      msg: info.DriverName,
-      gravity: ToastGravity.CENTER,
-      backgroundColor: Colors.blue);
+  // Fluttertoast.showToast(
+  //     msg: info.DriverName,
+  //     gravity: ToastGravity.CENTER,
+  //     backgroundColor: Colors.blue);
 }

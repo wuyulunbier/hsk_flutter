@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/widgets/Base_dialog.dart';
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/public.dart';
 
 class ExitDialog extends StatefulWidget {
   const ExitDialog({
@@ -22,6 +23,12 @@ class _ExitDialog extends State<ExitDialog> {
         child: Text('您确定要退出登录吗？', style: TextStyle(fontSize: 15)),
       ),
       onPressed: () {
+        //SharedPreferences pres1 = await SharedPreferences.getInstance();
+
+        //pres1.setBool('islogin', true);
+
+        SpUtil.putBool('islogin', false);
+
         NavigatorUtils.push(context, CenterRouter.loginPage, clearStack: true);
       },
     );

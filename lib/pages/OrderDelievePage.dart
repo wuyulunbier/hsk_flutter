@@ -140,6 +140,31 @@ class _orderDelievePageState extends State<OrderDelievePage> {
                     : null,
                 onLoad: _enableLoad
                     ? () async {
+                        pageIndex += 1;
+                        var params = {
+                          'carid': 808,
+                          'state': '3',
+                          'page': pageIndex
+                        };
+
+                        RequestManager.getInstance().post(
+                            'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid',
+                            params, (data) {
+                          var list = data['d']['ReList'][0];
+                          if (!_enableControlFinish) {
+                            _controller.finishLoad(noMore: list.length == 0);
+                          }
+
+                          for (Map order in list) {
+                            UserOrderModel model =
+                                UserOrderModel.fromJson(order);
+                            print(model.FromAddr);
+                            _listArr.add(model);
+                            print(model.ToAddr);
+                          }
+                        }, (error) {
+                          print(error);
+                        });
                         await Future.delayed(Duration(seconds: 2), () {
                           if (mounted) {
                             setState(() {
@@ -172,7 +197,7 @@ class _orderDelievePageState extends State<OrderDelievePage> {
                           ); //_getOrderG
                         }
                       },
-                      childCount: _count,
+                      childCount: _listArr.length,
                     ),
                   ),
                 ])));
