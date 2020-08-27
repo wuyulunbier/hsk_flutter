@@ -274,39 +274,39 @@ flutter常用控件示例
 #### 登录功能界面
 
 ### dart基本语法
-  - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。 Set是没有顺序且不能重复的集合） Map（无序的键值对）
-  - final 和 const var 定义变量和常量
-  - 字符串转数字 var one = int.parse('test')
-  - 数字转字符串 var str = num.toString();
-  - dart中的函数Function 
+    - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。 Set是没有顺序且不能重复的集合） Map（无序的键值对）
+    - final 和 const var 定义变量和常量
+    - 字符串转数字 var one = int.parse('test')
+    - 数字转字符串 var str = num.toString();
+    - dart中的函数Function 
     - 3.1 自定义方法的基本格式
     返回类型 方法名称(形式参数1，形式参数2，......){
           方法体 具体执行逻辑
         return 返回值;
        }
      print();//内置方法/函数
-  - 箭头函数 void main() => runApp(new MyApp());
-  - dart流程控制语句 
-  - dart支持泛型
-  - dart类的概念 一个类通常由属相和方法组成
+     - 箭头函数 void main() => runApp(new MyApp());
+    - dart流程控制语句 
+    - dart支持泛型
+    - dart类的概念 一个类通常由属相和方法组成
      子类使用extends类关键字来继承父类
      子类会集成父类中可见的属性和方法 但是不会继承构造函数
      子类能重写父类的方法getter和setter方法
-  - async & await
-  - Function Dart是面向对象的语言
-  - 匿名函数
-  - 函数作用域
-  - as , is 与 is!
-     - as : 判断属于某种类型
-     - is : 如果对象具有指定的类型，则为true
-     - is! : 如果对象具有指定的类型，则为false
+    - async & await
+    - Function Dart是面向对象的语言
+    - 匿名函数
+    - 函数作用域
+    - as , is 与 is!
+       - as : 判断属于某种类型
+       - is : 如果对象具有指定的类型，则为true
+       - is! : 如果对象具有指定的类型，则为false
  
-  - dart flutter 文件与库的引用导出
-    -   定义库的名字 ibrary global;
-    -   文件中引用的公共包 import 'dart:convert
-    -   组成这个库的其他文件 part './model/User.dart'; part部分一定要在import部分的后面
-    -   子文件的组织方式如下 part of global; 定义其他内容
-    -   延迟加载或者异步加载 使用deferred as  使用时 调用loadLibrary()来加载对应的内容
+     - dart flutter 文件与库的引用导出
+       -   定义库的名字 ibrary global;
+       -   文件中引用的公共包 import 'dart:convert
+       -   组成这个库的其他文件 part './model/User.dart'; part部分一定要在import部分的后面
+       -   子文件的组织方式如下 part of global; 定义其他内容
+       -   延迟加载或者异步加载 使用deferred as  使用时 调用loadLibrary()来加载对应的内容
 
 
   ### 打包
