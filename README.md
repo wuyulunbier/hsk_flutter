@@ -207,6 +207,7 @@ flutter常用控件示例
 
  - 2 json_serializable
   - json_serializable是dart官方推荐和提供的JSON转Model的方式
+  - [JSON和序列化](https://flutterchina.club/json/)
   - 一个自动化源代码生成器来为你生成 JSON 序列化数据模
     - 1 添加第三方库和依赖
     - 2 创建model和自动化配置@JsonSerializable() part 'peesonModel.g.dart'

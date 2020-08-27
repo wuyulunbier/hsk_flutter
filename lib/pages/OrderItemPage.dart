@@ -89,6 +89,7 @@ class _OrderListPageState extends State<OrderItemPage> {
 
   // http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderListByCarid
   //
+
   /**
     * {
 	 "carid": 808,
@@ -145,7 +146,13 @@ class _OrderListPageState extends State<OrderItemPage> {
                     ? ClassicalFooter(
                         enableInfiniteLoad: _enableInfiniteLoad,
                         enableHapticFeedback: _vibration,
-                        noMoreText: '暂无更多数据',
+                        loadText: S.of(context).pushToLoad,
+                        loadReadyText: S.of(context).releaseToLoad,
+                        loadingText: S.of(context).loading,
+                        loadedText: S.of(context).loaded,
+                        loadFailedText: S.of(context).loadFailed,
+                        noMoreText: S.of(context).noMore,
+                        infoText: S.of(context).updateAt,
                       )
                     : null,
                 onRefresh: _enableRefresh

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hsk_flutter/widgets/my_scroll_view.dart';
 import 'package:hsk_flutter/res/gaps.dart';
 import 'package:hsk_flutter/res/dimens.dart';
-//import "package:hsk_flutter/util/screen_utils.dart";
+import 'package:hsk_flutter/public.dart';
+import 'package:hsk_flutter/JSON/orderDetailInfoModel.dart';
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class OrderDetailPage extends StatefulWidget {
   const OrderDetailPage({Key key, this.orderId}) : super(key: key);
@@ -13,139 +16,127 @@ class OrderDetailPage extends StatefulWidget {
   _orderInfoPageState createState() => _orderInfoPageState();
 }
 
-/**
- * http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderDetailsByCar
- * {
-	"id": 28852,
-	"type": 1,
-	"carid": 808
-}
- */
-
 class _orderInfoPageState extends State<OrderDetailPage> {
+  DetailInfo model;
+  bool _isCompleteload = false;
+
+  Future loadData() async {
+    await Future.delayed(const Duration(seconds: 1), () {
+      var params = {'id': 28805, 'type': '1', 'carid': 808};
+      RequestManager.getInstance().post(
+          'http://apiwl3.atjubo.com/ServiceInterface/JuMaWuLiu/WuLiuOrder.asmx/getIntegrationOrderDetailsByCar',
+          params, (data) {
+        var map = data['d']['ReList'][0]['Order'];
+        model = DetailInfo.fromJson(map);
+        _isCompleteload = true;
+
+        setState(() {});
+      }, (error) {
+        print(error);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    //
+    loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget bottomMenu = Container(
-      height: 60.0,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          buttonTheme: const ButtonThemeData(
-            height: 44.0,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: FlatButton(
-                //  color:
-                //      isDark ? Colours.dark_material_bg : const Color(0xFFE1EAFA),
-                //  textColor: isDark ? Colours.dark_text : Colours.app_main,
-                child: const Text(
-                  '拒单',
-                  style: TextStyle(fontSize: Dimens.font_sp18),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('订单详情'),
+      ),
+      body: FutureBuilder(
+        future: loadData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (_isCompleteload) {
+            return MyScrollView(
+              key: const Key('order_info'),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              children: [
+                Gaps.vGap24,
+                const Text(
+                  '货物信息',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {},
-              ),
-            ),
-            Gaps.hGap16,
-            Expanded(
-              flex: 1,
-              child: FlatButton(
-                //color: blue,
-                // textColor: isDark ? Colours.dark_button_text : Colors.white,
-                child: const Text(
-                  '接单',
-                  style: TextStyle(fontSize: Dimens.font_sp18),
+                Gaps.vGap8,
+                _getOrderInfoItem('运输时间:', '2018/08/26 12:20'),
+                _getOrderInfoItem('发货人:', '${model.SenderName}'),
+                _getOrderInfoItem('发货地址:', '${model.FromAddr}'),
+                _getOrderInfoItem('收货人:', '${model.RecipientsName}'),
+                _getOrderInfoItem('收货地址:', '${model.ToAddr}'),
+                _getOrderInfoItem(
+                    '货物信息:',
+                    '${model.HWName}/' +
+                        '${model.ToWeight}吨/' +
+                        '${model.HWQuantity}件'),
+                Gaps.vGap24,
+                const Text(
+                  '备注信息',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {},
-              ),
+                Gaps.vGap8,
+                _getOrderInfoItem('备注信息:', '${model.Remark}'),
+                Gaps.vGap24,
+                const Text(
+                  '订单信息',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ),
+                Gaps.vGap12,
+                _getOrderInfoItem('订单编号:', '${model.OrderID}'),
+                _getOrderInfoItem('下单时间:', '${model.SendTime}'),
+                _getOrderInfoItem('配送方式:', '送货上门'),
+                Gaps.vGap24,
+                const Text(
+                  '评价信息',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ),
+                Gaps.vGap12,
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationContent}'),
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationTag}'),
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationContent}'),
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationContent}'),
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationContent}'),
+                _getOrderInfoItem(
+                    '评价内容:', '${model.OrderEvaluation.EvaluationContent}'),
+              ],
+            );
+          } else {
+            return Center(
+                child: SpinKitCircle(
+              color: Colors.blue,
+              size: 60.0,
             )
-          ],
-        ),
+                // SpinKitRotatingCircle(
+                //   color: Colors.blue,
+                //   size: 50.0,
+                // ),
+                );
+          }
+        },
       ),
     );
-
-    List<Widget> children = [
-      Gaps.vGap24,
-      const Text(
-        '货物信息',
-        style: TextStyle(
-            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
-      ),
-      // ListView.builder(
-      //   // 如果滚动视图在滚动方向无界约束，那么shrinkWrap必须为true
-      //   shrinkWrap: true,
-      //   // 禁用ListView滑动，使用外层的ScrollView滑动
-      //   physics: const NeverScrollableScrollPhysics(),
-      //   itemCount: 0,
-      //   itemBuilder: (_, index) => _getOrderGoodsItem(index),
-      // ),
-      Gaps.vGap8,
-      _getOrderInfoItem('运输时间:', '2018/08/26 12:20'),
-      _getOrderInfoItem('发货人:', '测试'),
-      _getOrderInfoItem('发货地址:', '浙江省杭州市萧山区中东国际'),
-      _getOrderInfoItem('收货人:', '测试'),
-      _getOrderInfoItem('收货地址:', '安徽省合肥庐阳区'),
-      _getOrderInfoItem('货物信息:', '杭州中空玻璃/15吨/100件'),
-      Gaps.vGap24,
-
-      const Text(
-        '备注信息',
-        style: TextStyle(
-            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
-      ),
-      // Gaps.line,
-      Gaps.vGap8,
-      _getOrderInfoItem('备注信息:', '1256324856942'),
-
-      Gaps.vGap24,
-
-      const Text(
-        '订单信息',
-        style: TextStyle(
-            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
-      ),
-      Gaps.vGap12,
-      _getOrderInfoItem('订单编号:', '1256324856942'),
-      _getOrderInfoItem('下单时间:', '2018/08/26 12:20'),
-      _getOrderInfoItem('运输费用:', '在线支付/支付宝'),
-      _getOrderInfoItem('配送方式:', '送货上门'),
-
-      Gaps.vGap24,
-
-      const Text(
-        '评价信息',
-        style: TextStyle(
-            fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
-      ),
-      Gaps.vGap12,
-
-      _getOrderInfoItem('订单编号:', widget.orderId),
-
-      _getOrderInfoItem('下单时间:', '2018/08/26 12:20'),
-
-      _getOrderInfoItem('支付方式:', '在线支付/支付宝'),
-
-      _getOrderInfoItem('配送方式:', '送货上门'),
-
-      _getOrderInfoItem('客户备注:', '无'),
-
-      _getOrderInfoItem('配送方式:', '送货上门'),
-    ];
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('订单详情'),
-        ),
-        body: MyScrollView(
-          key: const Key('order_info'),
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          children: children,
-          // bottomButton: bottomMenu,
-        ));
   }
 
   Widget _getOrderInfoItem(String title, String content) {

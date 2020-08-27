@@ -1,5 +1,5 @@
-import 'dart:ffi';
-import 'dart:wasm';
+// import 'dart:ffi';
+// import 'dart:wasm';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,6 +14,8 @@ class UserOrderModel {
   final String HwName;
   final num HwQuantity;
   final num HwWeight;
+  // final String SenderName;
+  // final String RecipientsName;
 
   UserOrderModel({
     this.FromAddr,
@@ -23,6 +25,8 @@ class UserOrderModel {
     this.HwName,
     this.HwQuantity,
     this.HwWeight,
+    // this.SenderName,
+    // this.RecipientsName,
   });
 
   // 使用命名构造函数从另一类或现有的数据中快速实现构造函数。

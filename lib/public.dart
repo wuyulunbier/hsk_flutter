@@ -13,4 +13,7 @@ export 'package:hsk_flutter/util/SpUtil.dart';
 //状态管理
 export 'package:provider/provider.dart';
 
+//加载动画
+// export 'package:flutter_spinkit/flutter_spinkit.dart';
+
 //part '';
