@@ -43,11 +43,10 @@ class OrderItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Gaps.vGap32,
-              Text(
-                '${model.FromAddr}',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              Text('${model.FromAddr}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.subtitle2),
               Gaps.vGap4,
               Text('${model.ToAddr}',
                   style: Theme.of(context).textTheme.subtitle2),
@@ -69,7 +68,6 @@ class OrderItem extends StatelessWidget {
                     '${model.HwName}/' +
                         '${model.HwWeight}/吨' +
                         '${model.HwQuantity}件',
-                    //'${model.HwName + '/'+ model.HwWeight+ '/吨'+model.HwQuantity + '件'}',
                     style: TextStyle(color: Colors.blue),
                   )
                 ],

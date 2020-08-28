@@ -28,7 +28,7 @@ class PersonCenterPageState extends State<PersonCenterPage> {
   String telPhone;
   String headPic;
 
-  String cacheData;
+  String cacheData = '0kb';
 
   File _imageFile;
   File _imageFile1;
@@ -60,11 +60,7 @@ class PersonCenterPageState extends State<PersonCenterPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    print(Utils().loadCache());
-
     Utils().loadCache().then((value) => {
           print(value),
           cacheData = Utils().formatSize(value),
@@ -72,11 +68,6 @@ class PersonCenterPageState extends State<PersonCenterPage> {
           print(value),
           print('555'),
         });
-    //cacheData = value;
-
-    print(cacheData);
-    print('pppp');
-
     islogin = SpUtil.getBool('islogin');
     userName = SpUtil.getString('userName');
     telPhone = SpUtil.getString('telphone');
@@ -153,10 +144,16 @@ class PersonCenterPageState extends State<PersonCenterPage> {
                                       style: TextStyle(color: Colors.white),
                                       textAlign: TextAlign.left,
                                     ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
                                     Text(
                                       telPhone,
                                       style: TextStyle(color: Colors.white),
                                       textAlign: TextAlign.left,
+                                    ),
+                                    SizedBox(
+                                      height: 4,
                                     ),
                                     Text(
                                       '自由自驱，价值为先，简单真诚，团队第一,追求卓越',
@@ -176,30 +173,29 @@ class PersonCenterPageState extends State<PersonCenterPage> {
             height: 250,
           ),
           ClickItem(
+              imgPath: 'douban_top',
               title: '账号管理',
               onTap: () => NavigatorUtils.push(context, LoginRouter.loginPage)),
           ClickItem(
               title: '清除缓存',
+              imgPath: 'douban_film_list',
               content: '${cacheData}',
               onTap: () {
                 _showCleanCacheDialog();
-
-                print('获取app缓存: ');
-
-                // print(Utils.loadCache());
-
-                print(Utils().loadCache());
               }),
           ClickItem(
               title: '检查更新',
+              imgPath: 'douban_film_list',
               onTap: () => NavigatorUtils.goWebViewPage(
                   context, 'Flutter', 'https://flutter.cn')),
           ClickItem(
+              imgPath: 'douban_guess',
               title: '关于我们',
               onTap: () => NavigatorUtils.goWebViewPage(
                   context, '聚马车队', 'https://www.baidu.com/')),
           ClickItem(
               title: '个人设置',
+              imgPath: 'douban_film_list',
               onTap: () =>
                   NavigatorUtils.push(context, CenterRouter.personsetPage)),
           Container(

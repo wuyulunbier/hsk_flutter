@@ -4,6 +4,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/res/resources.dart';
+import 'package:hsk_flutter/res/gaps.dart';
+import 'package:hsk_flutter/widgets/LoadImage.dart';
 
 class ClickItem extends StatelessWidget {
   const ClickItem(
@@ -11,6 +13,7 @@ class ClickItem extends StatelessWidget {
       this.onTap,
       @required this.title,
       this.content = '',
+      this.imgPath,
       this.textAlign = TextAlign.start,
       this.maxLines = 1})
       : super(key: key);
@@ -18,6 +21,7 @@ class ClickItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final String title;
   final String content;
+  final String imgPath;
   final TextAlign textAlign;
   final int maxLines;
 
@@ -32,9 +36,23 @@ class ClickItem extends StatelessWidget {
       crossAxisAlignment:
           maxLines == 1 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: <Widget>[
+        Offstage(
+          offstage: imgPath == null,
+          child: Container(
+            child: LoadAssetImage(
+              this.imgPath,
+              width: 20,
+              height: 20,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
         Text(title),
         const Spacer(),
-        //Gaps.hGap16,
+        Gaps.hGap16,
         Expanded(
           flex: 4,
           child: Text(
@@ -45,7 +63,7 @@ class ClickItem extends StatelessWidget {
             // style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: Dimens.font_sp14),
           ),
         ),
-        //Gaps.hGap8,
+        Gaps.hGap8,
         Opacity(
           // 无点击事件时，隐藏箭头图标
           opacity: onTap == null ? 0 : 1,
@@ -59,8 +77,8 @@ class ClickItem extends StatelessWidget {
 
     /// 分隔线
     child = Container(
-      margin: const EdgeInsets.only(left: 15.0),
-      padding: const EdgeInsets.fromLTRB(0, 15.0, 15.0, 15.0),
+      margin: const EdgeInsets.only(left: 10.0, right: 10),
+      padding: const EdgeInsets.fromLTRB(0, 15.0, 0.0, 15.0),
       constraints: const BoxConstraints(
         maxHeight: double.infinity,
         minHeight: 50.0,
