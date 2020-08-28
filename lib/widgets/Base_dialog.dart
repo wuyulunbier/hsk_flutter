@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
+import 'package:hsk_flutter/res/gaps.dart';
 
 /// 自定义dialog的模板
 class BaseDialog extends StatelessWidget {
@@ -54,11 +55,11 @@ class BaseDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          //   Gaps.vGap24,
+          Gaps.vGap24,
           dialogTitle,
           Flexible(child: child),
-          // Gaps.vGap8,
-          // Gaps.line,
+          Gaps.vGap8,
+          Gaps.line,
           bottomButton,
         ],
       ),

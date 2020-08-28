@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:hsk_flutter/util/SpUtil.dart';
 import 'package:hsk_flutter/public.dart';
+
+import 'package:path_provider/path_provider.dart';
 
 /**
  * 
@@ -7,9 +11,6 @@ import 'package:hsk_flutter/public.dart';
  */
 class Utils {
   static bool isLogin() {
-    // SharedPreferences pres = await SharedPreferences.getInstance();
-    //bool islogin = pres.getBool('islogin');
-
     bool islogin = SpUtil.getBool('islogin');
     if (islogin) {
       return true;
@@ -22,4 +23,75 @@ class Utils {
  * other method
  */
 
+  Future<double> loadCache() async {
+    try {
+      Directory temDir = await getTemporaryDirectory();
+      double value = await _getTotalSizeOfFilesInDir(temDir);
+
+      // print('获取缓存数量');
+      // print(value);
+
+      return value;
+    } catch (err) {}
+  }
+
+  Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    try {
+      if (file is File) {
+        int length = await file.length();
+        return double.parse(length.toString());
+      }
+      if (file is Directory) {
+        final List<FileSystemEntity> children = file.listSync();
+        double total = 0;
+        if (children != null)
+          for (final FileSystemEntity child in children)
+            total += await _getTotalSizeOfFilesInDir(child);
+
+        print(total);
+        return total;
+      }
+      return 0;
+    } catch (e) {
+      print(e);
+      return 0;
+    }
+  }
+
+  /**
+   * 缓存大小格式转换
+   */
+  String formatSize(double value) {
+    if (null == value) {
+      return '0';
+    }
+    List<String> unitArr = List()..add('B')..add('K')..add('M')..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitArr[index];
+  }
+
+  /**
+   * 删除缓存目录
+   */
+
+  void clearApplicationCache() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    await deleteDirectory(directory);
+  }
+
+  /// 递归方式删除目录
+  Future<Null> deleteDirectory(FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await deleteDirectory(child);
+      }
+    }
+    await file.delete();
+  }
 }

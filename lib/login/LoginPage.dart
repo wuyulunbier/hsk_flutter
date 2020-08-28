@@ -9,6 +9,7 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hsk_flutter/provider/LoginModel.dart';
@@ -84,6 +85,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   bool _switchvalue = false;
+  bool _ischecked = false;
   String _loginValue = 'login';
   SharedPreferences pres;
 
@@ -220,45 +222,54 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            // SizedBox(
-            //   width: 300,
-            //   height: 50,
-            //   child: RaisedButton(
-            //     onPressed: () {},
-            //     child: Text("宽度占满了"),
-            //     color: Colors.green,
-            //     textColor: Colors.white,
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(10)),
-            //         side: BorderSide(
-            //             color: Color(0xFFF0F00),
-            //             style: BorderStyle.solid,
-            //             width: 2)),
-            //     clipBehavior: Clip.antiAlias,
-            //   ),
-            // ),
-            // RaisedButton(
-            //   onPressed: _storeForm,
-            //   color: Colors.green,
-            //   child: Text("注册4"),
-            //   textColor: Colors.white,
-            //   elevation: 10,
-            // ),
-            // RaisedButton(
-            //   child: new Text('箭头语法'),
-            //   onPressed: () => {
-            //     print("88888"),
-            //   },
-            // ),
-            // FlatButton(
-            //   onPressed: _register,
-            //   child: Text("FlatButton66"),
-            //   textColor: Colors.white,
-            //   textTheme: ButtonTextTheme.normal,
-            //   color: Color(0xFF82B1FF),
-            // ),
+            SizedBox(
+              height: 40,
+            ),
 
-            ///  HomeItem(),
+            Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: Checkbox(
+                      value: _ischecked,
+                      activeColor: Colors.blue,
+                      onChanged: (bool) {
+                        setState(() {
+                          _ischecked = bool;
+                        });
+                      }),
+                ),
+                RichText(
+                    text: TextSpan(
+                        text: '已阅读并同意服务协议',
+                        style: TextStyle(color: Colors.grey, fontSize: 13),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: '服务协议',
+                          style:
+                              TextStyle(color: Color(0xFF008EFF), fontSize: 13),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              NavigatorUtils.goWebViewPage(
+                                  context, '服务协议', 'https://www.baidu.com/');
+                            }),
+                      TextSpan(
+                        text: '和',
+                        style: TextStyle(color: Colors.grey, fontSize: 13),
+                      ),
+                      TextSpan(
+                          text: '隐私协议',
+                          style:
+                              TextStyle(color: Color(0xFF008EFF), fontSize: 13),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              NavigatorUtils.goWebViewPage(
+                                  context, '隐私协议', 'https://www.baidu.com/');
+                            }),
+                    ])),
+              ],
+            ),
           ],
         ),
       )),
@@ -292,6 +303,11 @@ class LoginPageState extends State<LoginPage> {
 
     if (_passwordController.text.length == 0) {
       Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
+      return;
+    }
+
+    if (!_ischecked) {
+      Fluttertoast.showToast(msg: '请阅读并勾选隐私协议', gravity: ToastGravity.CENTER);
       return;
     }
 

@@ -95,6 +95,10 @@ class NotifySetPageState extends State<NotifySetPage> {
                     itemBuilder: (BuildContext context, int index) {
                       //Widget Function(BuildContext context, int index)
                       return Card(
+                        elevation: 5.0, //设置阴影
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
                         child: Center(
                           child: Text('${index}'),
                         ),

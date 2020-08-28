@@ -6,7 +6,6 @@ import 'package:hsk_flutter/routers/fluro_navigator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hsk_flutter/routers/fluro_navigator.dart';
-import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/widgets/MyButton.dart';
 import 'package:hsk_flutter/widgets/click_item.dart';
 

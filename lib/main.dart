@@ -11,6 +11,7 @@ import 'package:hsk_flutter/public.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:hsk_flutter/res/i18n.dart';
 
+import 'res/CupertinoLocalizationsDelegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        CupertinoLocalizationsDelegate(),
         // GlobalEasyRefreshLocalizations.delegate
       ],
       supportedLocales: [Locale('zh', 'CN')],

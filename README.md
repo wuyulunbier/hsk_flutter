@@ -359,3 +359,6 @@ flutter常用控件示例
       - 键盘弹起对布局的影响
           1 设置Scaffold的属性resizeToAvoidBottomPadding为false,
           2 Scaffold的body包裹一个ListView（就是让这个视图具有弹性效果）, 把原本的Column放到ListView的   children里面 如果不想让body具有滚动效果可以设置ScrollPhysics属性
+      
+      - iOS端在长按Textfield唤起粘贴复制的时候会报错。
+        1 配置中英文

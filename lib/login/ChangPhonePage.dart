@@ -35,12 +35,8 @@ class _ChangePhonePageState extends State<ChangePhonePage> {
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 20.0),
           children: <Widget>[
             const Text(
-              '重置登录密码',
+              '更换手机号',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              '设置账号 15000000000',
-              //style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: Dimens.font_sp12),
             ),
             Gaps.vGap8,
             TextField(
@@ -58,7 +54,7 @@ class _ChangePhonePageState extends State<ChangePhonePage> {
               focusNode: _nodeText2,
               controller: _newPwdController,
               // maxLength: 16,
-              decoration: InputDecoration(hintText: '输入新密码'),
+              decoration: InputDecoration(hintText: '请输入新手机号'),
               keyboardType: TextInputType.visiblePassword,
               //  hintText: '请输入新密码',
             ),
@@ -68,7 +64,7 @@ class _ChangePhonePageState extends State<ChangePhonePage> {
               focusNode: _nodeText3,
               controller: _againPwdController,
               // maxLength: 16,
-              decoration: InputDecoration(hintText: '确认密码'),
+              decoration: InputDecoration(hintText: '请输入验证码'),
               keyboardType: TextInputType.visiblePassword,
               //  hintText: '请输入新密码',
             ),
@@ -87,6 +83,21 @@ class _ChangePhonePageState extends State<ChangePhonePage> {
     final String oldPwd = _oldPwdController.text;
     final String newPwd = _newPwdController.text;
     final String againPwd = _againPwdController.text;
+
+    if (oldPwd.length == 0) {
+      Fluttertoast.showToast(msg: '请输入原密码', gravity: ToastGravity.CENTER);
+      return;
+    }
+
+    if (newPwd.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
+      return;
+    }
+    if (againPwd.length == 0) {
+      Fluttertoast.showToast(msg: '请输入正确验证', gravity: ToastGravity.CENTER);
+
+      return;
+    }
 
     print('就密码' + oldPwd);
 

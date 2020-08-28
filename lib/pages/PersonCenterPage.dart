@@ -11,6 +11,9 @@ import 'package:hsk_flutter/provider/LoginModel.dart';
 import 'package:provider/provider.dart';
 import 'package:hsk_flutter/widgets/Exit_dialog.dart';
 
+import 'package:hsk_flutter/util/Utils.dart';
+import 'package:hsk_flutter/widgets/Base_action_dialog.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -24,6 +27,8 @@ class PersonCenterPageState extends State<PersonCenterPage> {
   String userName;
   String telPhone;
   String headPic;
+
+  String cacheData;
 
   File _imageFile;
   File _imageFile1;
@@ -58,6 +63,20 @@ class PersonCenterPageState extends State<PersonCenterPage> {
     // TODO: implement initState
     super.initState();
 
+    print(Utils().loadCache());
+
+    Utils().loadCache().then((value) => {
+          print(value),
+          cacheData = Utils().formatSize(value),
+          print('3333'),
+          print(value),
+          print('555'),
+        });
+    //cacheData = value;
+
+    print(cacheData);
+    print('pppp');
+
     islogin = SpUtil.getBool('islogin');
     userName = SpUtil.getString('userName');
     telPhone = SpUtil.getString('telphone');
@@ -68,6 +87,21 @@ class PersonCenterPageState extends State<PersonCenterPage> {
   Widget build(BuildContext context) {
     void _showExitDialog() {
       showDialog<void>(context: context, builder: (_) => const ExitDialog());
+    }
+
+    void _showCleanCacheDialog() {
+      showDialog<void>(
+          context: context,
+          builder: (_) => BaseActionDialog(
+                title: '温馨提示',
+                content: '是否确定清除缓存',
+                onPressed: () {
+                  cacheData = '0kb';
+                  // Utils().clearApplicationCache();
+                  setState(() {});
+                  NavigatorUtils.goBack(context);
+                },
+              ));
     }
 
     return Scaffold(
@@ -84,6 +118,7 @@ class PersonCenterPageState extends State<PersonCenterPage> {
                       'assets/images/system_person_bg@2x.png',
                       width: ScreenUtils.screenW(context),
                       fit: BoxFit.fill,
+                      height: 250,
                     ),
                     Container(
                         padding: EdgeInsets.fromLTRB(40, 100, 0, 0),
@@ -102,25 +137,36 @@ class PersonCenterPageState extends State<PersonCenterPage> {
                                         headPic,
                                       ),
                                     ))),
-                            Padding(
-                                padding: EdgeInsets.only(left: 15, top: 0),
+
+                            SizedBox(
+                              width: 15,
+                            ),
+
+                            Expanded(
+                                flex: 4,
                                 child: Column(
+                                  //mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       userName,
                                       style: TextStyle(color: Colors.white),
+                                      textAlign: TextAlign.left,
                                     ),
-                                    Padding(
-                                      //${context.watch<LoginModel>().phone}
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        telPhone,
-                                        style: TextStyle(color: Colors.white),
-                                        textAlign: TextAlign.left,
-                                      ),
+                                    Text(
+                                      telPhone,
+                                      style: TextStyle(color: Colors.white),
+                                      textAlign: TextAlign.left,
                                     ),
+                                    Text(
+                                      '自由自驱，价值为先，简单真诚，团队第一,追求卓越',
+                                      maxLines: 2,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(color: Colors.red),
+                                    )
                                   ],
-                                )),
+                                ))
+                            //),
                           ],
                         )),
                   ],
@@ -134,8 +180,16 @@ class PersonCenterPageState extends State<PersonCenterPage> {
               onTap: () => NavigatorUtils.push(context, LoginRouter.loginPage)),
           ClickItem(
               title: '清除缓存',
-              content: '23.5MB',
-              onTap: () => NavigatorUtils.push(context, LoginRouter.loginPage)),
+              content: '${cacheData}',
+              onTap: () {
+                _showCleanCacheDialog();
+
+                print('获取app缓存: ');
+
+                // print(Utils.loadCache());
+
+                print(Utils().loadCache());
+              }),
           ClickItem(
               title: '检查更新',
               onTap: () => NavigatorUtils.goWebViewPage(
