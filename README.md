@@ -79,17 +79,17 @@ samples, guidance on mobile development, and a full API reference.
     
 
 ## Flutter手势的学习
-   - onTapDown: (details) {},
-   - onTapUp: (details) {},
-   - onTap: () {},
-   - onTapCancel: () {},   
+    - onTapDown: (details) {},
+    - onTapUp: (details) {},
+    - onTap: () {},
+    - onTapCancel: () {},   
    
-   - onDoubleTap: () {},
-   - onLongPress: () {},
-   - onLongPressStart: () {},
-   - onLongPressMoveUpdate: () {},
-   - onLongPressUp: () {},
-   - onLongPressEnd: () {},
+    - onDoubleTap: () {},
+    - onLongPress: () {},
+    - onLongPressStart: () {},
+    - onLongPressMoveUpdate: () {},
+    - onLongPressUp: () {},
+    - onLongPressEnd: () {},
  
 ## 常用控件
        GridView({
@@ -115,6 +115,19 @@ samples, guidance on mobile development, and a full API reference.
         double cacheExtent,
         List<Widget> children = const <Widget>[],
        })
+        List <Widget> 默认构造函数采用子类的显式。此构造函数适用于具有少量子项的列表视图，因为构造List需要为可能在列表视图中显示的每个子项执行工作，而不仅仅是那些实际可见的子项。
+
+        ListView.builder  它构造函数采用IndexedWidgetBuilder它根据需要构建子项。此构造函数适用于具有大量（或无限）子项数的列表视图，因为仅为实际可见的子项调用构建器。
+
+        ListView.separated  它的构造函数有两个IndexedWidgetBuilder 构建器： itemBuilder根据需要构建子项，separatorBuilder 类似地构建出现在子项之间的分隔子项。此构造函数适用于具有固定数量子项的列表视图。
+        
+        ListView.custom 构造需要SliverChildDelegate提供自定义子项的其他方面的能力。例如，SliverChildDelegate可以控制用于估计实际上不可见的子项大小的算法。
+        
+
+
+
+       
+
 
 - SingleChildScrollView
 - Row
@@ -123,12 +136,12 @@ samples, guidance on mobile development, and a full API reference.
 - Table
 
 ### 自定义组件
-  -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
-  -  StatelessWidget是‘‘无状态控件’’,不可变状态控件,通过构建其他控件来描述用户界面的一部分。必须实现build方法，返回一个widget对象。 Icon、 IconButton, 和Text等都是无状态widget, 他们都是 StatelessWidget的子类
-  -   StatefulWidget 是动态的. 用户可以和其交互 (例如输入一个表单、 或者移动一个slider滑块),或者可以随时间改变 (也许是数据改变导致的UI更新).Checkbox, Radio, Slider, Form, 和TextField 都是 stateful widgets, 他们都是 StatefulWidget的子类
+    -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
+    -  StatelessWidget是‘‘无状态控件’’,不可变状态控件,通过构建其他控件来描述用户界面的一部分。必须实现build方法，返回一个widget对象。 Icon、 IconButton, 和Text等都是无状态widget, 他们都是 StatelessWidget的子类
+    -   StatefulWidget 是动态的. 用户可以和其交互 (例如输入一个表单、 或者移动一个slider滑块),或者可以随时间改变 (也许是数据改变导致的UI更新).Checkbox, Radio, Slider, Form, 和TextField 都是 stateful widgets, 他们都是 StatefulWidget的子类
 
-  -  自定义Widget：继承StatefulWidget，并重写createState()方法，返回一个State对象。自定义无状态的widget
-  -  组件的隐藏和显示
+    -  自定义Widget：继承StatefulWidget，并重写createState()方法，返回一个State对象。自定义无状态的widget
+    -  组件的隐藏和显示
 
 
 控件的包含采用child来装载
