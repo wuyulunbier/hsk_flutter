@@ -186,13 +186,13 @@ class PersonCenterPageState extends State<PersonCenterPage> {
           ClickItem(
               title: '检查更新',
               imgPath: 'douban_film_list',
-              onTap: () => NavigatorUtils.goWebViewPage(
-                  context, 'Flutter', 'https://flutter.cn')),
+              onTap: () =>
+                  NavigatorUtils.push(context, LoginRouter.updateVersionPage)),
           ClickItem(
               imgPath: 'douban_guess',
               title: '关于我们',
               onTap: () => NavigatorUtils.goWebViewPage(
-                  context, '聚马车队', 'https://www.baidu.com/')),
+                  context, '聚马车队', 'https://flutter.cn')),
           ClickItem(
               title: '个人设置',
               imgPath: 'douban_film_list',

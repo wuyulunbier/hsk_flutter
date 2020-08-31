@@ -124,16 +124,11 @@ samples, guidance on mobile development, and a full API reference.
         ListView.custom 构造需要SliverChildDelegate提供自定义子项的其他方面的能力。例如，SliverChildDelegate可以控制用于估计实际上不可见的子项大小的算法。
         
 
-
-
-       
-
-
-- SingleChildScrollView
-- Row
-- Column
-- Stack
-- Table
+    - SingleChildScrollView
+    - Row
+    - Column
+    - Stack
+    - Table
 
 ### 自定义组件
     -  Flutter框架给我们提供了StatelessWidget和StatefulWidget两个抽象类，用于自定义控件
@@ -284,7 +279,18 @@ flutter常用控件示例
  
 
 
-#### 登录功能界面
+### CustomScrollView
+   - sliverAppBar
+   - SliverList 
+   - SliverGrid
+   - SliverPadding 
+   - SliverToBoxAdapter 这个是设置普通的控件，例如区头等 这个位置是不固定的随意的，
+   - SliverPersistentHeader 设置头部的，任意位置，比如头部搜索框 等，
+   - SliverFillRemaining SliverFillRemaining
+   - SliverFillViewport
+                     
+    
+   
 
 ### dart基本语法
     - 基本数据类型  Number String bool List（数组） Set（集合里面的值不可以重复，值的类型必须统一。最主要的功能是去除数组中重复的内容。 Set是没有顺序且不能重复的集合） Map（无序的键值对）
@@ -361,4 +367,11 @@ flutter常用控件示例
           2 Scaffold的body包裹一个ListView（就是让这个视图具有弹性效果）, 把原本的Column放到ListView的   children里面 如果不想让body具有滚动效果可以设置ScrollPhysics属性
       
       - iOS端在长按Textfield唤起粘贴复制的时候会报错。
-        1 配置中英文
+        1 配置中英文  
+
+      - iOS可以执行命令`flutter build ios` 以创建`release`版本。
+      - Android可以执行命令`flutter build apk` 以创建`release`版本。
+
+      - SafeArea 适配问题
+
+      - flutter_keyboard_actions  无法关闭键盘的问题
