@@ -288,6 +288,13 @@ flutter常用控件示例
    - SliverPersistentHeader 设置头部的，任意位置，比如头部搜索框 等，
    - SliverFillRemaining SliverFillRemaining
    - SliverFillViewport
+
+
+### 文件管理
+   - PathProvider 提供了一种平台透明的方式来访问设备文件系统上的常用位置[PathProvider](https://pub.dev/packages/path_provider)
+   - 临时目录  在iOS上，这对应于NSTemporaryDirectory() 返回的值。在Android上，这是getCacheDir())返回的值
+   - 文档目录  在iOS上，这对应于NSDocumentDirectory。在Android上，这是AppData目录
+   - 外部存储目录 iOS下调用该方法会抛出UnsupportedError异常，而在Android下结果是android SDK中getExternalStorageDirectory的返回值
                      
     
    
