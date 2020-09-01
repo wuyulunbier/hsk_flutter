@@ -27,10 +27,6 @@ class Utils {
     try {
       Directory temDir = await getTemporaryDirectory();
       double value = await _getTotalSizeOfFilesInDir(temDir);
-
-      // print('获取缓存数量');
-      // print(value);
-
       return value;
     } catch (err) {}
   }
@@ -94,4 +90,10 @@ class Utils {
     }
     await file.delete();
   }
+
+  /**
+  * 检查版本是否需要更新 获取后台接口返回的最新版本的 vsersion 值! (这需要每次APP发版提审后，同时更新后台数据库App version)；
+  */
+
+  void _checkUpdateVersion() async {}
 }

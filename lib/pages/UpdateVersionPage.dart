@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:hsk_flutter/widgets/click_item.dart';
+import 'package:package_info/package_info.dart';
 
 class UpdateVersionPage extends StatefulWidget {
   UpdateVersionPageState createState() => UpdateVersionPageState();
 }
 
 class UpdateVersionPageState extends State<UpdateVersionPage> {
+  String version;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) => {
+          print(packageInfo.version),
+          print('666'),
+          version = packageInfo.version,
+          setState(() {}),
+        });
+
+    // String appName = packageInfo.appName;
+    // String packageName = packageInfo.packageName;
+
+    // String buildNumber = packageInfo.buildNumber;
+
+    // print(version);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +48,7 @@ class UpdateVersionPageState extends State<UpdateVersionPage> {
           ),
           ClickItem(
             title: '版本更新',
+            content: '${version}',
             onTap: () {},
           )
         ],

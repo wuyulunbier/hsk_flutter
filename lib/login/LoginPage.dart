@@ -11,25 +11,18 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hsk_flutter/provider/LoginModel.dart';
 
-import 'package:hsk_flutter/app/RequestManager.dart';
-import 'package:dio/dio.dart';
-import 'package:hsk_flutter/util/SpUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hsk_flutter/routers/fluro_navigator.dart';
-import 'package:hsk_flutter/routers/CenterPouter.dart';
 import 'package:hsk_flutter/res/SharedPreferenceUtil.dart';
-
-import 'package:hsk_flutter/JSON/personModel.dart';
-import 'dart:convert';
-import 'package:hsk_flutter/res/mockData.dart';
-
-import 'package:hsk_flutter/JSON/loginInfoModel.dart';
-// import 'package:hsk_flutter/res/mockInfo.dart';
 import 'package:provider/provider.dart';
 import 'package:hsk_flutter/public.dart';
+import 'package:hsk_flutter/widgets/button.dart';
+import 'package:hsk_flutter/res/enum.dart';
+import "package:hsk_flutter/util/screen_utils.dart";
+
+import 'package:hsk_flutter/login/View/sign_in_page.dart';
+import 'package:hsk_flutter/login/View/sign_up_page.dart';
+import 'package:hsk_flutter/res/gradual_change_view.dart';
 
 /**
  * audio_recorder: any #录音、播放
@@ -83,27 +76,90 @@ class LoginPage extends StatefulWidget {
   LoginPageState createState() => LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   bool _switchvalue = false;
-  bool _ischecked = false;
+  // bool _ischecked = false;
   String _loginValue = 'login';
-  SharedPreferences pres;
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _nodeText1 = FocusNode();
-  final FocusNode _nodeText2 = FocusNode();
+  PageController _controller;
+  PageView _pageView;
+
+  int _currentPage = 0;
+  SharedPreferences pres;
 
   @override
   void initState() {
     super.initState();
+    _controller = PageController();
 
-    _nameController.text = SpUtil.getString('phone');
+    // _nameController.text = SpUtil.getString('phone');
+
+    _pageView = PageView(
+      controller: _controller,
+      children: <Widget>[
+        SignInPage(),
+        SignUpPage(),
+      ],
+      onPageChanged: (index) {
+        setState(() => _currentPage = index);
+      },
+    );
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
+  }
+
+  Widget _buildIndicator() {
+    return Container(
+      width: 300.0,
+      height: 42.0,
+      margin: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(left: 2.0, right: 2.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+
+        /// 圆角
+        borderRadius: BorderRadius.all(
+          Radius.circular(21.0),
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Button(
+              // onPressed: () {},
+              onPressed: () => _controller.animateToPage(0,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.decelerate),
+              child: Text('登录', style: TextStyle(fontSize: 16)),
+              buttonShape: ButtonShape.Fillet,
+              borderRadius: 30.0,
+
+              textColor: _currentPage == 0 ? Colors.white : Colors.black54,
+              height: 35.0,
+              color: _currentPage == 0 ? Colors.blue : Colors.transparent,
+            ),
+          ),
+          Expanded(
+            child: Button(
+              onPressed: () => _controller.animateToPage(1,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.decelerate),
+              child: Text('注册', style: TextStyle(fontSize: 16)),
+              buttonShape: ButtonShape.Fillet,
+              borderRadius: 30.0,
+              height: 35.0,
+              textColor: _currentPage == 1 ? Colors.white : Colors.black54,
+              color: _currentPage == 1 ? Colors.blue : Colors.transparent,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -114,282 +170,45 @@ class LoginPageState extends State<LoginPage> {
         title: Text("登录"),
       ),
       backgroundColor: Colors.white,
-      body: Container(
-          child: GestureDetector(
-        onTap: () {
-          // 触摸收起键盘
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Column(
-          children: <Widget>[
-            // CupertinoSwitch(
-            //   value: _switchvalue,
-            //   onChanged: (value) {
-            //     print("value = $value");
-
-            //     setState(() {
-            //       _switchvalue = value;
-            //     });
-            //   },
-            // ),
-
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: CupertinoSegmentedControl(
-                  selectedColor: Colors.red,
-                  unselectedColor: Colors.white,
-                  // groupValue: _loginValue,
-                  children: {
-                    "login": Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Text("登录"),
-                    ),
-                    "register": Text("注册"),
-                  },
-                  onValueChanged: (value) {
-                    print(value + '66');
-                    setState(() {
-                      // 数据改变时通过setState改变选中状态
-                      _loginValue = value;
-                    });
-                  }),
-            ),
-
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-              child: TextField(
-                key: const Key('phone'),
-                focusNode: _nodeText1,
-                controller: _nameController,
-                ////Image.asset('assets/images/login_number@2x.png',
-                decoration: InputDecoration(
-                    // prefixIcon: new Icon(Icons.phone),
-                    //  / fillColor: Colors.blue.shade100,
-                    // filled: true,
-                    hintText: '输入手机号'),
-              ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: TextField(
-                key: const Key('password'),
-                focusNode: _nodeText2,
-                controller: _passwordController,
-                obscureText: true, //是否是密码
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(10.0),
-                    //prefixIcon: new Icon(Icons.phone),
-                    //fillColor: Colors.blue.shade100,
-                    // filled: true,
-
-                    hintText: '输入密码'),
-              ),
-            ),
-
-            // RaisedButton(
-            //   onPressed: _login,
-            //   color: Colors.green,
-            //   child: Text("登录"),
-            //   textColor: Colors.white,
-            //   elevation: 10,
-            // ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
-              child: GestureDetector(
-                onTap: () => _login(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue,
-                  ),
-                  width: 300,
-                  height: 45,
-                  //color: Colors.red,//
-                  child: Text(
-                    '登录',
-                    style: TextStyle(
-                      color: Colors.white, //字体颜色
-                      fontSize: 16.0, //字体大小，注意flutter里面是double类型
-                      fontWeight: FontWeight.bold, //字体粗细
-                      //fontStyle: FontStyle.italic, // 斜体显示
-                      letterSpacing: 5.0, //字体间距
-                      wordSpacing: 30.0, //词间距
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: 40,
-            ),
-
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 40),
-                  child: Checkbox(
-                      value: _ischecked,
-                      activeColor: Colors.blue,
-                      onChanged: (bool) {
-                        setState(() {
-                          _ischecked = bool;
-                        });
-                      }),
-                ),
-                RichText(
-                    text: TextSpan(
-                        text: '已阅读并同意服务协议',
-                        style: TextStyle(color: Colors.grey, fontSize: 13),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '服务协议',
-                          style:
-                              TextStyle(color: Color(0xFF008EFF), fontSize: 13),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              NavigatorUtils.goWebViewPage(
-                                  context, '服务协议', 'https://www.baidu.com/');
-                            }),
-                      TextSpan(
-                        text: '和',
-                        style: TextStyle(color: Colors.grey, fontSize: 13),
-                      ),
-                      TextSpan(
-                          text: '隐私协议',
-                          style:
-                              TextStyle(color: Color(0xFF008EFF), fontSize: 13),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              NavigatorUtils.goWebViewPage(
-                                  context, '隐私协议', 'https://www.baidu.com/');
-                            }),
-                    ])),
-              ],
-            ),
-          ],
+      body: Stack(children: <Widget>[
+        GradualChangeView(
+          colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
         ),
-      )),
+        SingleChildScrollView(
+            child: Container(
+                // color: Color.fromRGBO(245, 245, 245, 1),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 0.0),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          /// 上面图片
+                          // Hero(
+                          //     tag: 'login_logo',
+                          //     child: Image.asset(
+                          //       'assets/images/system_person_bg@2x.png',
+                          //       height: 160,
+                          //       width: ScreenUtils.screenW(context),
+                          //       fit: BoxFit.fitWidth,
+                          //     )),
+
+                          SizedBox(
+                            height: 40,
+                          ),
+
+                          /// 指示器
+                          _buildIndicator(),
+
+                          /// PageView
+                          Expanded(child: _pageView)
+                        ]))))
+      ]),
     );
   }
-
-  _login() async {
-    //log('press button');
-    ///tosi的基本使用
-    ///api的基本调用
-    ///
-    ///
-    ///
-    ///share_preference 本地存储的使用
-    ///
-
-    SpUtil.putString('phone', _nameController.text);
-
-    // SharedPreferences pres1 = await SharedPreferences.getInstance();
-
-    // pres1.setString('userName', 'wuyulunbier66667777');
-    // pres1.setString('phone', '13866850026');
-
-    // SharedPreferenceUtil.setBool("islogin", true);
-    //数据存储和状态通知
-
-    if (_nameController.text.length == 0) {
-      Fluttertoast.showToast(msg: '请输入正确手机号', gravity: ToastGravity.CENTER);
-      return;
-    }
-
-    if (_passwordController.text.length == 0) {
-      Fluttertoast.showToast(msg: '请输入正确密码', gravity: ToastGravity.CENTER);
-      return;
-    }
-
-    if (!_ischecked) {
-      Fluttertoast.showToast(msg: '请阅读并勾选隐私协议', gravity: ToastGravity.CENTER);
-      return;
-    }
-
-    // FormData params = FormData.fromMap({
-    //   'Umengid': 'ios',
-    //   'tel': _nameController.text,
-    //   'pwd': _passwordController.text
-    // });
-    var param = {
-      'Umengid': 'ios',
-      'tel': _nameController.text,
-      'pwd': _passwordController.text
-    };
-
-    // NavigatorUtils.push(context, CenterRouter.mainContainPage,
-    //    clearStack: true);
-
-    print(param);
-    print('99999');
-
-    RequestManager.getInstance()
-        .get('http://apiwl3.atjubo.com/atapiwuliu/CarLogin', param, (data) {
-      print(data);
-      NavigatorUtils.push(context, CenterRouter.mainContainPage,
-          clearStack: true);
-      loginInfo info = loginInfo.fromJson(data['ReObj']);
-
-      print(info.DriverName);
-      print(info.DriverName);
-
-      SpUtil.putBool('islogin', true);
-      SpUtil.putString('userName', info.DriverName);
-      SpUtil.putString('telphone', info.DriverTel);
-      SpUtil.putString('HeadPic', info.HeadPic);
-
-      // pres1.setBool('islogin', true);
-      // pres1.setString('userName', info.DriverName);
-      // pres1.setString('phone', info.DriverTel);
-      // pres1.setString('HeadPic', info.HeadPic);
-
-      context.read<LoginModel>().loginSuccess();
-
-      Fluttertoast.showToast(
-          msg: '登录成功' + info.DriverName,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue);
-    }, (error) {
-      print('错误');
-
-      Fluttertoast.showToast(msg: '账号或者密码错误', gravity: ToastGravity.CENTER);
-    });
-  }
-}
-
-_add() async {
-  SharedPreferences pres = await SharedPreferences.getInstance();
-
-  var username = '';
-  var pwd = '';
-
-  pres.setBool('islogin', true);
-  pres.setString('userName', username);
-  pres.setString('pwd', pwd);
-}
-
-void _storeForm() async {
-  SharedPreferences pres = await SharedPreferences.getInstance();
-
-  bool login = pres.get('islogin');
-
-  String name = pres.get('userName');
-  String pwd = pres.get('pwd');
-
-  Future<bool> result = SharedPreferenceUtil.getBool('islogin');
-  result.then((value) {
-    print("is setBool success=$value");
-  });
-  print('test is login');
-
-  print(name + pwd + '8888');
-
-  print(pres.get('islogin') + 666);
 }
 
 void testBool() {
@@ -402,22 +221,4 @@ void testBool() {
   result2.then((value) {
     print("getBoolResult=$value");
   });
-}
-
-_register() {
-  Map dataMap = json.decode(JsonString.mockdata);
-
-  Data data1 = Data.fromJson(dataMap);
-
-  // Map infoMap = json.decode(LoginInfo.mockdata);
-  // loginInfo info = loginInfo.fromJson(infoMap);
-
-  // print(info.DriverName);
-  // print(data1.kids);
-  // print(info.CarHeight.toString() + "车高");
-
-  // Fluttertoast.showToast(
-  //     msg: info.DriverName,
-  //     gravity: ToastGravity.CENTER,
-  //     backgroundColor: Colors.blue);
 }
