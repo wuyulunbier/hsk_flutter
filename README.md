@@ -292,9 +292,23 @@ flutter常用控件示例
 
 ### 文件管理
    - PathProvider 提供了一种平台透明的方式来访问设备文件系统上的常用位置[PathProvider](https://pub.dev/packages/path_provider)
-   - 临时目录  在iOS上，这对应于NSTemporaryDirectory() 返回的值。在Android上，这是getCacheDir())返回的值
-   - 文档目录  在iOS上，这对应于NSDocumentDirectory。在Android上，这是AppData目录
-   - 外部存储目录 iOS下调用该方法会抛出UnsupportedError异常，而在Android下结果是android SDK中getExternalStorageDirectory的返回值
+   - 临时目录  getTemporaryDirectory()  在iOS上，这对应于NSTemporaryDirectory() 返回的值。在Android上，这是getCacheDir())返回的值
+   - 文档目录 getApplicationDocumentsDirectory() 在iOS上，这对应于NSDocumentDirectory。在Android上，这是AppData目录
+   - 外部存储目录 getExternalStorageDirectory()  iOS下调用该方法会抛出UnsupportedError异常，而在Android下结果是android SDK中getExternalStorageDirectory的返回值
+
+### 数据存储
+   - shared_preferences
+   - Sqflite [sqflite](https://pub.dev/packages/sqflite#-readme-tab-) 相当于sqlite
+   - sqflite支持插入/查询/更新/删除
+   - sqflite支持在iOS和Android上的后台线程中执行数据库操作
+   - 面向对象(获取数据库对象，打开 操作 关闭) 操作数据库
+
+ ### flutter 文件与库的引用导出
+   -   定义库的名字 ibrary global;
+   -   文件中引用的公共包 import 'dart:convert
+   -   组成这个库的其他文件 part './model/User.dart'; part部分一定要在import部分的后面
+   -   子文件的组织方式如下 part of global; 定义其他内容
+   -   延迟加载或者异步加载 使用deferred as  使用时 调用loadLibrary()来加载对应的内容
                      
     
    
