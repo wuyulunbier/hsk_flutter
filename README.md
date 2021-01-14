@@ -220,6 +220,8 @@ flutter常用控件示例
     - 1 添加第三方库和依赖
     - 2 创建model和自动化配置@JsonSerializable() part 'peesonModel.g.dart'
     - 3 生成Json解析文件 flutter packages pub run build_runner build 或者 flutter pub run build_runner watch
+    - flutter packages pub run build_runner clean
+    -  flutter packages pub run build_runner build --delete-conflicting-outputs
     - 4 重新构建model类
     - 5 业务场景的使用 json转成Map, Json 转 Model ，Model转成Map
 

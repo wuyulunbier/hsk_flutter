@@ -251,7 +251,7 @@ class _OrderListPageState extends State<OrderItemPage> {
                           },
                         );
                       },
-                      childCount: _listArr.length,
+                      childCount: 1,
                     ),
                   ),
                 ])));

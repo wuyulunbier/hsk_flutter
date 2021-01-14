@@ -11,7 +11,6 @@ class UpdateVersionPageState extends State<UpdateVersionPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) => {
@@ -20,13 +19,6 @@ class UpdateVersionPageState extends State<UpdateVersionPage> {
           version = packageInfo.version,
           setState(() {}),
         });
-
-    // String appName = packageInfo.appName;
-    // String packageName = packageInfo.packageName;
-
-    // String buildNumber = packageInfo.buildNumber;
-
-    // print(version);
   }
 
   @override

@@ -137,9 +137,10 @@ class NotifySetPageState extends State<NotifySetPage> {
                   height: 5,
                 ),
                 Container(
-                  height: 500,
+                  height: 800,
                   color: Colors.black38,
                   child: ListView.separated(
+                      //scrollDirection: d,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
                             title: new Text(
@@ -151,7 +152,7 @@ class NotifySetPageState extends State<NotifySetPage> {
                       separatorBuilder: (BuildContext context, int index) {
                         return redDivider;
                       },
-                      itemCount: 6),
+                      itemCount: 55),
                 )
               ],
             ),
